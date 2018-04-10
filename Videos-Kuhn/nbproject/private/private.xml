@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/EntityBeans/UserVideo.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/controllers/PublicVideoController.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/EntityBeans/PublicVideo.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/managers/PhotoFileManager.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/EntityBeans/UserPhoto.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/FacadeBeans/UserPhotoFacade.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/FacadeBeans/UserFacade.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/managers/LoginManager.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/FacadeBeans/PublicVideoFacade.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/controllers/UserController.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/controllers/util/JsfUtil.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/Bundle.properties</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/web/DeleteAccountDialog.xhtml</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/managers/AccountManager.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/controllers/PhotoCameraController.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/FacadeBeans/UserVideoFacade.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/controllers/UserVideoController.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/managers/PasswordResetManager.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/web/SecurityQuestion.xhtml</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/EntityBeans/User.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/managers/Constants.java</file>
+            <file>file:/C:/Users/Jordan/Documents/NetBeansProjects/Videos-Kuhn/src/java/com/mycompany/FacadeBeans/AbstractFacade.java</file>
+        </group>
+    </open-files>
+</project-private>

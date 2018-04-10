@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UserVideoEditDlg" widgetVar="UserVideoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUserVideoTitle}">
+            <h:form id="UserVideoEditForm">
+                <div align="center">
+                    <h:panelGroup id="display">
+                        <p:panelGrid style="width: 800px" styleClass="ui-noborder" columns="2" columnClasses="columnOne, columnTwo"   rendered="#{userVideoController.selected != null}">
+                            <h:outputLabel value="#{bundle.EditUserVideoLabel_title}" for="title" />
+                            <p:inputText id="title" value="#{userVideoController.selected.title}" title="#{bundle.EditUserVideoTitle_title}" required="true" requiredMessage="#{bundle.EditUserVideoRequiredMessage_title}" style="width: 600px"/>
+                            <h:outputLabel value="#{bundle.EditUserVideoLabel_description}" for="description" />
+                            <p:inputText id="description" value="#{userVideoController.selected.description}" title="#{bundle.EditUserVideoTitle_description}" required="true" requiredMessage="#{bundle.EditUserVideoRequiredMessage_description}" style="width: 600px"/>
+                            <h:outputLabel value="#{bundle.EditUserVideoLabel_youtubeVideoId}" for="youtubeVideoId" />
+                            <p:inputText id="youtubeVideoId" value="#{userVideoController.selected.youtubeVideoId}" title="#{bundle.EditUserVideoTitle_youtubeVideoId}" required="true" requiredMessage="#{bundle.EditUserVideoRequiredMessage_youtubeVideoId}"/>
+                            <h:outputLabel value="#{bundle.EditUserVideoLabel_duration}" for="duration" />
+                            <p:inputText id="duration" value="#{userVideoController.selected.duration}" title="#{bundle.EditUserVideoTitle_duration}" required="true" requiredMessage="#{bundle.EditUserVideoRequiredMessage_duration}"/>
+                            <h:outputLabel value="#{bundle.EditUserVideoLabel_datePublished}" for="datePublished" />
+                            <p:calendar id="datePublished" pattern="MM/dd/yyyy" value="#{userVideoController.selected.datePublished}" title="#{bundle.EditUserVideoTitle_datePublished}" required="true" requiredMessage="#{bundle.EditUserVideoRequiredMessage_datePublished}" showOn="button"/>
+                            <h:outputLabel value="#{bundle.EditUserVideoLabel_category}" for="category" />
+                            <p:selectOneMenu id="category" value="#{userVideoController.selected.category}" title="#{bundle.CreateUserVideoTitle_category}" required="true" requiredMessage="#{bundle.CreateUserVideoRequiredMessage_category}">
+                                <f:selectItem itemLabel="Select Video Category" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{userVideoController.categories}" />
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <div class="dialog-buttons">
+                            <p:commandButton styleClass="commandButton" actionListener="#{userVideoController.update}" value="#{bundle.Save}" update="display,:UserVideoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UserVideoEditDialog');" icon="ui-icon-disk" ajax="false"/>
+                            <p:commandButton styleClass="commandButton" immediate="true" value="#{bundle.Cancel}" onclick="UserVideoEditDialog.hide()" icon="ui-icon-cancel"/>
+                        </div>
+                    </h:panelGroup>
+                </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

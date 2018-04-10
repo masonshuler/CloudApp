@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PublicVideoCreateDlg" widgetVar="PublicVideoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePublicVideoTitle}">
+            <h:form id="PublicVideoCreateForm">
+                <div align="center">
+                    <h:panelGroup id="display">
+                        <p:panelGrid style="width: 800px" styleClass="ui-noborder" columns="2" columnClasses="createColumnOne, createColumnTwo" rendered="#{publicVideoController.selected != null}">
+                            <h:outputLabel value="#{bundle.CreatePublicVideoLabel_title}" for="title" />
+                            <p:inputText id="title" value="#{publicVideoController.selected.title}" title="#{bundle.CreatePublicVideoTitle_title}" required="true" requiredMessage="#{bundle.CreatePublicVideoRequiredMessage_title}" style="width: 600px"/>
+                            <h:outputLabel value="#{bundle.CreatePublicVideoLabel_description}" for="description" />
+                            <p:inputText id="description" value="#{publicVideoController.selected.description}" title="#{bundle.CreatePublicVideoTitle_description}" required="true" requiredMessage="#{bundle.CreatePublicVideoRequiredMessage_description}" style="width: 600px"/>
+                            <h:outputLabel value="#{bundle.CreatePublicVideoLabel_youtubeVideoId}" for="youtubeVideoId" />
+                            <p:inputText id="youtubeVideoId" value="#{publicVideoController.selected.youtubeVideoId}" title="#{bundle.CreatePublicVideoTitle_youtubeVideoId}" required="true" requiredMessage="#{bundle.CreatePublicVideoRequiredMessage_youtubeVideoId}"/>
+                            <h:outputLabel value="#{bundle.CreatePublicVideoLabel_duration}" for="duration" />
+                            <p:inputText id="duration" value="#{publicVideoController.selected.duration}" title="#{bundle.CreatePublicVideoTitle_duration}" required="true" requiredMessage="#{bundle.CreatePublicVideoRequiredMessage_duration}"/>
+                            <h:outputLabel value="#{bundle.CreatePublicVideoLabel_datePublished}" for="datePublished" />
+                            <p:calendar id="datePublished" pattern="MM/dd/yyyy" value="#{publicVideoController.selected.datePublished}" title="#{bundle.EditPublicVideoTitle_datePublished}" required="true" requiredMessage="#{bundle.EditPublicVideoRequiredMessage_datePublished}" showOn="button"/>
+                            <h:outputLabel value="#{bundle.CreatePublicVideoLabel_category}" for="category" />
+                            <p:selectOneMenu id="category" value="#{publicVideoController.selected.category}" title="#{bundle.CreatePublicVideoTitle_category}" required="true" requiredMessage="#{bundle.CreatePublicVideoRequiredMessage_category}">
+                                <f:selectItem itemLabel="Select Video Category" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{publicVideoController.categories}" />
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <div class="dialog-buttons">
+                            <p:commandButton styleClass="commandButton" actionListener="#{publicVideoController.create}" value="#{bundle.Save}" update="display,:PublicVideoListForm:datalist,:growl" oncomplete="handleSubmit(args,'PublicVideoCreateDialog');" icon="ui-icon-plus" ajax="false"/>
+                            <p:commandButton styleClass="commandButton" actionListener="#{publicVideoController.cancelCreate}" value="#{bundle.Cancel}" immediate="true" onclick="PublicVideoCreateDialog.hide()" icon="ui-icon-cancel"/>
+                        </div>
+                    </h:panelGroup>
+                </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Jordan Kuhn on 2018.02.26
+Copyright © 2018 Jordan Kuhn. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+        <!--
+        *******************************
+        Dialog pop-up window for SEARCH
+        *******************************
+        -->
+        <!-- Clicking the Search button displays this file in a dialog window on top of the Search button's page. -->
+        <p:dialog position="center center" id="VideoSearchDlg" widgetVar="VideoSearchDialog" modal="true" 
+                  resizable="false" appendTo="@(body)" header="Search Public Videos" >
+            
+            <h:form id="VideoSearchForm">
+                <p:panel>                
+                    
+                    <h:panelGrid columns="4">
+                        
+                        <h:outputLabel value="Search: "/>
+                        
+                        <!-- 
+                        At least 1 character to be searched under the selected category are entered here. 
+                        We need to select minimum as 1 since a stock ticker can be 1 char long 
+                        such as T for AT&T or F for Ford.
+                        -->
+                        <p:inputText id="searchString" value="#{publicVideoController.searchString}" 
+                                     required="true" requiredMessage="Please enter a search string!"
+                                     placeholder="Enter search string" >
+                            <f:validateLength minimum="1" />
+                        </p:inputText>
+                        
+                        <!-- Search category is selected here. -->
+                        <p:selectOneMenu id="searchField" value="#{publicVideoController.searchField}"
+                                         required="true" requiredMessage="Please select a category!" >
+
+                            <f:selectItem itemLabel="Select Category" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="All" itemValue="all"/>
+                            <f:selectItem itemLabel="Video Title" itemValue="Video Title"/>
+                            <f:selectItem itemLabel="Video Description" itemValue="Video Description"/>
+                            <f:selectItem itemLabel="Video Category" itemValue="Video Category"/>
+
+                        </p:selectOneMenu>
+                        
+                    </h:panelGrid>
+
+                    <h:panelGroup>
+                        <p:spacer height="10"/>
+                        <div align="center">
+                            <!-- SUBMIT button -->
+                            <p:commandButton value="Search" icon="ui-icon-search" ajax="false" 
+                                             styleClass="commandButton" actionListener="#{publicVideoController.search}"/> 
+                            &nbsp;
+                            <!-- CANCEL button -->
+                            <p:commandButton value="#{bundle.Cancel}" onclick="PF('VideoSearchDialog').hide()"    
+                                             styleClass="commandButton" icon="ui-icon-cancel" />
+                        </div>
+                    </h:panelGroup>
+
+                </p:panel>
+            </h:form>
+
+        </p:dialog>
+    </ui:composition>
+</html>

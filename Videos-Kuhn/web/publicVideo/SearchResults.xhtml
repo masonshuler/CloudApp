@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Created by Jordan Kuhn on 2018.02.26
+Copyright © 2018 Jordan Kuhn. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="/template/siteTemplate.xhtml">
+
+        <ui:define name="title">
+            <!-- Set the page title -->
+            <h:outputText value="Search Results"></h:outputText>
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+
+            <div align="center" style="width:97%">
+                <!--
+                PrimeFaces Growl displays messages in an overlay. Place p:growl anywhere on your JSF page. 
+                The location of growl in a JSF page does not matter since the messages are displayed
+                as an overlay. The following will display the messages for 5 seconds and then fade away.
+                -->
+                <p:growl id="growl" life="5000" />
+                
+                <h:form id="CompanyListForm">
+
+                    <!-- The search results are displayed under p:panel -->
+                    <p:panel header="Search Results for Public Favorite YouTube Videos">
+                        <!-- 
+                        The publicVideoController.searchItems first grabs the inputs from Search.xhtml.
+                        Then publicVideoController performs the search and returns applicable items here. 
+                        The returned items are displayed in this page as the search results.
+                        -->
+                        <p:dataTable id="datalist" value="#{publicVideoController.getSearchItems()}" var="item"
+                                     selectionMode="single" selection="#{publicVideoController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15,20,30,40,50"
+                                     styleClass="dataTable" >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton playButton shareButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton playButton shareButton"/>
+
+                            <p:column style="width: 20px">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPublicVideoTitle_id}"/>
+                                </f:facet>
+                                <div align="center" >
+                                <h:outputText value="#{item.id}"/>
+                                </div>
+                            </p:column>
+                            <p:column sortBy="#{item.title}" style="width: 100px">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPublicVideoTitle_title}"/>
+                                </f:facet>
+                                <div>
+                                <h:outputText value="#{item.title}"/>
+                                </div>
+                            </p:column>
+                            <p:column style="width: 100px">
+                                <f:facet name="header" >
+                                    <h:outputText value="#{bundle.ListPublicVideoTitle_thumbnail}"/>
+                                </f:facet>
+                                <div align="center" >
+                                    <img src="https://i1.ytimg.com/vi/#{item.youtubeVideoId}/hqdefault.jpg" style="width: 80px" />
+                                </div>
+                            </p:column>
+                            <p:column style="width: 250px">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPublicVideoTitle_description}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.description}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.durationSortable}" style="width: 80px">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPublicVideoTitle_duration}"/>
+                                </f:facet>
+                                <div align="center" >
+                                <h:outputText value="#{item.duration}"/>
+                                </div>
+                            </p:column>
+                            <p:column sortBy="#{item.datePublished}" style="width: 100px">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPublicVideoTitle_datePublished}"/>
+                                </f:facet>
+                                <div align="center" >
+                                <h:outputText value="#{item.datePublished}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                                </div>
+                            </p:column>
+                            <p:column sortBy="#{item.category}" style="width: 80px">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPublicVideoTitle_category}"/>
+                                </f:facet>
+                                <div align="center" >
+                                <h:outputText value="#{item.category}"/>
+                                </div>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton styleClass="commandButton" id="createButton" icon="ui-icon-plus"        value="#{bundle.Create}" actionListener="#{publicVideoController.prepareCreate}" update=":PublicVideoCreateForm" oncomplete="PF('PublicVideoCreateDialog').show()"/>
+                                <p:commandButton styleClass="commandButton" id="viewButton"   icon="ui-icon-search"      value="#{bundle.View}" update=":PublicVideoViewForm" oncomplete="PF('PublicVideoViewDialog').show()" disabled="#{empty publicVideoController.selected}"/>
+                                <p:commandButton styleClass="commandButton" id="editButton"   icon="ui-icon-pencil"      value="#{bundle.Edit}" update=":PublicVideoEditForm" oncomplete="PF('PublicVideoEditDialog').show()" disabled="#{empty publicVideoController.selected}"/>
+                                <p:commandButton styleClass="commandButton" id="deleteButton" icon="ui-icon-trash"       value="#{bundle.Delete}" actionListener="#{publicVideoController.destroy}" update=":growl,datalist" disabled="#{empty publicVideoController.selected}">
+                                    <p:confirm header="Confirmation"
+                                               message="Are you sure you want to permanently delete the selected video from the database?"
+                                               icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="commandButton" id="playButton"   icon="ui-icon-play"        value="#{bundle.Play}" update=":PublicVideoPlayForm" oncomplete="PF('PublicVideoPlayDialog').show()" disabled="#{empty publicVideoController.selected}"/>
+                                <p:commandButton styleClass="commandButton" id="shareButton"  icon="ui-icon-circle-plus" value="#{bundle.Share}" actionListener="#{publicVideoController.share}" update=":growl" oncomplete="PF('PublicVideoShareDialog').show()" disabled="#{empty publicVideoController.selected}">
+                                    <p:confirm header="Share Confirmation"
+                                               message="Are you sure you want to add the selected video to the Signed-In User's List of Favorite YouTube Videos?"
+                                               icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="commandButton" id="goBackButton" icon="ui-icon-arrowreturn-1-w" value="#{bundle.GoBack}" action="/publicVideo/List?faces-redirect=true" />
+
+                                <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                    <div align="center">
+                                        <!-- The value of the first button listed below will be shown as 
+                                        highlighted (default action) when displayed -->
+                                        <p:commandButton value="No" type="button" 
+                                                         styleClass="commandButton ui-confirmdialog-no" icon="ui-icon-close" />
+                                        &nbsp;
+                                        <p:commandButton value="Yes" type="button" 
+                                                         styleClass="commandButton ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    </div>
+                                </p:confirmDialog>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+
+                <ui:include src="Create.xhtml"/>
+                <ui:include src="Edit.xhtml"/>
+                <ui:include src="View.xhtml"/>
+                <ui:include src="Play.xhtml"/>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

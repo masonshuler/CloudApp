@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog style="ui-noborder"  id="PublicVideoViewDlg" widgetVar="PublicVideoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPublicVideoTitle}">
+            <h:form id="PublicVideoViewForm">
+                <div align="center">
+                    <h:panelGroup id="display">
+                        <p:panelGrid  style="width: 600px" styleClass="ui-noborder" columns="2" columnClasses="columnOne, columnTwo" rendered="#{publicVideoController.selected != null}" >
+                            <h:outputText value="#{bundle.ViewPublicVideoLabel_title}"/>
+                            <h:outputText value="#{publicVideoController.selected.title}" title="#{bundle.ViewPublicVideoTitle_title}" style="display:block;width:450px"/>
+                            <h:outputText value="#{bundle.ViewPublicVideoLabel_description}"/>
+                            <h:outputText value="#{publicVideoController.selected.description}" title="#{bundle.ViewPublicVideoTitle_description}"/>
+                            <h:outputText value="#{bundle.ViewPublicVideoLabel_youtubeVideoId}"/>
+                            <h:outputText value="#{publicVideoController.selected.youtubeVideoId}" title="#{bundle.ViewPublicVideoTitle_youtubeVideoId}"/>
+                            <h:outputText value="#{bundle.ViewPublicVideoLabel_duration}"/>
+                            <h:outputText value="#{publicVideoController.selected.duration}" title="#{bundle.ViewPublicVideoTitle_duration}"/>
+                            <h:outputText value="#{bundle.ViewPublicVideoLabel_datePublished}"/>
+                            <h:outputText value="#{publicVideoController.selected.datePublished}" title="#{bundle.ViewPublicVideoTitle_datePublished}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="#{bundle.ViewPublicVideoLabel_category}"/>
+                            <h:outputText value="#{publicVideoController.selected.category}" title="#{bundle.ViewPublicVideoTitle_category}"/>
+                        </p:panelGrid>
+                        <div class="dialog-buttons">
+                            <p:commandButton styleClass="commandButton" value="#{bundle.Close}" onclick="PublicVideoViewDialog.hide()" icon="ui-icon-close"/>
+                        </div>
+                    </h:panelGroup>
+                </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
