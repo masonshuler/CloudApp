@@ -2,7 +2,7 @@
 
 <ClassDiagram name="Test">
   <ClassDiagramComponents>
-    <Class name="PhotoCameraController" package="com.mycompany.controllers" visibility="public" xPosition="1301.0" yPosition="-29.0">
+    <Class name="PhotoCameraController" package="com.mycompany.controllers" visibility="public" xPosition="1825.0" yPosition="41.0">
       <Fields>
         <Field name="filename" type="String" visibility="private"/>
         <Field name="resultMsg" type="FacesMessage" visibility="package"/>
@@ -11,14 +11,6 @@
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="getFilename" returnType="String" visibility="public"/>
-        <Method name="setFilename" returnType="String" visibility="public">
-          <Argument type="String" name="filename"/>
-        </Method>
-        <Method name="getResultMsg" returnType="FacesMessage" visibility="public"/>
-        <Method name="setResultMsg" returnType="FacesMessage" visibility="public">
-          <Argument type="FacesMessage" name="resultMsg"/>
-        </Method>
         <Method name="getUserFacade" returnType="UserFacade" visibility="public"/>
         <Method name="setUserFacade" returnType="UserFacade" visibility="public">
           <Argument type="UserFacade" name="userFacade"/>
@@ -42,7 +34,7 @@
         <Method name="redo" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="PublicItemsController" package="com.mycompany.controllers" visibility="public" xPosition="-86.0" yPosition="-223.0">
+    <Class name="PublicItemsController" package="com.mycompany.controllers" visibility="public" xPosition="1202.0" yPosition="265.0">
       <Fields>
         <Field name="ejbFacade" type="com.mycompany.FacadeBeans.PublicVideoFacade" visibility="private"/>
         <Field name="items" type="List&lt;PublicItems&gt;" visibility="private"/>
@@ -75,31 +67,23 @@
         <Method name="goBackToList" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="UserReservedController" package="com.mycompany.controllers" visibility="public" xPosition="0.0" yPosition="582.0">
+    <Class name="UserReservedController" package="com.mycompany.controllers" visibility="public" xPosition="117.0" yPosition="703.0">
       <Fields>
         <Field name="ejbFacade" type="com.mycompany.FacadeBeans.UserVideoFacade" visibility="private"/>
-        <Field name="items" type="List&lt;UserReserved&gt;" visibility="private"/>
+        <Field name="items" type="List&lt;PublicItems&gt;" visibility="private"/>
         <Field name="user" type="User" visibility="private"/>
-        <Field name="selected" type="UserReserved" visibility="private"/>
+        <Field name="selected" type="PublicItem" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
       </Constructors>
       <Methods>
-        <Method name="getUser" returnType="User" visibility="public"/>
-        <Method name="setUser" returnType="User" visibility="public">
-          <Argument type="User" name="user"/>
-        </Method>
-        <Method name="getSelected" returnType="UserReserved" visibility="public"/>
-        <Method name="setSelected" returnType="UserVideo" visibility="public">
-          <Argument type="UserVideo" name="selected"/>
-        </Method>
         <Method name="setEmbeddableKeys" returnType="void" visibility="protected"/>
         <Method name="initializeEmbeddableKey" returnType="void" visibility="protected"/>
         <Method name="getFacade" returnType="UserVideoFacade" visibility="private"/>
         <Method name="prepareCreate" returnType="UserReserved" visibility="public"/>
-        <Method name="share" returnType="PublicVideoController" visibility="public">
-          <Argument type="PublicVideoController" name="publicVidController"/>
+        <Method name="unreserve" returnType="PublicItemController" visibility="public">
+          <Argument type="PublicItemController" name="publicItemController"/>
         </Method>
         <Method name="create" returnType="void" visibility="public"/>
         <Method name="update" returnType="void" visibility="public"/>
@@ -116,7 +100,7 @@
         <Method name="getItemsAvailableSelectOne" returnType="List&lt;UserReserved&gt;" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="JsfUtil" package="com.mycompany.controllers.util" visibility="public" xPosition="-13.0" yPosition="1740.0">
+    <Class name="JsfUtil" package="com.mycompany.controllers.util" visibility="public" xPosition="3251.0" yPosition="276.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -148,7 +132,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="PaginationHelper" package="com.mycompany.controllers.util" visibility="public" isAbstract="true" xPosition="447.0" yPosition="1333.0">
+    <Class name="PaginationHelper" package="com.mycompany.controllers.util" visibility="public" isAbstract="true" xPosition="3251.0" yPosition="543.0">
       <Fields>
         <Field name="pageSize" type="int" visibility="private"/>
         <Field name="page" type="int" visibility="private"/>
@@ -170,74 +154,38 @@
         <Method name="getPageSize" returnType="int" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="PublicItems" package="com.mycompany.EntityBeans" visibility="public" xPosition="738.0" yPosition="-364.0">
+    <Class name="PublicItems" package="com.mycompany.EntityBeans" visibility="public" xPosition="903.0" yPosition="239.0">
       <Fields>
         <Field name="serialVersionUID" type="long" visibility="private" isStatic="true" isFinal="true"/>
         <Field name="id" type="Integer" visibility="private"/>
         <Field name="title" type="String" visibility="private"/>
         <Field name="description" type="String" visibility="private"/>
-        <Field name="youtubeVideoId" type="String" visibility="private"/>
-        <Field name="duration" type="String" visibility="private"/>
+        <Field name="imageURL" type="String" visibility="private"/>
         <Field name="datePublished" type="Date" visibility="private"/>
         <Field name="category" type="String" visibility="private"/>
+        <Field name="price" type="Double" visibility="private"/>
+        <Field name="rating" type="Double" visibility="private"/>
+        <Field name="numRatings" type="Integer" visibility="private"/>
+        <Field name="userId" type="User" visibility="private"/>
+        <Field name="reserved" type="Boolean" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
-        <Constructor visibility="public">
-          <Argument type="Integer" name="id"/>
-        </Constructor>
-        <Constructor visibility="public">
-          <Argument type="Integer" name="id"/>
-          <Argument type="String" name="title"/>
-          <Argument type="String" name="description"/>
-          <Argument type="String" name="youtubeVideoId"/>
-          <Argument type="String" name="duration"/>
-          <Argument type="Date" name="datePublished"/>
-          <Argument type="String" name="category"/>
-        </Constructor>
       </Constructors>
       <Methods>
-        <Method name="getId" returnType="Integer" visibility="public"/>
-        <Method name="setId" returnType="Integer" visibility="public">
-          <Argument type="Integer" name="id"/>
-        </Method>
-        <Method name="getTitle" returnType="String" visibility="public"/>
-        <Method name="setTitle" returnType="String" visibility="public">
-          <Argument type="String" name="title"/>
-        </Method>
-        <Method name="getDescription" returnType="String" visibility="public"/>
-        <Method name="setDescription" returnType="String" visibility="public">
-          <Argument type="String" name="description"/>
-        </Method>
-        <Method name="getYoutubeVideoId" returnType="String" visibility="public"/>
-        <Method name="setYoutubeVideoId" returnType="String" visibility="public">
-          <Argument type="String" name="youtubeVideoId"/>
-        </Method>
-        <Method name="getDuration" returnType="String" visibility="public"/>
-        <Method name="setDuration" returnType="String" visibility="public">
-          <Argument type="String" name="duration"/>
-        </Method>
-        <Method name="getDatePublished" returnType="Date" visibility="public"/>
-        <Method name="setDatePublished" returnType="Date" visibility="public">
-          <Argument type="Date" name="datePublished"/>
-        </Method>
-        <Method name="getCategory" returnType="String" visibility="public"/>
-        <Method name="setCategory" returnType="String" visibility="public">
-          <Argument type="String" name="category"/>
-        </Method>
-        <Method name="hashCode" returnType="int" visibility="public"/>
         <Method name="equals" returnType="Object" visibility="public">
           <Argument type="Object" name="object"/>
         </Method>
         <Method name="toString" returnType="String" visibility="public"/>
+        <Method name="upvote" returnType="void" visibility="public"/>
+        <Method name="downvote" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="User" package="com.mycompany.EntityBeans" visibility="public" xPosition="4.0" yPosition="134.0">
+    <Class name="User" package="com.mycompany.EntityBeans" visibility="public" xPosition="1244.0" yPosition="1015.0">
       <Fields>
         <Field name="serialVersionUID" type="long" visibility="private" isStatic="true" isFinal="true"/>
         <Field name="id" type="Integer" visibility="private"/>
         <Field name="username" type="String" visibility="private"/>
-        <Field name="password" type="String" visibility="private"/>
         <Field name="firstName" type="String" visibility="private"/>
         <Field name="middleName" type="String" visibility="private"/>
         <Field name="lastName" type="String" visibility="private"/>
@@ -250,93 +198,12 @@
         <Field name="securityAnswer" type="String" visibility="private"/>
         <Field name="email" type="String" visibility="private"/>
         <Field name="userPhotoCollection" type="Collection&lt;UserPhoto&gt;" visibility="private"/>
-        <Field name="userVideoCollection" type="Collection&lt;UserReserved&gt;" visibility="private"/>
+        <Field name="userReservedCollection" type="Collection&lt;UserReserved&gt;" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
-        <Constructor visibility="public">
-          <Argument type="Integer" name="id"/>
-        </Constructor>
-        <Constructor visibility="public">
-          <Argument type="Integer" name="id"/>
-          <Argument type="String" name="username"/>
-          <Argument type="String" name="password"/>
-          <Argument type="String" name="firstName"/>
-          <Argument type="String" name="lastName"/>
-          <Argument type="String" name="address1"/>
-          <Argument type="String" name="city"/>
-          <Argument type="String" name="state"/>
-          <Argument type="String" name="zipcode"/>
-          <Argument type="int" name="securityQuestion"/>
-          <Argument type="String" name="securityAnswer"/>
-          <Argument type="String" name="email"/>
-        </Constructor>
       </Constructors>
       <Methods>
-        <Method name="getId" returnType="Integer" visibility="public"/>
-        <Method name="setId" returnType="Integer" visibility="public">
-          <Argument type="Integer" name="id"/>
-        </Method>
-        <Method name="getUsername" returnType="String" visibility="public"/>
-        <Method name="setUsername" returnType="String" visibility="public">
-          <Argument type="String" name="username"/>
-        </Method>
-        <Method name="getPassword" returnType="String" visibility="public"/>
-        <Method name="setPassword" returnType="String" visibility="public">
-          <Argument type="String" name="password"/>
-        </Method>
-        <Method name="getFirstName" returnType="String" visibility="public"/>
-        <Method name="setFirstName" returnType="String" visibility="public">
-          <Argument type="String" name="firstName"/>
-        </Method>
-        <Method name="getMiddleName" returnType="String" visibility="public"/>
-        <Method name="setMiddleName" returnType="String" visibility="public">
-          <Argument type="String" name="middleName"/>
-        </Method>
-        <Method name="getLastName" returnType="String" visibility="public"/>
-        <Method name="setLastName" returnType="String" visibility="public">
-          <Argument type="String" name="lastName"/>
-        </Method>
-        <Method name="getAddress1" returnType="String" visibility="public"/>
-        <Method name="setAddress1" returnType="String" visibility="public">
-          <Argument type="String" name="address1"/>
-        </Method>
-        <Method name="getAddress2" returnType="String" visibility="public"/>
-        <Method name="setAddress2" returnType="String" visibility="public">
-          <Argument type="String" name="address2"/>
-        </Method>
-        <Method name="getCity" returnType="String" visibility="public"/>
-        <Method name="setCity" returnType="String" visibility="public">
-          <Argument type="String" name="city"/>
-        </Method>
-        <Method name="getState" returnType="String" visibility="public"/>
-        <Method name="setState" returnType="String" visibility="public">
-          <Argument type="String" name="state"/>
-        </Method>
-        <Method name="getZipcode" returnType="String" visibility="public"/>
-        <Method name="setZipcode" returnType="String" visibility="public">
-          <Argument type="String" name="zipcode"/>
-        </Method>
-        <Method name="getSecurityQuestion" returnType="int" visibility="public"/>
-        <Method name="setSecurityQuestion" returnType="int" visibility="public">
-          <Argument type="int" name="securityQuestion"/>
-        </Method>
-        <Method name="getSecurityAnswer" returnType="String" visibility="public"/>
-        <Method name="setSecurityAnswer" returnType="String" visibility="public">
-          <Argument type="String" name="securityAnswer"/>
-        </Method>
-        <Method name="getEmail" returnType="String" visibility="public"/>
-        <Method name="setEmail" returnType="String" visibility="public">
-          <Argument type="String" name="email"/>
-        </Method>
-        <Method name="getUserPhotoCollection" returnType="Collection&lt;UserPhoto&gt;" visibility="public"/>
-        <Method name="setUserPhotoCollection" returnType="Collection&lt;UserPhoto&gt;" visibility="public">
-          <Argument type="Collection&lt;UserPhoto&gt;" name="userPhotoCollection"/>
-        </Method>
-        <Method name="getUserVideoCollection" returnType="Collection&lt;UserReserved&gt;" visibility="public"/>
-        <Method name="setUserVideoCollection" returnType="Collection&lt;UserVideo&gt;" visibility="public">
-          <Argument type="Collection&lt;UserVideo&gt;" name="userVideoCollection"/>
-        </Method>
         <Method name="hashCode" returnType="int" visibility="public"/>
         <Method name="equals" returnType="Object" visibility="public">
           <Argument type="Object" name="object"/>
@@ -344,7 +211,7 @@
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="UserPhoto" package="com.mycompany.EntityBeans" visibility="public" xPosition="1191.0" yPosition="99.0">
+    <Class name="UserPhoto" package="com.mycompany.EntityBeans" visibility="public" xPosition="1987.0" yPosition="1015.0">
       <Fields>
         <Field name="serialVersionUID" type="long" visibility="private" isStatic="true" isFinal="true"/>
         <Field name="id" type="Integer" visibility="private"/>
@@ -353,32 +220,8 @@
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
-        <Constructor visibility="public">
-          <Argument type="Integer" name="id"/>
-        </Constructor>
-        <Constructor visibility="public">
-          <Argument type="Integer" name="id"/>
-          <Argument type="String" name="extension"/>
-        </Constructor>
-        <Constructor visibility="public">
-          <Argument type="String" name="fileExtension"/>
-          <Argument type="User" name="id"/>
-        </Constructor>
       </Constructors>
       <Methods>
-        <Method name="getId" returnType="Integer" visibility="public"/>
-        <Method name="setId" returnType="Integer" visibility="public">
-          <Argument type="Integer" name="id"/>
-        </Method>
-        <Method name="getExtension" returnType="String" visibility="public"/>
-        <Method name="setExtension" returnType="String" visibility="public">
-          <Argument type="String" name="extension"/>
-        </Method>
-        <Method name="getUserId" returnType="User" visibility="public"/>
-        <Method name="setUserId" returnType="User" visibility="public">
-          <Argument type="User" name="userId"/>
-        </Method>
-        <Method name="hashCode" returnType="int" visibility="public"/>
         <Method name="equals" returnType="Object" visibility="public">
           <Argument type="Object" name="object"/>
         </Method>
@@ -390,74 +233,7 @@
         <Method name="getTemporaryFilePath" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="UserReserved" package="com.mycompany.EntityBeans" visibility="public" xPosition="-538.0" yPosition="92.0">
-      <Fields>
-        <Field name="serialVersionUID" type="long" visibility="private" isStatic="true" isFinal="true"/>
-        <Field name="id" type="Integer" visibility="private"/>
-        <Field name="title" type="String" visibility="private"/>
-        <Field name="description" type="String" visibility="private"/>
-        <Field name="youtubeVideoId" type="String" visibility="private"/>
-        <Field name="duration" type="String" visibility="private"/>
-        <Field name="datePublished" type="Date" visibility="private"/>
-        <Field name="category" type="String" visibility="private"/>
-        <Field name="userId" type="User" visibility="private"/>
-      </Fields>
-      <Constructors>
-        <Constructor visibility="public"/>
-        <Constructor visibility="public">
-          <Argument type="Integer" name="id"/>
-        </Constructor>
-        <Constructor visibility="public">
-          <Argument type="Integer" name="id"/>
-          <Argument type="String" name="title"/>
-          <Argument type="String" name="description"/>
-          <Argument type="String" name="youtubeVideoId"/>
-          <Argument type="String" name="duration"/>
-          <Argument type="Date" name="datePublished"/>
-          <Argument type="String" name="category"/>
-        </Constructor>
-      </Constructors>
-      <Methods>
-        <Method name="getId" returnType="Integer" visibility="public"/>
-        <Method name="setId" returnType="Integer" visibility="public">
-          <Argument type="Integer" name="id"/>
-        </Method>
-        <Method name="getTitle" returnType="String" visibility="public"/>
-        <Method name="setTitle" returnType="String" visibility="public">
-          <Argument type="String" name="title"/>
-        </Method>
-        <Method name="getDescription" returnType="String" visibility="public"/>
-        <Method name="setDescription" returnType="String" visibility="public">
-          <Argument type="String" name="description"/>
-        </Method>
-        <Method name="getYoutubeVideoId" returnType="String" visibility="public"/>
-        <Method name="setYoutubeVideoId" returnType="String" visibility="public">
-          <Argument type="String" name="youtubeVideoId"/>
-        </Method>
-        <Method name="getDuration" returnType="String" visibility="public"/>
-        <Method name="setDuration" returnType="String" visibility="public">
-          <Argument type="String" name="duration"/>
-        </Method>
-        <Method name="getDatePublished" returnType="Date" visibility="public"/>
-        <Method name="setDatePublished" returnType="Date" visibility="public">
-          <Argument type="Date" name="datePublished"/>
-        </Method>
-        <Method name="getCategory" returnType="String" visibility="public"/>
-        <Method name="setCategory" returnType="String" visibility="public">
-          <Argument type="String" name="category"/>
-        </Method>
-        <Method name="getUserId" returnType="User" visibility="public"/>
-        <Method name="setUserId" returnType="User" visibility="public">
-          <Argument type="User" name="userId"/>
-        </Method>
-        <Method name="hashCode" returnType="int" visibility="public"/>
-        <Method name="equals" returnType="Object" visibility="public">
-          <Argument type="Object" name="object"/>
-        </Method>
-        <Method name="toString" returnType="String" visibility="public"/>
-      </Methods>
-    </Class>
-    <Class name="AccountManager" package="com.mycompany.managers" visibility="public" xPosition="1787.0" yPosition="-78.0">
+    <Class name="AccountManager" package="com.mycompany.managers" visibility="public" xPosition="2378.0" yPosition="1085.0">
       <Fields>
         <Field name="username" type="String" visibility="private"/>
         <Field name="password" type="String" visibility="private"/>
@@ -478,7 +254,7 @@
         <Field name="statusMessage" type="String" visibility="private"/>
         <Field name="selected" type="User" visibility="private"/>
         <Field name="userFacade" type="UserFacade" visibility="private"/>
-        <Field name="userVideoFacade" type="UserVideoFacade" visibility="private"/>
+        <Field name="userReservedFacade" type="UserReservedFacade" visibility="private"/>
         <Field name="userPhotoFacade" type="UserPhotoFacade" visibility="private"/>
       </Fields>
       <Constructors>
@@ -486,74 +262,10 @@
       </Constructors>
       <Methods>
         <Method name="getListOfStates" returnType="String[]" visibility="public"/>
-        <Method name="getUsername" returnType="String" visibility="public"/>
-        <Method name="setUsername" returnType="String" visibility="public">
-          <Argument type="String" name="username"/>
-        </Method>
-        <Method name="getPassword" returnType="String" visibility="public"/>
-        <Method name="setPassword" returnType="String" visibility="public">
-          <Argument type="String" name="password"/>
-        </Method>
-        <Method name="getNewPassword" returnType="String" visibility="public"/>
-        <Method name="setNewPassword" returnType="String" visibility="public">
-          <Argument type="String" name="newPassword"/>
-        </Method>
-        <Method name="getFirstName" returnType="String" visibility="public"/>
-        <Method name="setFirstName" returnType="String" visibility="public">
-          <Argument type="String" name="firstName"/>
-        </Method>
-        <Method name="getMiddleName" returnType="String" visibility="public"/>
-        <Method name="setMiddleName" returnType="String" visibility="public">
-          <Argument type="String" name="middleName"/>
-        </Method>
-        <Method name="getLastName" returnType="String" visibility="public"/>
-        <Method name="setLastName" returnType="String" visibility="public">
-          <Argument type="String" name="lastName"/>
-        </Method>
-        <Method name="getAddress1" returnType="String" visibility="public"/>
-        <Method name="setAddress1" returnType="String" visibility="public">
-          <Argument type="String" name="address1"/>
-        </Method>
-        <Method name="getAddress2" returnType="String" visibility="public"/>
-        <Method name="setAddress2" returnType="String" visibility="public">
-          <Argument type="String" name="address2"/>
-        </Method>
-        <Method name="getCity" returnType="String" visibility="public"/>
-        <Method name="setCity" returnType="String" visibility="public">
-          <Argument type="String" name="city"/>
-        </Method>
-        <Method name="getState" returnType="String" visibility="public"/>
-        <Method name="setState" returnType="String" visibility="public">
-          <Argument type="String" name="state"/>
-        </Method>
-        <Method name="getZipcode" returnType="String" visibility="public"/>
-        <Method name="setZipcode" returnType="String" visibility="public">
-          <Argument type="String" name="zip_code"/>
-        </Method>
-        <Method name="getSecurityQuestion" returnType="int" visibility="public"/>
-        <Method name="setSecurityQuestion" returnType="int" visibility="public">
-          <Argument type="int" name="securityQuestion"/>
-        </Method>
-        <Method name="getSecurityAnswer" returnType="String" visibility="public"/>
-        <Method name="setSecurityAnswer" returnType="String" visibility="public">
-          <Argument type="String" name="securityAnswer"/>
-        </Method>
-        <Method name="getEmail" returnType="String" visibility="public"/>
-        <Method name="setEmail" returnType="String" visibility="public">
-          <Argument type="String" name="email"/>
-        </Method>
         <Method name="getUserFacade" returnType="UserFacade" visibility="public"/>
-        <Method name="getUserVideoFacade" returnType="UserVideoFacade" visibility="public"/>
+        <Method name="getUserReservedFacade" returnType="UserReservedFacade" visibility="public"/>
         <Method name="getUserPhotoFacade" returnType="UserPhotoFacade" visibility="public"/>
         <Method name="getSecurity_questions" returnType="Map&lt;String, Object&gt;" visibility="public"/>
-        <Method name="getStatusMessage" returnType="String" visibility="public"/>
-        <Method name="setStatusMessage" returnType="String" visibility="public">
-          <Argument type="String" name="statusMessage"/>
-        </Method>
-        <Method name="getSelected" returnType="User" visibility="public"/>
-        <Method name="setSelected" returnType="User" visibility="public">
-          <Argument type="User" name="selectedUser"/>
-        </Method>
         <Method name="isLoggedIn" returnType="boolean" visibility="public"/>
         <Method name="createAccount" returnType="String" visibility="public"/>
         <Method name="initializeSessionMap" returnType="void" visibility="public"/>
@@ -580,7 +292,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Constants" package="com.mycompany.managers" visibility="public" isFinal="true" xPosition="2120.0" yPosition="420.0">
+    <Class name="Constants" package="com.mycompany.managers" visibility="public" isFinal="true" xPosition="4040.0" yPosition="276.0">
       <Fields>
         <Field name="PHOTOS_ABSOLUTE_PATH" type="String" visibility="public" isStatic="true" isFinal="true"/>
         <Field name="PHOTOS_RELATIVE_PATH" type="String" visibility="public" isStatic="true" isFinal="true"/>
@@ -593,12 +305,14 @@
       <Constructors/>
       <Methods/>
     </Class>
-    <Class name="LoginManager" package="com.mycompany.managers" visibility="public" xPosition="1361.0" yPosition="1168.0">
+    <Class name="LoginManager" package="com.mycompany.managers" visibility="public" xPosition="1780.0" yPosition="1793.0">
       <Fields>
         <Field name="username" type="String" visibility="private"/>
         <Field name="password" type="String" visibility="private"/>
         <Field name="errorMessage" type="String" visibility="private"/>
         <Field name="userFacade" type="UserFacade" visibility="private"/>
+        <Field name="hasTwoFactorEnabled" type="boolean" visibility="private"/>
+        <Field name="twoFactor" type="TwoFactorManager" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
@@ -625,7 +339,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="PasswordResetManager" package="com.mycompany.managers" visibility="public" xPosition="1212.0" yPosition="1592.0">
+    <Class name="PasswordResetManager" package="com.mycompany.managers" visibility="public" xPosition="3986.0" yPosition="669.0">
       <Fields>
         <Field name="username" type="String" visibility="private"/>
         <Field name="message" type="String" visibility="private"/>
@@ -635,22 +349,6 @@
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="getUsername" returnType="String" visibility="public"/>
-        <Method name="setUsername" returnType="String" visibility="public">
-          <Argument type="String" name="username"/>
-        </Method>
-        <Method name="getMessage" returnType="String" visibility="public"/>
-        <Method name="setMessage" returnType="String" visibility="public">
-          <Argument type="String" name="message"/>
-        </Method>
-        <Method name="getAnswer" returnType="String" visibility="public"/>
-        <Method name="setAnswer" returnType="String" visibility="public">
-          <Argument type="String" name="answer"/>
-        </Method>
-        <Method name="getPassword" returnType="String" visibility="public"/>
-        <Method name="setPassword" returnType="String" visibility="public">
-          <Argument type="String" name="password"/>
-        </Method>
         <Method name="getUserFacade" returnType="UserFacade" visibility="public"/>
         <Method name="usernameSubmit" returnType="String" visibility="public"/>
         <Method name="securityAnswerSubmit" returnType="String" visibility="public"/>
@@ -661,7 +359,7 @@
         <Method name="resetPassword" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="PhotoFileManager" package="com.mycompany.managers" visibility="public" xPosition="1575.0" yPosition="509.0">
+    <Class name="PhotoFileManager" package="com.mycompany.managers" visibility="public" xPosition="2378.0" yPosition="41.0">
       <Fields>
         <Field name="file" type="UploadedFile" visibility="private"/>
         <Field name="message" type="String" visibility="private"/>
@@ -698,7 +396,7 @@
         <Method name="deletePhoto" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="EmailValidator" package="com.mycompany.validators" visibility="public" xPosition="521.0" yPosition="1343.0">
+    <Class name="EmailValidator" package="com.mycompany.validators" visibility="public" xPosition="3498.0" yPosition="543.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -709,7 +407,23 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="PasswordValidator" package="com.mycompany.validators" visibility="public" xPosition="515.0" yPosition="1507.0">
+    <Class name="PasswordValidator" package="com.mycompany.validators" visibility="public" xPosition="3498.0" yPosition="814.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="encryptThenvalidate" returnType="Object" visibility="public">
+          <Argument type="FacesContext" name="context"/>
+          <Argument type="UIComponent" name="component"/>
+          <Argument type="Object" name="value"/>
+        </Method>
+        <Method name="SHA256" returnType="String" visibility="public">
+          <Argument type="String" name="rawPass"/>
+        </Method>
+        <Method name="openHTTPS" returnType="void" visibility="public"/>
+        <Method name="closeHTTPS" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="UsernameValidator" package="com.mycompany.validators" visibility="public" xPosition="3498.0" yPosition="669.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -720,7 +434,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="UsernameValidator" package="com.mycompany.validators" visibility="public" xPosition="540.0" yPosition="1616.0">
+    <Class name="ZipCodeValidator" package="com.mycompany.validators" visibility="public" xPosition="3980.0" yPosition="543.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -731,43 +445,146 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="ZipCodeValidator" package="com.mycompany.validators" visibility="public" xPosition="2133.0" yPosition="893.0">
-      <Fields/>
+    <Class name="TwilioManager" package="" visibility="public" xPosition="3994.0" yPosition="1472.0">
+      <Fields>
+        <Field name="APIuser" type="String" visibility="private"/>
+        <Field name="APIkey" type="String" visibility="private"/>
+        <Field name="url" type="String" visibility="private"/>
+        <Field name="sent" type="boolean" visibility="private"/>
+        <Field name="delivered" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="sendMessage" returnType="String" visibility="public">
+          <Argument type="String" name="message"/>
+          <Argument type="String" name="toPhoneNumber"/>
+        </Method>
+        <Method name="getMessageStatus" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="TwoFactorManager" package="" visibility="public" xPosition="3222.0" yPosition="1430.0">
+      <Fields>
+        <Field name="key" type="String" visibility="private"/>
+        <Field name="userKey" type="String" visibility="private"/>
+        <Field name="userEmail" type="String" visibility="private"/>
+        <Field name="userPhone" type="Object" visibility="private"/>
+        <Field name="authMethod" type="AuthenticationMethod" visibility="private"/>
+      </Fields>
       <Constructors/>
       <Methods>
-        <Method name="validate" returnType="Object" visibility="public">
-          <Argument type="FacesContext" name="context"/>
-          <Argument type="UIComponent" name="component"/>
-          <Argument type="Object" name="value"/>
+        <Method name="generateTwoFactor" returnType="TwilioManager" visibility="public">
+          <Argument type="AccountManager" name="acctManager"/>
+          <Argument type="TwilioManager" name="twilioManager"/>
         </Method>
+        <Method name="sendTextWithKey" returnType="void" visibility="public"/>
+        <Method name="sendEmailWithKey" returnType="void" visibility="public"/>
+        <Method name="sendEmailWithHyperLink" returnType="void" visibility="public"/>
+        <Method name="generateKey" returnType="String" visibility="public"/>
+        <Method name="generateHypeLink" returnType="String" visibility="public"/>
+        <Method name="validateUserKey" returnType="boolean" visibility="public"/>
+        <Method name="validateHyperLink" returnType="String" visibility="public">
+          <Argument type="String" name="hyperLink"/>
+        </Method>
+        <Method name="validate" returnType="AccountManager" visibility="public">
+          <Argument type="AccountManager" name="acctManager"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Enum name="AuthenticationMethod" package="" visibility="public" xPosition="4161.0" yPosition="1645.0">
+      <Literals>
+        <Literal name="TEXTKEY"/>
+        <Literal name="EMAILKEY"/>
+        <Literal name="EMAILHYPERLINK"/>
+        <Literal name="TEXTHYPERLINK"/>
+      </Literals>
+    </Enum>
+    <Class name="LocalGoodWillHelper" package="" visibility="public" xPosition="2444.0" yPosition="714.0">
+      <Fields>
+        <Field name="address" type="String" visibility="private"/>
+        <Field name="storePhone" type="String" visibility="private"/>
+        <Field name="storeEmail" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="purchase" returnType="String" visibility="public">
+          <Argument type="PublicItem" name="item"/>
+          <Argument type="AccountManager" name="acctManager"/>
+          <Argument type="Card" name="card"/>
+        </Method>
+        <Method name="chargeCard" returnType="void" visibility="public">
+          <Argument type="Double" name="price"/>
+          <Argument type="Card" name="card"/>
+        </Method>
+        <Method name="notifyStoreOfPurchase" returnType="void" visibility="public">
+          <Argument type="PublicItem" name="item"/>
+          <Argument type="User" name="user"/>
+        </Method>
+        <Method name="emailUserReceipt" returnType="void" visibility="public">
+          <Argument type="String" name="userEmail"/>
+          <Argument type="PublicItem" name="item"/>
+        </Method>
+        <Method name="notifyStoreOfReserve" returnType="void" visibility="public">
+          <Argument type="PublicItem" name="item"/>
+          <Argument type="User" name="user"/>
+        </Method>
+        <Method name="reserve" returnType="String" visibility="public">
+          <Argument type="PublicItem" name="item"/>
+          <Argument type="AccountManager" name="acctManager"/>
+        </Method>
+        <Method name="unreserve" returnType="String" visibility="public">
+          <Argument type="PublicItem" name="item"/>
+          <Argument type="AccountManager" name="acctManager"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Card" package="" visibility="public" xPosition="2999.0" yPosition="756.0">
+      <Fields>
+        <Field name="cardNumber" type="String" visibility="private"/>
+        <Field name="cardType" type="String" visibility="private"/>
+        <Field name="expDate" type="String" visibility="private"/>
+        <Field name="cCV" type="String" visibility="private"/>
+        <Field name="user" type="User" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="isValid" returnType="boolean" visibility="public"/>
       </Methods>
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <HasRelation name="userVideoCollection" source="com.mycompany.EntityBeans.User" target="com.mycompany.EntityBeans.UserReserved" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="userId" source="com.mycompany.EntityBeans.UserPhoto" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.PublicItems" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="com.mycompany.controllers.UserReservedController" target="LocalGoodWillHelper" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="items" source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.PublicItems" type="Aggregation" sourceCardinality="0..1" targetCardinality="0..*" collectionType="List"/>
+    <UseRelation source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.PublicItems" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="com.mycompany.managers.AccountManager" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.EntityBeans.UserPhoto" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.UserReserved" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="twoFactor" source="com.mycompany.managers.LoginManager" target="TwoFactorManager" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="selected" source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.PublicItems" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="LocalGoodWillHelper" target="com.mycompany.controllers.PublicItemsController" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="com.mycompany.managers.LoginManager" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="selected" source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.PublicItems" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="user" source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.EntityBeans.UserReserved" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="selected" source="com.mycompany.managers.AccountManager" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.UserReserved" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="userId" source="com.mycompany.EntityBeans.UserReserved" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.managers.PhotoFileManager" target="com.mycompany.EntityBeans.UserPhoto" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.EntityBeans.User" target="com.mycompany.EntityBeans.UserPhoto" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="com.mycompany.controllers.PublicItemsController" target="LocalGoodWillHelper" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.PublicItems" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="com.mycompany.controllers.PhotoCameraController" target="com.mycompany.EntityBeans.UserPhoto" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.managers.PhotoFileManager" target="com.mycompany.EntityBeans.UserPhoto" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="selected" source="com.mycompany.managers.AccountManager" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="TwoFactorManager" target="com.mycompany.managers.AccountManager" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="userPhotoCollection" source="com.mycompany.EntityBeans.User" target="com.mycompany.EntityBeans.UserPhoto" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="LocalGoodWillHelper" target="com.mycompany.managers.AccountManager" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="user" source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.EntityBeans.User" target="com.mycompany.EntityBeans.UserReserved" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="items" source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.UserReserved" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;UserVideo&gt;"/>
-    <UseRelation source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.PublicItems" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="userId" source="com.mycompany.EntityBeans.UserPhoto" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.EntityBeans.UserPhoto" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.EntityBeans.User" target="com.mycompany.EntityBeans.UserPhoto" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="authMethod" source="TwoFactorManager" target="AuthenticationMethod" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="card" source="LocalGoodWillHelper" target="Card" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="items" source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.PublicItems" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;PublicVideo&gt;"/>
-    <HasRelation name="selected" source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.UserReserved" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="TwoFactorManager" target="TwilioManager" sourceCardinality="1..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>
