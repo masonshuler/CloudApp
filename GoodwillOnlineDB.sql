@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS UserPhoto, Items, User;
+DROP TABLE IF EXISTS UserPhoto, ItemPhoto, Item, User;
 
 CREATE TABLE User
 (
@@ -36,8 +36,15 @@ CREATE TABLE Item
     price FLOAT (7,2) NOT NULL,
     rating FLOAT (3,2) NOT NULL,
     category VARCHAR (32) NOT NULL,
-    image BLOB NOT NULL, 
     description VARCHAR (512),
     date_published DATE NOT NULL,
     FOREIGN KEY (reserved_user) REFERENCES User(id) ON DELETE CASCADE
+);
+
+CREATE TABLE ItemPhoto
+(
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    extension ENUM('jpeg', 'jpg', 'png', 'gif') NOT NULL,
+    item_id INT UNSIGNED,
+    FOREIGN KEY (item_id) REFERENCES Item(id) ON DELETE CASCADE
 );
