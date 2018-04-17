@@ -3,7 +3,6 @@ DROP TABLE IF EXISTS UserPhoto, Items, User;
 CREATE TABLE User
 (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    username VARCHAR (32) NOT NULL,
     password_hash VARCHAR (64) NOT NULL,
     first_name VARCHAR (32) NOT NULL,
     middle_name VARCHAR (32),
@@ -17,7 +16,8 @@ CREATE TABLE User
     security_answer VARCHAR (128) NOT NULL,
     email VARCHAR (128) NOT NULL,
     phone_number VARCHAR (10),      
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    isAdmin BIT NOT NULL
 );
 
 CREATE TABLE UserPhoto
@@ -31,7 +31,7 @@ CREATE TABLE UserPhoto
 CREATE TABLE Items
 (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    user_id INT UNSIGNED,
+    reserved_user INT UNSIGNED,
     title VARCHAR (64) NOT NULL,
     price FLOAT (7,2) NOT NULL,
     rating FLOAT (3,2) NOT NULL,
@@ -39,5 +39,5 @@ CREATE TABLE Items
     image BLOB NOT NULL, 
     description VARCHAR (512),
     date_published DATE NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
+    FOREIGN KEY (reserved_user) REFERENCES User(id) ON DELETE CASCADE
 );
