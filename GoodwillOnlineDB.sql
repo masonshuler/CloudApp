@@ -48,3 +48,15 @@ CREATE TABLE ItemPhoto
     item_id INT UNSIGNED,
     FOREIGN KEY (item_id) REFERENCES Item(id) ON DELETE CASCADE
 );
+
+INSERT INTO Item (title, price, rating, category, date_published) VALUES
+('Polka Dot Slim Fit Dress Shirt', 129.00, 5.00, 'T-Shirts', '2018-04-18'),
+('Diesel Brothers Shirt', 16.98, 5.00, 'T-Shirts', '2018-04-18'),
+('Aston Martin Racing Shirt', 44.99, 5.00, 'T-Shirts', '2018-04-18'),
+('PK Subban Playoff Hockey Shirt', 19.99, 5.00, 'T-Shirts', '2018-04-18');
+
+INSERT INTO ItemPhoto (extension, item_id) VALUES
+('jpeg', 1),
+('jpeg', 2),
+('jpeg', 3),
+('jpeg', 4);
