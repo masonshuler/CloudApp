@@ -53,10 +53,18 @@ INSERT INTO Item (title, price, rating, category, date_published) VALUES
 ('Polka Dot Slim Fit Dress Shirt', 129.00, 5.00, 'T-Shirts', '2018-04-18'),
 ('Diesel Brothers Shirt', 16.98, 5.00, 'T-Shirts', '2018-04-18'),
 ('Aston Martin Racing Shirt', 44.99, 5.00, 'T-Shirts', '2018-04-18'),
-('PK Subban Playoff Hockey Shirt', 19.99, 5.00, 'T-Shirts', '2018-04-18');
+('PK Subban Playoff Hockey Shirt', 19.99, 5.00, 'T-Shirts', '2018-04-18'),
+('Biker Denim Jeans', 13.99, 5.00, 'Pants', '2018-04-18'),
+('Long Gym Sweatpants', 7.99, 5.00, 'Pants', '2018-04-18'),
+('Military Tactical Combat Pants', 28.00, 5.00, 'Pants', '2018-04-18'),
+('Dark Navy Blue Khaki Pants', 11.99, 5.00, 'Pants', '2018-04-18');
 
 INSERT INTO ItemPhoto (extension, item_id) VALUES
 ('jpeg', 1),
 ('jpeg', 2),
 ('jpeg', 3),
-('jpeg', 4);
+('jpeg', 4),
+('jpeg', 5),
+('jpeg', 6),
+('jpeg', 7),
+('jpeg', 8);
