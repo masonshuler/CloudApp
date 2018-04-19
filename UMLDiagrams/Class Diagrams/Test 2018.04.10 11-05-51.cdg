@@ -305,7 +305,7 @@
       <Constructors/>
       <Methods/>
     </Class>
-    <Class name="LoginManager" package="com.mycompany.managers" visibility="public" xPosition="1780.0" yPosition="1793.0">
+    <Class name="LoginManager" package="com.mycompany.managers" visibility="public" xPosition="1788.0" yPosition="1760.0">
       <Fields>
         <Field name="username" type="String" visibility="private"/>
         <Field name="password" type="String" visibility="private"/>
@@ -445,7 +445,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="TwilioManager" package="" visibility="public" xPosition="3994.0" yPosition="1472.0">
+    <Class name="TwilioManager" package="" visibility="public" xPosition="4001.0" yPosition="1399.0">
       <Fields>
         <Field name="APIuser" type="String" visibility="private"/>
         <Field name="APIkey" type="String" visibility="private"/>
@@ -492,14 +492,6 @@
         </Method>
       </Methods>
     </Class>
-    <Enum name="AuthenticationMethod" package="" visibility="public" xPosition="4161.0" yPosition="1645.0">
-      <Literals>
-        <Literal name="TEXTKEY"/>
-        <Literal name="EMAILKEY"/>
-        <Literal name="EMAILHYPERLINK"/>
-        <Literal name="TEXTHYPERLINK"/>
-      </Literals>
-    </Enum>
     <Class name="LocalGoodWillHelper" package="" visibility="public" xPosition="2444.0" yPosition="714.0">
       <Fields>
         <Field name="address" type="String" visibility="private"/>
@@ -510,32 +502,32 @@
         <Constructor visibility="public"/>
       </Constructors>
       <Methods>
-        <Method name="purchase" returnType="String" visibility="public">
+        <Method name="purchase" returnType="Card" visibility="public">
           <Argument type="PublicItem" name="item"/>
           <Argument type="AccountManager" name="acctManager"/>
           <Argument type="Card" name="card"/>
         </Method>
-        <Method name="chargeCard" returnType="void" visibility="public">
+        <Method name="chargeCard" returnType="Card" visibility="public">
           <Argument type="Double" name="price"/>
           <Argument type="Card" name="card"/>
         </Method>
-        <Method name="notifyStoreOfPurchase" returnType="void" visibility="public">
+        <Method name="notifyStoreOfPurchase" returnType="User" visibility="public">
           <Argument type="PublicItem" name="item"/>
           <Argument type="User" name="user"/>
         </Method>
-        <Method name="emailUserReceipt" returnType="void" visibility="public">
+        <Method name="emailUserReceipt" returnType="PublicItem" visibility="public">
           <Argument type="String" name="userEmail"/>
           <Argument type="PublicItem" name="item"/>
         </Method>
-        <Method name="notifyStoreOfReserve" returnType="void" visibility="public">
+        <Method name="notifyStoreOfReserve" returnType="User" visibility="public">
           <Argument type="PublicItem" name="item"/>
           <Argument type="User" name="user"/>
         </Method>
-        <Method name="reserve" returnType="String" visibility="public">
+        <Method name="reserve" returnType="AccountManager" visibility="public">
           <Argument type="PublicItem" name="item"/>
           <Argument type="AccountManager" name="acctManager"/>
         </Method>
-        <Method name="unreserve" returnType="String" visibility="public">
+        <Method name="unreserve" returnType="AccountManager" visibility="public">
           <Argument type="PublicItem" name="item"/>
           <Argument type="AccountManager" name="acctManager"/>
         </Method>
@@ -556,35 +548,171 @@
         <Method name="isValid" returnType="boolean" visibility="public"/>
       </Methods>
     </Class>
+    <Enum name="AuthenticationMethod" package="" visibility="public" xPosition="4161.0" yPosition="1645.0">
+      <Literals>
+        <Literal name="TEXTKEY"/>
+        <Literal name="EMAILKEY"/>
+        <Literal name="EMAILHYPERLINK"/>
+        <Literal name="TEXTHYPERLINK"/>
+      </Literals>
+    </Enum>
+    <Class name="index.html" package="" visibility="public" xPosition="99.0" yPosition="1370.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="header/footerr" package="" visibility="public" xPosition="341.0" yPosition="1421.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="search" returnType="SearchResults" visibility="public"/>
+        <Method name="login" returnType="Login" visibility="public"/>
+        <Method name="logout" returnType="Login" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Login.xhtml" package="" visibility="public" xPosition="99.0" yPosition="1600.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="PublicItems" package="" visibility="public" xPosition="341.0" yPosition="1600.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Create" package="" visibility="public" xPosition="713.0" yPosition="1779.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="View" package="" visibility="public" xPosition="594.0" yPosition="1779.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Edit" package="" visibility="public" xPosition="456.0" yPosition="1779.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="SearchResults" package="" visibility="public" xPosition="713.0" yPosition="1600.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="CreateAccount" package="" visibility="public" xPosition="955.0" yPosition="1600.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Profile" package="" visibility="public" xPosition="1303.0" yPosition="1645.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="DeleteAccountDLG.." package="" visibility="public" xPosition="1145.0" yPosition="1779.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="EditAccount" package="" visibility="public" xPosition="1303.0" yPosition="1779.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="ChangePassword" package="" visibility="public" xPosition="1145.0" yPosition="1862.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="TwoFactorDlg" package="" visibility="public" xPosition="99.0" yPosition="1760.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="SecurityQuestion" package="" visibility="public" xPosition="1303.0" yPosition="1862.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="ChangePhoto" package="" visibility="public" xPosition="1461.0" yPosition="1779.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Apply" package="" visibility="public" xPosition="1145.0" yPosition="1492.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="ReservedItems" package="" visibility="public" xPosition="526.0" yPosition="1600.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="SearchInRangeDlg" package="" visibility="public" xPosition="341.0" yPosition="1779.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="ContentFlow" package="" visibility="public" xPosition="955.0" yPosition="1347.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <UseRelation name="" source="com.mycompany.controllers.UserReservedController" target="LocalGoodWillHelper" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="items" source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.PublicItems" type="Aggregation" sourceCardinality="0..1" targetCardinality="0..*" collectionType="List"/>
-    <UseRelation source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.PublicItems" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.managers.AccountManager" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="twoFactor" source="com.mycompany.managers.LoginManager" target="TwoFactorManager" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="selected" source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.PublicItems" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <UseRelation name="" source="LocalGoodWillHelper" target="com.mycompany.controllers.PublicItemsController" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.managers.LoginManager" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="selected" source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.PublicItems" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation name="" source="com.mycompany.controllers.PublicItemsController" target="LocalGoodWillHelper" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.PublicItems" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="reservedItems" source="ReservedItems" target="View" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.managers.AccountManager" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="com.mycompany.controllers.PhotoCameraController" target="com.mycompany.EntityBeans.UserPhoto" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.managers.PhotoFileManager" target="com.mycompany.EntityBeans.UserPhoto" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="selected" source="com.mycompany.managers.AccountManager" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation name="" source="TwoFactorManager" target="com.mycompany.managers.AccountManager" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="userPhotoCollection" source="com.mycompany.EntityBeans.User" target="com.mycompany.EntityBeans.UserPhoto" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.managers.LoginManager" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="login" source="header/footerr" target="Login.xhtml" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="Login.xhtml" target="com.mycompany.managers.LoginManager" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation name="" source="LocalGoodWillHelper" target="com.mycompany.managers.AccountManager" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="user" source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="userId" source="com.mycompany.EntityBeans.UserPhoto" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.EntityBeans.UserPhoto" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.mycompany.EntityBeans.User" target="com.mycompany.EntityBeans.UserPhoto" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="authMethod" source="TwoFactorManager" target="AuthenticationMethod" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="card" source="LocalGoodWillHelper" target="Card" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="user" source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.EntityBeans.User" target="com.mycompany.EntityBeans.UserPhoto" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.PublicItems" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="selected" source="com.mycompany.managers.AccountManager" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="createAccount" source="header/footerr" target="CreateAccount" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.managers.PhotoFileManager" target="com.mycompany.EntityBeans.UserPhoto" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="searchResults" source="SearchResults" target="Create" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="userId" source="com.mycompany.EntityBeans.UserPhoto" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="Apply" target="com.mycompany.managers.AccountManager" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="options" source="Profile" target="EditAccount" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="items" source="com.mycompany.controllers.PublicItemsController" target="com.mycompany.EntityBeans.PublicItems" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;PublicVideo&gt;"/>
+    <UseRelation name="" source="LocalGoodWillHelper" target="com.mycompany.controllers.PublicItemsController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="ContentFlow" target="com.mycompany.controllers.PublicItemsController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="apply online" source="header/footerr" target="Apply" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="ReservedItems" target="com.mycompany.controllers.UserReservedController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="CreateAccount" target="com.mycompany.managers.AccountManager" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.EntityBeans.UserPhoto" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="PublicItems" target="com.mycompany.controllers.PublicItemsController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="has" source="index.html" target="header/footerr" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="search" source="header/footerr" target="SearchResults" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="ChangePhoto" target="com.mycompany.controllers.PhotoCameraController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="userPhotoCollection" source="com.mycompany.EntityBeans.User" target="com.mycompany.EntityBeans.UserPhoto" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="TwoFactorManager" target="com.mycompany.managers.AccountManager" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="publicItem" source="PublicItems" target="Edit" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="card" source="LocalGoodWillHelper" target="Card" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="com.mycompany.controllers.UserReservedController" target="LocalGoodWillHelper" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="myAccount" source="header/footerr" target="Profile" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="publicItems" source="header/footerr" target="PublicItems" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="com.mycompany.controllers.PublicItemsController" target="LocalGoodWillHelper" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="selected" source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.PublicItems" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="itemFlow" source="header/footerr" target="ContentFlow" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="twoFactor" source="com.mycompany.managers.LoginManager" target="TwoFactorManager" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.PublicItems" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="authMethod" source="TwoFactorManager" target="AuthenticationMethod" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="2FactorManager" source="TwoFactorDlg" target="TwoFactorManager" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="2Factor" source="Login.xhtml" target="TwoFactorDlg" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="items" source="com.mycompany.controllers.UserReservedController" target="com.mycompany.EntityBeans.PublicItems" type="Aggregation" sourceCardinality="0..1" targetCardinality="0..*" collectionType="List"/>
+    <HasRelation name="reservedItems" source="header/footerr" target="ReservedItems" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="Profile" target="com.mycompany.managers.AccountManager" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation name="" source="TwoFactorManager" target="TwilioManager" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="search" source="SearchInRangeDlg" target="SearchResults" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>
