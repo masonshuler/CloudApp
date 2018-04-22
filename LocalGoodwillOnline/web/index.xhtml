@@ -1,24 +1,57 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Osman Balci on 2017.06.28 
+Copyright © 2017 Osman Balci. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-        <br />
-        <h:link outcome="/items/List" value="Show All Items Items"/>
-        <br />
-        <h:link outcome="/user/List" value="Show All User Items"/>
-        <br />
-        <h:link outcome="/userPhoto/List" value="Show All UserPhoto Items"/>
-    </h:body>
 
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
 
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="/template/siteTemplate.xhtml">
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+
+            <!-- 
+            =================================================================================
+            This Image Slider is adapted from http://www.menucool.com/javascript-image-slider 
+            It uses the following files:
+                - js-image-slider.css
+                - js-image-slider.js
+                - bullet.png
+
+            The following references are included in the siteTemplate.xhtml file:
+                <h:outputStylesheet library="css" name="js-image-slider.css" />
+                <script src="resources/js/js-image-slider.js" type="text/javascript"></script>
+            =================================================================================
+            -->
+            <div align="left">
+            <a class="twitter-timeline"  data-width="400" data-height="200"  href="https://twitter.com/GoodwillIntl?ref_src=twsrc%5Etfw">Tweets by Goodwill Industries</a> 
+            <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          
+            </div>
+            
+            
+            <div id="sliderFrame" align="right">
+                <div id="slider" align="right">
+                
+                    <img src="resources/images/imageSliderPhotos/photo1.jpg" alt="" height="313" width="500"/>
+                    <img src="resources/images/imageSliderPhotos/photo2.jpg" alt="" />
+                    <img src="resources/images/imageSliderPhotos/photo3.jpg" alt="" />
+                    <img src="resources/images/imageSliderPhotos/photo4.jpg" alt="" />
+                    <img src="resources/images/imageSliderPhotos/photo5.jpg" alt="" />
+                </div>
+
+            </div>
+            <br /><br />
+        </ui:define>
+
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
 
 </html>
-
