@@ -61,6 +61,11 @@ public class Item implements Serializable {
     private float price;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 32)
+    @Column(name = "size")
+    private String size;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "rating")
     private float rating;
     @Basic(optional = false)
@@ -89,11 +94,12 @@ public class Item implements Serializable {
         this.id = id;
     }
 
-    public Item(Integer id, String title, float price, float rating, String category, Date datePublished) {
+    public Item(Integer id, String title, float price, float rating, String size, String category, Date datePublished) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.rating = rating;
+        this.size = size;
         this.category = category;
         this.datePublished = datePublished;
     }
@@ -128,6 +134,14 @@ public class Item implements Serializable {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+    
+    public String getSize() {
+        return size;
+    }
+    
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public String getCategory() {
@@ -193,7 +207,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.EntityBeans.Item[ id=" + id + " ]";
+        return id.toString();
     }
     
 }
