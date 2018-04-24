@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Osman Balci on 2017.06.28
+Copyright © 2017 Osman Balci. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!--
+    *********************************************
+    * Footer Component of Template siteTemplate *
+    *********************************************
+    This page's content is displayed on the bottom of each page created based on the siteTemplate.
+    Changes made in this file will show up automatically with all pages created based on the
+    siteTemplate for the entire site, achieving great maintainability.
+    -->
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+    <ui:composition>
+        <table width="80%" border="0" align="center" cellpadding="5" cellspacing="0">
+            <tr>
+                <td align="left" valign="middle">
+                    <a class="social-roll" href="https://www.facebook.com/">
+                        <img src="./resources/images/socialMediaIcons/facebook.png" /></a>
+                    <a class="social-roll" href="https://twitter.com/">
+                        <img src="./resources/images/socialMediaIcons/twitter.png" /></a>
+                    <a class="social-roll" href="https://www.linkedin.com/">
+                        <img src="./resources/images/socialMediaIcons/linkedIn.png" /></a>
+                    <a class="social-roll" href="https://plus.google.com/">
+                        <img src="./resources/images/socialMediaIcons/googlePlus.png" /></a>
+                </td>
+                <td align="right" valign="middle">
+                    <!-- 
+                    With the i tag, you can access an icon given at http://fontawesome.io/icons/ by using
+                    its class name. For this to work, the following must be specified in the siteTemplate file:
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
+                    -->
+                    <a href="https://www.goodwill.org" style="color: white">
+                        Goodwill</a>&nbsp;&nbsp;
+                    <a href="https://www.salvationarmyusa.org" style="color: white">
+                        Salvation Army</a>&nbsp;&nbsp;
+                    <a href="https://www.redcross.org" style="color: white">
+                        Red Cross</a>&nbsp;&nbsp;
+                </td>
+            </tr>
+            <!-- Attribution Statement -->
+            <tr>
+                <td colspan="2" align="center" valign="middle" style="color: white">
+                    <a href="https://manta.cs.vt.edu/cs3754/" style="color: white">CS3754 Cloud Software Development</a> app developed by 
+                    Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, and Matt Tuckman.
+                </td>
+            </tr>
+        </table>
+        <br /><br />
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

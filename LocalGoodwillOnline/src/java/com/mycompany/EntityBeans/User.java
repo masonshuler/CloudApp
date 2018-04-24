@@ -1,6 +1,6 @@
 /*
- * Created by Mason Shuler on 2018.03.29  * 
- * Copyright © 2018 Mason Shuler. All rights reserved. * 
+ * Created by Scott McGhee on 2018.04.22  * 
+ * Copyright © 2018 Scott McGhee. All rights reserved. * 
  */
 package com.mycompany.EntityBeans;
 
@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mason
+ * @author emcghee
  */
 @Entity
 @Table(name = "User")
@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
     , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
-    , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
     , @NamedQuery(name = "User.findByPasswordHash", query = "SELECT u FROM User u WHERE u.passwordHash = :passwordHash")
     , @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName")
     , @NamedQuery(name = "User.findByMiddleName", query = "SELECT u FROM User u WHERE u.middleName = :middleName")
@@ -44,7 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findBySecurityQuestion", query = "SELECT u FROM User u WHERE u.securityQuestion = :securityQuestion")
     , @NamedQuery(name = "User.findBySecurityAnswer", query = "SELECT u FROM User u WHERE u.securityAnswer = :securityAnswer")
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
-    , @NamedQuery(name = "User.findByPhoneNumber", query = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber")})
+    , @NamedQuery(name = "User.findByPhoneNumber", query = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber")
+    , @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,11 +53,6 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 32)
-    @Column(name = "username")
-    private String username;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
@@ -117,10 +112,14 @@ public class User implements Serializable {
     @Size(max = 10)
     @Column(name = "phone_number")
     private String phoneNumber;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "isAdmin")
+    private boolean isAdmin;
+    @OneToMany(mappedBy = "reservedUser")
+    private Collection<Item> itemCollection;
     @OneToMany(mappedBy = "userId")
     private Collection<UserPhoto> userPhotoCollection;
-    @OneToMany(mappedBy = "userId")
-    private Collection<Items> itemsCollection;
 
     public User() {
     }
@@ -129,9 +128,8 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String username, String passwordHash, String firstName, String lastName, String address1, String city, String state, String zipcode, int securityQuestion, String securityAnswer, String email) {
+    public User(Integer id, String passwordHash, String firstName, String lastName, String address1, String city, String state, String zipcode, int securityQuestion, String securityAnswer, String email, boolean isAdmin) {
         this.id = id;
-        this.username = username;
         this.passwordHash = passwordHash;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -142,6 +140,7 @@ public class User implements Serializable {
         this.securityQuestion = securityQuestion;
         this.securityAnswer = securityAnswer;
         this.email = email;
+        this.isAdmin = isAdmin;
     }
 
     public Integer getId() {
@@ -150,14 +149,6 @@ public class User implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPasswordHash() {
@@ -264,6 +255,23 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    @XmlTransient
+    public Collection<Item> getItemCollection() {
+        return itemCollection;
+    }
+
+    public void setItemCollection(Collection<Item> itemCollection) {
+        this.itemCollection = itemCollection;
+    }
+
     @XmlTransient
     public Collection<UserPhoto> getUserPhotoCollection() {
         return userPhotoCollection;
@@ -271,15 +279,6 @@ public class User implements Serializable {
 
     public void setUserPhotoCollection(Collection<UserPhoto> userPhotoCollection) {
         this.userPhotoCollection = userPhotoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Items> getItemsCollection() {
-        return itemsCollection;
-    }
-
-    public void setItemsCollection(Collection<Items> itemsCollection) {
-        this.itemsCollection = itemsCollection;
     }
 
     @Override
@@ -304,7 +303,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.EntityBeans.User[ id=" + id + " ]";
+        return id.toString();
     }
     
 }

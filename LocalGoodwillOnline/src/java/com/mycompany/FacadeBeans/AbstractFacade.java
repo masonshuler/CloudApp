@@ -1,6 +1,6 @@
 /*
- * Created by Mason Shuler on 2018.03.29  * 
- * Copyright © 2018 Mason Shuler. All rights reserved. * 
+ * Created by Scott McGhee on 2018.04.22  * 
+ * Copyright © 2018 Scott McGhee. All rights reserved. * 
  */
 package com.mycompany.FacadeBeans;
 
@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author Mason
+ * @author emcghee
  */
 public abstract class AbstractFacade<T> {
 

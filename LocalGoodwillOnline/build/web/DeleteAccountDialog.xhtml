@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Created by Scott McGhee on 2018.02.15
+Copyright © 2018 Scott McGhee. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <!-- Display a Confirmation Dialog in which the user enters his/her account password to confirm deletion -->
+        <p:dialog id="ConfirmPasswordDlg" widgetVar="ConfirmPasswordDialog" modal="true" resizable="false" 
+                  width="400" height="200" appendTo="@(body)" header="Account Deletion Confirmation">
+
+            <div align="center">
+                <h:form id="ConfirmPasswordForm">
+
+                    <f:event listener="#{accountManager.validateUserPassword}" type="postValidate"/>
+                    
+                    <p:panel >
+                        <p:panelGrid columns="2" columnClasses="signInColumn1, signInColumn2" >
+                            
+                            <p:outputLabel value="Password" for="passwordHash" style="width:100px;height:20px" />
+                            <h:inputSecret id="passwordHash" value="#{accountManager.selected.passwordHash}" required="true" 
+                                           requiredMessage="Password field is required!" label="Password" />
+
+                            <p:outputLabel value="Confirm Password" for="confirmPassword" style="width:100px;height:20px" />
+                            <h:inputSecret id="confirmPassword" required="true" 
+                                           requiredMessage="Confirm Password field is required!" label="Confirm Password" />
+                        </p:panelGrid>
+
+                        <div align="center">
+                            <!--
+                            ================================
+                            |        CANCEL Button         |
+                            ================================
+                            -->
+                            <p:commandButton id="cancel" value="Cancel" icon="ui-icon-close" styleClass="commandButton"
+                                             oncomplete="PF('ConfirmPasswordDialog').hide()" >
+                            </p:commandButton>
+                            &nbsp;
+                            <!--
+                            ================================
+                            |    DELETE ACCOUNT Button     |
+                            ================================
+                            -->
+                            <p:commandButton id="delete" value="Delete Account" action="#{accountManager.deleteAccount()}"
+                                             update=":ConfirmPasswordForm" oncomplete="PF('ConfirmPasswordDialog').show()" 
+                                             styleClass="commandButton" icon="ui-icon-trash">
+                            </p:commandButton>
+                        </div>
+                    </p:panel>
+                    
+                    <br/><br/>
+                    
+                    <!-- Error messages will be shown here if any -->
+                    <p:messages id="msgs" showIcon="false" style="errorMessages" />
+                    <h:outputLabel value="#{accountManager.statusMessage}" style="errorMessages" />
+                    
+                </h:form>
+            </div>
+        </p:dialog>
+
+    </ui:composition>
+</html>

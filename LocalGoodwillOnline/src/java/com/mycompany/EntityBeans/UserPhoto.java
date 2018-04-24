@@ -1,9 +1,10 @@
 /*
- * Created by Mason Shuler on 2018.03.29  * 
- * Copyright © 2018 Mason Shuler. All rights reserved. * 
+ * Created by Scott McGhee on 2018.04.22  * 
+ * Copyright © 2018 Scott McGhee. All rights reserved. * 
  */
 package com.mycompany.EntityBeans;
 
+import com.mycompany.managers.Constants;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -22,13 +23,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mason
+ * @author emcghee
  */
 @Entity
 @Table(name = "UserPhoto")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UserPhoto.findAll", query = "SELECT u FROM UserPhoto u")
+    @NamedQuery(name = "UserPhoto.findPhotosByUserID", query = "SELECT p FROM UserPhoto p WHERE p.userId.id = :userId")
+    , @NamedQuery(name = "UserPhoto.findAll", query = "SELECT u FROM UserPhoto u")
     , @NamedQuery(name = "UserPhoto.findById", query = "SELECT u FROM UserPhoto u WHERE u.id = :id")
     , @NamedQuery(name = "UserPhoto.findByExtension", query = "SELECT u FROM UserPhoto u WHERE u.extension = :extension")})
 public class UserPhoto implements Serializable {
@@ -58,6 +60,12 @@ public class UserPhoto implements Serializable {
     public UserPhoto(Integer id, String extension) {
         this.id = id;
         this.extension = extension;
+    }
+    
+    // This method is added to the generated code
+    public UserPhoto(String fileExtension, User id) {
+        this.extension = fileExtension;
+        userId = id;
     }
 
     public Integer getId() {
@@ -106,7 +114,47 @@ public class UserPhoto implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.EntityBeans.UserPhoto[ id=" + id + " ]";
+        return id.toString();
+    }
+    
+    /*
+    =====================================================
+    The following methods are added to the generated code
+    =====================================================
+     
+    User's photo image file is named as "userId.fileExtension", e.g., 5.jpg for user with id 5.
+    Since the user can have only one photo, this makes sense.
+     */
+    public String getPhotoFilename() {
+        return getUserId() + "." + getExtension();
+    }
+
+    /*
+    The thumbnail photo image size is set to 200x200px in Constants.java as follows:
+    public static final Integer THUMBNAIL_SIZE = 200;
+    
+    If the user uploads a large photo file, we will scale it down to THUMBNAIL_SIZE
+    and use it so that the size is reasonable for performance reasons.
+    
+    The photo image scaling is properly done by using the imgscalr-lib-4.2.jar file.
+    
+    The thumbnail file is named as "userId_thumbnail.fileExtension", 
+    e.g., 5_thumbnail.jpg for user with id 5.
+     */
+    public String getThumbnailFileName() {
+        return getUserId() + "_thumbnail." + getExtension();
+    }
+
+    public String getPhotoFilePath() {
+        return Constants.PHOTOS_ABSOLUTE_PATH + getPhotoFilename();
+    }
+
+    public String getThumbnailFilePath() {
+        return Constants.PHOTOS_ABSOLUTE_PATH + getThumbnailFileName();
+    }
+    
+    public String getTemporaryFilePath() {
+        return Constants.PHOTOS_ABSOLUTE_PATH + "tmp_file";
     }
     
 }

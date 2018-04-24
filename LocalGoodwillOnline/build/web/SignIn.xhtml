@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Scott McGhee on 2018.02.15
+Copyright © 2018 Scott McGhee. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="template/siteTemplate.xhtml">
+        <ui:define name="title">
+            <!-- Set the page title -->
+            <h:outputText value="Sign In"></h:outputText>
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+            <div align="center" style="width:70%; margin:0 auto;">
+                
+                <h2>Sign In</h2>
+                
+                <!-- Error messages will be shown here if any -->
+                <div align="center">
+                    <p:messages showIcon="false"/>
+                    <h:outputLabel id="form-error-message" class="errorMessages" 
+                                   value="#{loginManager.errorMessage}"/>
+                </div>
+                <br />
+                
+                <h:form>
+                    <p:panelGrid columns="2" columnClasses="signInColumn1, signInColumn2">
+
+                        <h:outputLabel value="Email:" for="email" />
+                        <p:inputText id="email" value="#{loginManager.email}" required="true" styleClass="signInInputTextField"
+                                     requiredMessage="#{bundle.CreateUserRequiredMessage_email}" label="Email" >
+                        </p:inputText>
+
+                        <h:outputLabel value="Password:" for="passwordHash" />
+                        <p:password id="passwordHash" value="#{loginManager.passwordHash}" feedback="false" styleClass="signInInputTextField" >
+                        </p:password>
+
+                    </p:panelGrid>
+                    
+                    <br/>
+                    <br/>
+                    <!--
+                    ================================
+                    |         SIGN IN Button       |
+                    ================================
+                    -->
+                    <p:commandButton id="login" value="Sign In" action="#{loginManager.loginUser()}" 
+                                     styleClass="commandButton" ajax="false" icon="ui-icon-arrowthick-1-e" />
+                    &nbsp;
+                    <!--
+                    ================================
+                    |   CREATE AN ACCOUNT Button   |
+                    ================================
+                    -->
+                    <p:button outcome="CreateAccount" value="Create an Account" icon="ui-icon-plus" styleClass="commandButton" />
+                                        
+                    &nbsp;
+                    <!--
+                    ================================
+                    |    FORGOT PASSWORD Button    |
+                    ================================
+                    -->
+                    <p:commandButton id="retrieve" value="Forgot Password" action="#{loginManager.resetPassword()}" 
+                                     styleClass="commandButton" ajax="false" icon="ui-icon-refresh" />
+                    &nbsp;
+                    <!--
+                    ================================
+                    |         CANCEL Button        |
+                    ================================
+                    -->
+                    <p:button outcome="index" value="Cancel" icon="ui-icon-cancel" styleClass="commandButton" />
+                </h:form>
+                
+            </div>
+            <br/><br/><br/>
+        </ui:define>
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>
