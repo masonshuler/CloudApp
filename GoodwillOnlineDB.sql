@@ -51,7 +51,6 @@ CREATE TABLE ItemPhoto
 );
 
 INSERT INTO Item (title, price, rating, category, size, description, date_published) VALUES
-<<<<<<< HEAD
 ('Polka Dot Slim Fit Dress Shirt', 129.00, 5.00, 'T-Shirts', 'M', 'Material is cotton/silk, slim fit.', '2018-04-18'),
 ('Diesel Brothers Shirt', 16.98, 5.00, 'T-Shirts', 'S', 'Shirt with orange and skull logo from diesel brothers', '2018-04-18'),
 ('Aston Martin Racing Shirt', 44.99, 5.00, 'T-Shirts', 'L', 'Black shirt with logos', '2018-04-18'),
