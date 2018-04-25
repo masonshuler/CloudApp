@@ -13,6 +13,7 @@ import static java.awt.SystemColor.text;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -118,7 +119,7 @@ public class AccountManager implements Serializable {
      */
     @EJB
     private UserFacade userFacade;
-    
+
     /*
     The instance variable 'userPhotoFacade' is annotated with the @EJB annotation.
     The @EJB annotation directs the EJB Container (of the GlassFish AS) to inject (store) the object reference 
@@ -147,17 +148,25 @@ public class AccountManager implements Serializable {
     public void setPasswordHash(String regPassword) {
         this.passwordHash = getHash(regPassword);
     }
-    
+
     public String getHash(String regPassword) {
         MessageDigest digest;
         String toHash = regPassword + email; //Salt!
         try {
             digest = MessageDigest.getInstance("SHA-256");
-            return new String(digest.digest(toHash.getBytes(StandardCharsets.UTF_8)));
-        } catch (NoSuchAlgorithmException ex) {
+            return new String(digest.digest(toHash.getBytes(StandardCharsets.UTF_8)), "UTF-8");
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             Logger.getLogger(AccountManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    private String bytesToHex(byte[] bytes) {
+        StringBuilder result = new StringBuilder();
+        for (byte byt : bytes) {
+            result.append(Integer.toString((byt & 0xff) + 0x100, 16).substring(1));
+        }
+        return result.toString();
     }
 
     public String getNewPasswordHash() {

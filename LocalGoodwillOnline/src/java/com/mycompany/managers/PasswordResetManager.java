@@ -7,6 +7,7 @@ package com.mycompany.managers;
 import com.mycompany.EntityBeans.User;
 import com.mycompany.FacadeBeans.UserFacade;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -89,8 +90,8 @@ public class PasswordResetManager implements Serializable {
         String toHash = regPassword + email; //Salt!
         try {
             digest = MessageDigest.getInstance("SHA-256");
-            return new String(digest.digest(toHash.getBytes(StandardCharsets.UTF_8)));
-        } catch (NoSuchAlgorithmException ex) {
+            return new String(digest.digest(toHash.getBytes(StandardCharsets.UTF_8)), "UTF-8");
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             Logger.getLogger(AccountManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
