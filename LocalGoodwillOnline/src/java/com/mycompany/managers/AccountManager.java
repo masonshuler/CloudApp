@@ -155,23 +155,7 @@ public class AccountManager implements Serializable {
     }
 
     public void setPasswordHash(String regPassword) {
-<<<<<<< HEAD
-        this.passwordHash = getHash(regPassword);
-    }
-
-    public String getHash(String regPassword) {
-        MessageDigest digest;
-        String toHash = regPassword + email; //Salt!
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-            return new String(digest.digest(toHash.getBytes(StandardCharsets.UTF_8)));
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(AccountManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-=======
         this.passwordHash = SHAHelper.getHash(regPassword, email);
->>>>>>> 593a58ce9efa9ff50ec58ebd0f6ca810b3a64f11
     }
 
     public String getNewPasswordHash() {
@@ -390,6 +374,7 @@ public class AccountManager implements Serializable {
                 newUser.setZipcode(zipcode);
                 newUser.setSecurityQuestion(securityQuestion);
                 newUser.setSecurityAnswer(securityAnswer);
+                newUser.setPhoneNumber(phoneNumber);
                 newUser.setEmail(email);
                 newUser.setPasswordHash(passwordHash);
 
@@ -457,6 +442,7 @@ public class AccountManager implements Serializable {
                 editUser.setState(this.selected.getState());
                 editUser.setZipcode(this.selected.getZipcode());
                 editUser.setEmail(this.selected.getEmail());
+                editUser.setPhoneNumber(this.selected.getPhoneNumber());
 
                 // It is optional for the user to change his/her password
                 // Note: getNewPassword() is the getter method of the newPassword
@@ -736,7 +722,7 @@ public class AccountManager implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
 
         // Reset the logged-in User's properties
-        email = passwordHash = "";
+        email = passwordHash = phoneNumber = "";
         firstName = middleName = lastName = "";
         address1 = address2 = city = state = zipcode = "";
         securityQuestion = 0;
