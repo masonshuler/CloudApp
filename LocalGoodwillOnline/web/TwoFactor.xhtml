@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Scott McGhee on 2018.02.15
+Copyright © 2018 Scott McGhee. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="template/siteTemplate.xhtml">
+        <ui:define name="title">
+            <!-- Set the page title -->
+            <h:outputText value="Two Factor"></h:outputText>
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+            <div align="center" style="width:70%; margin:0 auto;">
+                
+                <h2>Click your preference of two factor authentication and submit the code received</h2>
+                
+                <!-- Error messages will be shown here if any -->
+                <div align="center">
+                    <p:messages showIcon="false"/>
+                    <h:outputLabel id="form-error-message" class="errorMessages" 
+                                   value="#{loginManager.errorMessage}"/>
+                </div>
+                <br />
+                
+                <h:form>
+                    
+                    <!--
+                    ================================
+                    |         SMS Button       |
+                    ================================
+                    -->
+                    <p:commandButton id="sendsms" value="Send SMS" action="#{loginManager.sendSMS()}" 
+                                     styleClass="commandButton" ajax="false" icon="ui-icon-arrowthick-1-e" />
+                    &nbsp;
+                    <!--
+                    ================================
+                    |         Call Button       |
+                    ================================
+                    -->
+                    <p:commandButton id="call" value="Call" action="#{loginManager.call()}" 
+                                     styleClass="commandButton" ajax="false" icon="ui-icon-arrowthick-1-e" />
+                    &nbsp;
+                    <!--
+                    ================================
+                    |         Email Button       |
+                    ================================
+                    -->
+                    <p:commandButton id="email" value="Send Email" action="#{loginManager.email()}" 
+                                     styleClass="commandButton" ajax="false" icon="ui-icon-arrowthick-1-e" />
+                    <br/>
+                    <br/>
+                    
+                    <p:panelGrid columns="2" columnClasses="signInColumn1, signInColumn2">
+
+                        <h:outputLabel value="Authentication Code:" for="authCode" />
+                        <p:inputText id="authCode" value="#{loginManager.answerAuthCode}" required="false" styleClass="signInInputTextField"
+                                     requiredMessage="Enter two factor auth code" label="TwoFactorAuth" >
+                        </p:inputText>
+
+                    </p:panelGrid>
+                    
+                    <br/>
+                    <br/>
+                    
+                    <!--
+                    ================================
+                    |    Submit Button    |
+                    ================================
+                    -->
+                    <p:commandButton id="submit" value="Submit" action="#{loginManager.checkAuthCode()}" 
+                                     styleClass="commandButton" ajax="false" icon="ui-icon-refresh" />
+                    &nbsp;
+                    <!--
+                    ================================
+                    |         CANCEL Button        |
+                    ================================
+                    -->
+                    <p:button outcome="index" value="Cancel" icon="ui-icon-cancel" styleClass="commandButton" />
+                    
+                    &nbsp;
+                    <!--
+                    ================================
+                    |         REMOVE               |
+                    ================================
+                    -->
+                    <p:commandButton id="remove" value="REMOVE ME bypass 2Factor" action="#{loginManager.bypass()}" 
+                                     styleClass="commandButton" ajax="false" icon="ui-icon-refresh" />
+                </h:form>
+                
+            </div>
+            <br/><br/><br/>
+        </ui:define>
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

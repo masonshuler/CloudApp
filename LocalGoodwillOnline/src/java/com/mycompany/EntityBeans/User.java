@@ -55,7 +55,7 @@ public class User implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 64)
+    @Size(min = 1, max = 256)
     @Column(name = "password_hash")
     private String passwordHash;
     @Basic(optional = false)
@@ -120,6 +120,9 @@ public class User implements Serializable {
     private Collection<Item> itemCollection;
     @OneToMany(mappedBy = "userId")
     private Collection<UserPhoto> userPhotoCollection;
+    @Size(max = 15)
+    @Column(name = "auth_code")
+    private String generatedAuthCode;
 
     public User() {
     }
@@ -142,6 +145,14 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.isAdmin = isAdmin;
+    }
+
+    public String getGeneratedAuthCode() {
+        return generatedAuthCode;
+    }
+
+    public void setGeneratedAuthCode(String generatedAuthCode) {
+        this.generatedAuthCode = generatedAuthCode;
     }
 
     public Integer getId() {
@@ -306,5 +317,5 @@ public class User implements Serializable {
     public String toString() {
         return id.toString();
     }
-    
+
 }

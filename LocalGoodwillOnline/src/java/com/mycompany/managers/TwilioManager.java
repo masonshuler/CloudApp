@@ -4,10 +4,13 @@
  */
 package com.mycompany.managers;
 
-import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
 import java.util.Random;
+import java.net.URISyntaxException;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Call;
+import com.twilio.type.PhoneNumber;
 
 /**
  *
@@ -20,15 +23,14 @@ public class TwilioManager {
     private static final int MAX_VERIFICATION_CODE = 100000;
     private static final int MIN_VERIFICATION_CODE = 999999;
 
-    public TwilioManager() {
+
+    public static String sendSMSAuth(String number) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-
-    }
-
-    public String SendAuth(String number) {
-        String verCode = generateVerificationCode();
-        Message message = Message.creator(new PhoneNumber("+18044090066"),
-                new PhoneNumber("+1" + number),
+        String verCode = "Your Goodwill authentication code is:" + generateVerificationCode();
+        String from = "+18044090066";
+        String to = "+1" + number;
+        Message message = Message.creator(new PhoneNumber(to),
+                new PhoneNumber(from),
                 verCode).create();
         System.out.println(message.getSid());
         return verCode;
@@ -40,5 +42,25 @@ public class TwilioManager {
                 - MAX_VERIFICATION_CODE + 1) + MAX_VERIFICATION_CODE;
         return code.toString();
     }
+    
+    public static String sendCallAuth(String number) throws URISyntaxException {
+        String verCode = generateVerificationCode();
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
+        String from = "+18044090066";
+        String to = "+1" + number;
+        String response = "<Response>" +
+            "<Say voice=\"alice\">Your code is " + 
+                verCode + " again, your code is " + 
+                verCode + "</Say>" +
+            "</Response>";
+        
+        
+        Call call = Call.creator(new PhoneNumber(to), new PhoneNumber(from),
+                response).create();
+
+        System.out.println(call.getSid());
+        return verCode;
+    }
 }
+
