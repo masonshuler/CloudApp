@@ -9,14 +9,21 @@ import com.mycompany.EntityBeans.UserPhoto;
 
 import com.mycompany.FacadeBeans.UserFacade;
 import com.mycompany.FacadeBeans.UserPhotoFacade;
+import static java.awt.SystemColor.text;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
@@ -137,8 +144,20 @@ public class AccountManager implements Serializable {
         return passwordHash;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPasswordHash(String regPassword) {
+        this.passwordHash = getHash(regPassword);
+    }
+    
+    public String getHash(String regPassword) {
+        MessageDigest digest;
+        String toHash = regPassword + email; //Salt!
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+            return new String(digest.digest(toHash.getBytes(StandardCharsets.UTF_8)));
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AccountManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public String getNewPasswordHash() {
@@ -677,7 +696,7 @@ public class AccountManager implements Serializable {
             statusMessage = "Please enter a password!";
             return false;
 
-        } else if (verifyPassword.equals(passwordHash)) {
+        } else if (getHash(verifyPassword).equals(passwordHash)) {
             // Correct password is entered
             return true;
 

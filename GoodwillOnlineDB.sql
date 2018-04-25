@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS UserPhoto, ItemPhoto, Item, User;
 CREATE TABLE User
 (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    password_hash VARCHAR (64) NOT NULL,
+    password_hash VARCHAR (256) NOT NULL,
     first_name VARCHAR (32) NOT NULL,
     middle_name VARCHAR (32),
     last_name VARCHAR (32) NOT NULL,
@@ -15,9 +15,9 @@ CREATE TABLE User
     security_question INT NOT NULL, /* Refers to the number of the selected security question */
     security_answer VARCHAR (128) NOT NULL,
     email VARCHAR (128) NOT NULL,
-    phone_number VARCHAR (10),      
-    PRIMARY KEY (id),
-    is_admin BIT NOT NULL
+    phone_number VARCHAR (10),    
+    isAdmin BIT NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE UserPhoto

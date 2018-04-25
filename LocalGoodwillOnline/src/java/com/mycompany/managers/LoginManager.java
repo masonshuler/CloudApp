@@ -7,6 +7,11 @@ package com.mycompany.managers;
 import com.mycompany.EntityBeans.User;
 import com.mycompany.FacadeBeans.UserFacade;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -58,8 +63,20 @@ public class LoginManager implements Serializable {
         return passwordHash;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPasswordHash(String regPassword) {
+        this.passwordHash = getHash(regPassword);
+    }
+
+    public String getHash(String regPassword) {
+        MessageDigest digest;
+        String toHash = regPassword + email; //Salt!
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+            return new String(digest.digest(toHash.getBytes(StandardCharsets.UTF_8)));
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AccountManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public String getErrorMessage() {
