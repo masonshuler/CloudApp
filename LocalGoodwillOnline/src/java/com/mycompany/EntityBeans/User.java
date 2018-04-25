@@ -128,7 +128,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String passwordHash, String firstName, String lastName, String address1, String city, String state, String zipcode, int securityQuestion, String securityAnswer, String email, boolean isAdmin) {
+    public User(Integer id, String passwordHash, String firstName, String lastName, String address1, String city, String state, String zipcode, int securityQuestion, String securityAnswer, String phoneNumber, String email, boolean isAdmin) {
         this.id = id;
         this.passwordHash = passwordHash;
         this.firstName = firstName;
@@ -139,6 +139,7 @@ public class User implements Serializable {
         this.zipcode = zipcode;
         this.securityQuestion = securityQuestion;
         this.securityAnswer = securityAnswer;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.isAdmin = isAdmin;
     }
