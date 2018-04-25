@@ -99,6 +99,7 @@ public class AccountManager implements Serializable {
     private String city;
     private String state;
     private String zipcode;
+    private String phoneNumber;
 
     private int securityQuestion;
     private String securityAnswer;
@@ -118,7 +119,7 @@ public class AccountManager implements Serializable {
      */
     @EJB
     private UserFacade userFacade;
-    
+
     /*
     The instance variable 'userPhotoFacade' is annotated with the @EJB annotation.
     The @EJB annotation directs the EJB Container (of the GlassFish AS) to inject (store) the object reference 
@@ -136,6 +137,14 @@ public class AccountManager implements Serializable {
     Getter and Setter Methods
     =========================
      */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String[] getListOfStates() {
         return listOfStates;
     }
@@ -147,7 +156,7 @@ public class AccountManager implements Serializable {
     public void setPasswordHash(String regPassword) {
         this.passwordHash = getHash(regPassword);
     }
-    
+
     public String getHash(String regPassword) {
         MessageDigest digest;
         String toHash = regPassword + email; //Salt!
