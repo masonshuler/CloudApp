@@ -4,6 +4,7 @@ import com.mycompany.EntityBeans.Item;
 import com.mycompany.controllers.util.JsfUtil;
 import com.mycompany.controllers.util.JsfUtil.PersistAction;
 import com.mycompany.FacadeBeans.ItemFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,15 +19,20 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ActionEvent;
 
 @Named("itemController")
 @SessionScoped
 public class ItemController implements Serializable {
 
     @EJB
-    private com.mycompany.FacadeBeans.ItemFacade ejbFacade;
+    private ItemFacade itemFacade;
     private List<Item> items = null;
     private Item selected;
+
+    private String searchString;
+    private String searchField;
+    private List<Item> searchItems = null;
 
     public ItemController() {
     }
@@ -39,14 +45,88 @@ public class ItemController implements Serializable {
         this.selected = selected;
     }
 
+    public String getSearchString() {
+        return searchString;
+    }
+
+    public void setSearchString(String searchString) {
+        this.searchString = searchString;
+    }
+
+    public String getSearchField() {
+        return searchField;
+    }
+
+    public void setSearchField(String searchField) {
+        this.searchField = searchField;
+    }
+
     protected void setEmbeddableKeys() {
     }
 
     protected void initializeEmbeddableKey() {
     }
 
-    private ItemFacade getFacade() {
-        return ejbFacade;
+    private ItemFacade getItemFacade() {
+        return itemFacade;
+    }
+    
+    /*
+     ********************************************
+     *   Display List.xhtml JSF Facelets Page   *
+     ********************************************
+     */
+    public String goBackToList() {
+        // Unselect a videoselected in search results if any before showing the List page
+        selected = null;
+        searchString = null;
+        return "List?faces-redirect=true";
+    }
+    
+    /*
+     *************************************************************************
+     *   Search searchString in searchField and Return the Search Results    *
+     *************************************************************************
+     Return the list of object references of all those videos where the search
+     string 'searchString' entered by the user is contained in the searchField.
+     */
+    public List<Item> getSearchItems() {
+        System.out.println("SearchItems");
+        switch (searchField) {
+            case "Item Title":
+                searchItems = getItemFacade().titleQuery(searchString);
+                break;
+            case "Item Description":
+                searchItems = getItemFacade().descriptionQuery(searchString);
+                break;
+            case "Item Category":
+                searchItems = getItemFacade().categoryQuery(searchString);
+                break;
+            case "All":
+                searchItems = getItemFacade().allQuery(searchString);
+                break;
+            default:
+                return searchItems;
+        }
+        searchField = "";
+        return searchItems;
+    }
+
+    /*
+     ********************************************
+     *   Display the SearchResults.xhtml Page   *
+     ********************************************
+     */
+    /**
+     * @SessionScoped enables to preserve the values of the instance variables for the SearchResults.xhtml page to access.
+     *
+     * @param actionEvent refers to clicking the Submit button
+     * @throws IOException if the page to be redirected to cannot be found
+     */
+    public void search(ActionEvent actionEvent) throws IOException {
+        // Unselect previously selected video if any before showing the search results
+        selected = null;
+        FacesContext.getCurrentInstance().getExternalContext().redirect("SearchResults.xhtml");
     }
 
     public Item prepareCreate() {
@@ -76,7 +156,7 @@ public class ItemController implements Serializable {
 
     public List<Item> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getItemFacade().findAll();
         }
         return items;
     }
@@ -86,9 +166,9 @@ public class ItemController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    getItemFacade().edit(selected);
                 } else {
-                    getFacade().remove(selected);
+                    getItemFacade().remove(selected);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
@@ -110,15 +190,15 @@ public class ItemController implements Serializable {
     }
 
     public Item getItem(java.lang.Integer id) {
-        return getFacade().find(id);
+        return getItemFacade().find(id);
     }
 
     public List<Item> getItemsAvailableSelectMany() {
-        return getFacade().findAll();
+        return getItemFacade().findAll();
     }
 
     public List<Item> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        return getItemFacade().findAll();
     }
 
     @FacesConverter(forClass = Item.class)
