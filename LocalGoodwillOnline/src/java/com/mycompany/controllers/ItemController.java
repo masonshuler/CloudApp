@@ -1,12 +1,16 @@
 package com.mycompany.controllers;
 
 import com.mycompany.EntityBeans.Item;
+import com.mycompany.EntityBeans.User;
 import com.mycompany.controllers.util.JsfUtil;
 import com.mycompany.controllers.util.JsfUtil.PersistAction;
 import com.mycompany.FacadeBeans.ItemFacade;
+import com.mycompany.FacadeBeans.UserFacade;
+import com.mycompany.managers.AccountManager;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,8 +31,12 @@ public class ItemController implements Serializable {
 
     @EJB
     private ItemFacade itemFacade;
+    @EJB
+    private UserFacade userFacade;
     private List<Item> items = null;
+    private List<Item> reservedItems = null;
     private Item selected;
+    HashMap<Integer, String> cleanedItemHashMap = null;
 
     private String searchString;
     private String searchField;
@@ -80,7 +88,7 @@ public class ItemController implements Serializable {
         // Unselect a videoselected in search results if any before showing the List page
         selected = null;
         searchString = null;
-        return "List?faces-redirect=true";
+        return "/publicItem/List?faces-redirect=true";
     }
     
     /*
@@ -128,6 +136,27 @@ public class ItemController implements Serializable {
         selected = null;
         FacesContext.getCurrentInstance().getExternalContext().redirect("SearchResults.xhtml");
     }
+    
+    public void reserve(AccountManager accountManager) {
+        if (!accountManager.isLoggedIn()) {
+            persist(PersistAction.SHARE, "Cannot reserve the Item since No User is Signed In!");
+        }
+        else {
+            items = null;
+            reservedItems = null;
+            selected.setReservedUser(accountManager.getSelected());
+            persist(PersistAction.SHARE, ResourceBundle.getBundle("/Bundle").getString("ItemReserved"));
+        }
+    }
+    
+    public void unreserve() {
+        System.out.println("ITEMCONTROLLER: Unreserving");
+        items = null;
+        reservedItems = null;
+        selected.setReservedUser(null);
+        System.out.println("ITEMCONTROLLER: User set to null");
+        persist(PersistAction.SHARE, ResourceBundle.getBundle("/Bundle").getString("ItemUnreserved"));
+    }
 
     public Item prepareCreate() {
         selected = new Item();
@@ -138,6 +167,7 @@ public class ItemController implements Serializable {
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ItemCreated"));
         if (!JsfUtil.isValidationFailed()) {
+            selected = null;
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
@@ -159,6 +189,31 @@ public class ItemController implements Serializable {
             items = getItemFacade().findAll();
         }
         return items;
+    }
+    
+    private UserFacade getUserFacade() {
+        return userFacade;
+    }
+    
+    public List<Item> getReservedItems() {
+        if (reservedItems == null) {
+            String emailOfSignedInUser = (String) FacesContext.getCurrentInstance()
+                    .getExternalContext().getSessionMap().get("email");
+            User signedInUser = getUserFacade().findByEmail(emailOfSignedInUser);
+            Integer userId = signedInUser.getId();
+            reservedItems = getItemFacade().findReservedItemsByUserID(userId);
+            cleanedItemHashMap = new HashMap<>();
+            
+            for (int i = 0; i < reservedItems.size(); i++) {
+
+                String storedItemName = reservedItems.get(i).getTitle();
+
+                Integer itemId = reservedItems.get(i).getId();
+
+                cleanedItemHashMap.put(itemId, storedItemName);
+            }
+        }
+        return reservedItems;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
