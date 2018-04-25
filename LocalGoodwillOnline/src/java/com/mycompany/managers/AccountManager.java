@@ -146,27 +146,7 @@ public class AccountManager implements Serializable {
     }
 
     public void setPasswordHash(String regPassword) {
-        this.passwordHash = getHash(regPassword);
-    }
-
-    public String getHash(String regPassword) {
-        MessageDigest digest;
-        String toHash = regPassword + email; //Salt!
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-            return new String(digest.digest(toHash.getBytes(StandardCharsets.UTF_8)), "UTF-8");
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-            Logger.getLogger(AccountManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    private String bytesToHex(byte[] bytes) {
-        StringBuilder result = new StringBuilder();
-        for (byte byt : bytes) {
-            result.append(Integer.toString((byt & 0xff) + 0x100, 16).substring(1));
-        }
-        return result.toString();
+        this.passwordHash = SHAHelper.getHash(regPassword, email);
     }
 
     public String getNewPasswordHash() {
@@ -705,7 +685,7 @@ public class AccountManager implements Serializable {
             statusMessage = "Please enter a password!";
             return false;
 
-        } else if (getHash(verifyPassword).equals(passwordHash)) {
+        } else if (SHAHelper.getHash(verifyPassword, email).equals(passwordHash)) {
             // Correct password is entered
             return true;
 
