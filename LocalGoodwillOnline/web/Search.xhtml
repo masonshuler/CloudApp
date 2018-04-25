@@ -29,22 +29,22 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                         <!-- 
                         At least 1 character to be searched under the selected category are entered here. 
                         -->
-                        <p:inputText id="searchString" value="#{searchedItemController.searchString}" 
+                        <p:inputText id="searchString" value="#{itemController.searchString}" 
                                      required="true" requiredMessage="Please enter a search string!"
                                      placeholder="Enter search string" >
                             <f:validateLength minimum="1" />
                         </p:inputText>
                         
                         <!-- Search category is selected here. -->
-                        <p:selectOneMenu id="searchField" value="#{searchedItemController.searchField}"
+                        <p:selectOneMenu id="searchField" value="#{itemController.searchField}"
                                          required="true" requiredMessage="Please select a category!" >
 
                             <f:selectItem itemLabel="Select Category" itemValue="" 
                                           noSelectionOption="true"/>
                             <f:selectItem itemLabel="All" itemValue="All"/>
-                            <f:selectItem itemLabel="Video Title" itemValue="Video Title"/>
-                            <f:selectItem itemLabel="Video Description" itemValue="Video Description"/>
-                            <f:selectItem itemLabel="Video Category" itemValue="Video Category"/>
+                            <f:selectItem itemLabel="Item Title" itemValue="Item Title"/>
+                            <f:selectItem itemLabel="Item Description" itemValue="Item Description"/>
+                            <f:selectItem itemLabel="Item Category" itemValue="Item Category"/>
 
                         </p:selectOneMenu>
                         
@@ -56,7 +56,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                             <!-- SUBMIT button -->
                             <p:commandButton value="Submit" icon="ui-icon-check" 
                                              ajax="false" styleClass="commandButton" 
-                                             actionListener="#{searchedItemController.search}"/> 
+                                             actionListener="#{itemController.search}"/> 
                             &nbsp;
                             <!-- CANCEL button -->
                             <p:commandButton value="#{bundle.Cancel}" onclick="PF('ItemSearchDialog').hide()"    
