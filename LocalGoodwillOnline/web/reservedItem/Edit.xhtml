@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Created by Scott McGhee on 2018.03.22
+Copyright © 2018 Scott McGhee. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ItemEditDlg" widgetVar="ItemEditDialog" modal="true" 
+                  resizable="false" appendTo="@(body)" header="#{bundle.EditItemTitle}">
+            <h:form id="ItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="columnOne, columnTwo" 
+                                 rendered="#{itemController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditItemLabel_title}" 
+                                       for="title" />
+                        <p:inputText id="title" value="#{itemController.selected.title}" 
+                                     title="#{bundle.EditItemTitle_title}" 
+                                     requiredMessage="#{bundle.EditItemRequiredMessage_title}"
+                                     style="width: 550px;" />
+                        
+                        <p:outputLabel value="#{bundle.EditItemLabel_description}" 
+                                       for="description" />
+                        <p:inputText id="description" value="#{itemController.selected.description}" 
+                                     title="#{bundle.EditItemTitle_description}"
+                                     requiredMessage="#{bundle.EditItemRequiredMessage_description}"
+                                     style="width: 550px;" />
+                        
+                        <p:outputLabel value="Size:" 
+                                       for="size" />
+                        <p:inputText id="size" value="#{itemController.selected.size}" 
+                                     title="Size: " 
+                                     requiredMessage="The Size field is required."/>
+                        
+                        <p:outputLabel value="#{bundle.EditItemLabel_price}" 
+                                       for="price" />
+                        <p:inputText id="price" value="#{itemController.selected.price}" 
+                                     title="#{bundle.EditItemTitle_price}" 
+                                     requiredMessage="#{bundle.EditItemRequiredMessage_price}"/>
+                        
+                        <p:outputLabel value="#{bundle.EditItemLabel_rating}" 
+                                       for="rating" />
+                        <p:inputText id="rating" value="#{itemController.selected.rating}" 
+                                     title="#{bundle.EditItemTitle_rating}" 
+                                     requiredMessage="#{bundle.EditItemRequiredMessage_rating}">
+                            <f:validateDoubleRange minimum="0.0" maximum="10.0" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.EditItemLabel_datePublished}" 
+                                       for="datePublished" />
+                        <p:calendar id="datePublished" pattern="MM/dd/yyyy" value="#{itemController.selected.datePublished}" 
+                                    title="#{bundle.EditItemTitle_datePublished}" 
+                                    requiredMessage="#{bundle.EditItemRequiredMessage_datePublished}" 
+                                    showOn="button"/>
+                        
+                        <p:outputLabel value="#{bundle.EditItemLabel_category}" 
+                                       for="category" />
+                        <!-- Drop down menu for category -->
+                        <p:selectOneMenu id="category" value="#{itemController.selected.category}" 
+                                         requiredMessage="#{bundle.CreateItemRequiredMessage_category}">
+                            <f:selectItem itemLabel="Select Item Category" itemValue="" 
+                                          noSelectionOption="true"/>
+                            <f:selectItem itemLabel="T-Shirts" itemValue="T-Shirts" />
+                            <f:selectItem itemLabel="Pants" itemValue="Pants" />
+                            <f:selectItem itemLabel="Casual Shirts" itemValue="Casual Shirts" />
+                            <f:selectItem itemLabel="Dress Shirts" itemValue="Dress Shirts" />
+                            <f:selectItem itemLabel="Athletic Apparel" itemValue="Athletic Apparel" />
+                            <f:selectItem itemLabel="Sweats &amp; Hoodies" itemValue="Sweats &amp; Hoodies" />
+                            <f:selectItem itemLabel="Sweaters" itemValue="Sweaters" />
+                            <f:selectItem itemLabel="Coats &amp; Jackets" itemValue="Coats &amp; Jackets" />
+                            <f:selectItem itemLabel="Dresses" itemValue="Dresses" />
+                            <f:selectItem itemLabel="Tops &amp; Blouses" itemValue="Tops &amp; Blouses" />
+                            <f:selectItem itemLabel="Jumpsuits &amp; Rompers" itemValue="Jumpsuits &amp; Rompers" />
+                            <f:selectItem itemLabel="Leggings" itemValue="Leggings" />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                </h:panelGroup>
+                <br />
+                <h:panelGroup>
+                    <div align="center">
+                        <!-- SAVE button -->
+                        <p:commandButton actionListener="#{itemController.update}" 
+                                         value="#{bundle.Save}" styleClass="commandButton" 
+                                         icon="ui-icon-disk" ajax="false" update="display,:ItemListForm:datalist,:growl" 
+                                         oncomplete="handleSubmit(args, 'ItemEditDialog');"/>
+                        &nbsp;
+                        <!-- CANCEL button -->
+                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('ItemEditDialog').hide()" 
+                                         styleClass="commandButton" icon="ui-icon-cancel"/>
+                    </div>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

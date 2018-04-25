@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Created by Scott McGhee on 2018.03.22
+Copyright © 2018 Scott McGhee. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/siteTemplate.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Search Results"></h:outputText>
+        </ui:define>
+
+        <ui:define name="editableContent">
+            <div align="center" style="width:97%">
+                <!--
+                PrimeFaces Growl displays messages in an overlay. Place p:growl anywhere on your JSF page. 
+                The location of growl in a JSF page does not matter since the messages are displayed
+                as an overlay. The following will display the messages for 5 seconds and then fade away.
+                -->
+                <p:growl id="growl" life="5000" />
+                <h:form id="ItemListForm">
+                    <p:panel header="Search Results for Public Favorite YouTube Videos">
+                        <p:dataTable id="datalist" value="#{itemController.getSearchItems()}" var="item"
+                                     selectionMode="single" selection="#{itemController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,20,30,40,50"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton backButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton backButton"/>
+
+                            <p:column sortBy="#{item.title}" style="width: 100px;">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_title}"/>
+                                </f:facet>
+                                <div align="left">
+                                    <h:outputText value="#{item.title}"/>
+                                </div>
+                            </p:column>
+
+                            <p:column style="width: 250px;">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_description}"/>
+                                </f:facet>
+                                <div align="left">
+                                    <h:outputText value="#{item.description}"/>
+                                </div>
+                            </p:column>
+
+                            <p:column sortBy="#{item.size}" style="width: 80px;">
+                                <f:facet name="header">
+                                    <h:outputText value="Size: "/>
+                                </f:facet>
+                                <div align="center">
+                                    <h:outputText value="#{item.size}"/>
+                                </div>
+                            </p:column>
+                            
+                            <p:column sortBy="#{item.price}" style="width: 80px;">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_price}"/>
+                                </f:facet>
+                                <div align="center">
+                                    <h:outputText value="#{item.price}"/>
+                                </div>
+                            </p:column>
+                            
+                            <p:column sortBy="#{item.rating}" style="width: 80px;">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_rating}"/>
+                                </f:facet>
+                                <div align="center">
+                                    <h:outputText value="#{item.rating}"/>
+                                </div>
+                            </p:column>
+
+                            <p:column sortBy="#{item.datePublished}" style="width: 80px;">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_datePublished}"/>
+                                </f:facet>
+                                <div align="center">
+                                    <h:outputText value="#{item.datePublished}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </div>
+                            </p:column>
+
+                            <p:column sortBy="#{item.category}" style="width: 80px;">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_category}"/>
+                                </f:facet>
+                                <div align="center">
+                                    <h:outputText value="#{item.category}"/>
+                                </div>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"
+                                                 value="#{bundle.Create}" actionListener="#{itemController.prepareCreate}" 
+                                                 update=":ItemCreateForm" oncomplete="PF('ItemCreateDialog').show()"
+                                                 styleClass="commandButton" />
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" 
+                                                 value="#{bundle.View}" update=":ItemViewForm" 
+                                                 oncomplete="PF('ItemViewDialog').show()" 
+                                                 disabled="#{empty itemController.selected}" 
+                                                 styleClass="commandButton"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" 
+                                                 value="#{bundle.Edit}" update=":ItemEditForm" 
+                                                 oncomplete="PF('ItemEditDialog').show()" 
+                                                 disabled="#{empty itemController.selected}"
+                                                 styleClass="commandButton" />
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  
+                                                 value="#{bundle.Delete}" actionListener="#{itemController.destroy}" 
+                                                 update=":growl,datalist" disabled="#{empty itemController.selected}"
+                                                 styleClass="commandButton" >
+                                    <p:confirm header="Confirmation" 
+                                               message="Are you sure you want to permanently delete the selected video from the database?" 
+                                               icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                                <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                    <div align="center">
+                                        <!-- The value of the first button listed below will be shown as 
+                                        highlighted (default action) when displayed -->
+                                        <p:commandButton value="No" type="button" 
+                                                         styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                        &nbsp;
+                                        <p:commandButton value="Yes" type="button" 
+                                                         styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    </div>
+                                </p:confirmDialog>
+                                
+                                <p:commandButton id="backButton" icon="ui-icon-arrowreturn-1-w"  
+                                                 value="Go Back" styleClass="commandButton"
+                                                 action="List" ajax="false" immediate="true"
+                                                 actionListener="#{itemController.goBackToList()}" />
+
+                            </f:facet>
+
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </div>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

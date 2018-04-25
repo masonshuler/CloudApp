@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Created by Scott McGhee on 2018.03.22
+Copyright © 2018 Scott McGhee. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ItemViewDlg" widgetVar="ItemViewDialog" modal="true" 
+                  resizable="false" appendTo="@(body)" header="#{bundle.ViewItemTitle}">
+            <h:form id="ItemViewForm">
+                <div align="center">
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="accountColumn1, accountColumn2View" 
+                                     rendered="#{itemController.selected != null}" >
+
+                            <h:outputText value="#{bundle.ViewItemLabel_title}"/>
+                            <h:outputText value="#{itemController.selected.title}" 
+                                          title="#{bundle.ViewItemTitle_title}" />
+
+                            <h:outputText value="#{bundle.ViewItemLabel_description}"/>
+                            <h:outputText value="#{itemController.selected.description}" 
+                                          title="#{bundle.ViewItemTitle_description}" />
+
+                            <h:outputText value="Size: "/>
+                            <h:outputText value="#{itemController.selected.size}" 
+                                          title="Size: "/>
+
+                            <h:outputText value="#{bundle.ViewItemLabel_price}"/>
+                            <h:outputText value="#{itemController.selected.price}" 
+                                          title="#{bundle.ViewItemTitle_price}"/>
+                            
+                            <h:outputText value="#{bundle.ViewItemLabel_rating}"/>
+                            <h:outputText value="#{itemController.selected.rating}" 
+                                          title="#{bundle.ViewItemTitle_rating}"/>
+
+                            <h:outputText value="#{bundle.ViewItemLabel_datePublished}"/>
+                            <h:outputText value="#{itemController.selected.datePublished}" 
+                                          title="#{bundle.ViewItemTitle_datePublished}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+
+                            <h:outputText value="#{bundle.ViewItemLabel_category}"/>
+                            <h:outputText value="#{itemController.selected.category}" 
+                                          title="#{bundle.ViewItemTitle_category}"/>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <br />
+                    <h:panelGroup>
+                        <!-- CLOSE button -->
+                        <p:commandButton value="#{bundle.Close}" onclick="PF('ItemViewDialog').hide()" 
+                                         styleClass="commandButton" icon="ui-icon-close"/>
+                    </h:panelGroup>
+                </div>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
