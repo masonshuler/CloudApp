@@ -115,13 +115,13 @@ public class PasswordResetManager implements Serializable {
             message = "Entered username does not exist!";
 
             // Redirect to show the EnterUsername page
-            return "EnterEmail?faces-redirect=true";
+            return "/EnterEmail?faces-redirect=true";
         } else {
             // Entered username exists
             message = "";
 
             // Redirect to show the SecurityQuestion page
-            return "SecurityQuestion?faces-redirect=true";
+            return "/SecurityQuestion?faces-redirect=true";
         }
     }
 
@@ -139,13 +139,13 @@ public class PasswordResetManager implements Serializable {
             message = "";
 
             // Redirect to show the ResetPassword page
-            return "ResetPassword?faces-redirect=true";
+            return "/ResetPassword?faces-redirect=true";
         } else {
             // Answer to the security question is wrong
             message = "Security question answer is incorrect!";
 
             // Redirect to show the SecurityQuestion page
-            return "SecurityQuestion?faces-redirect=true";
+            return "/SecurityQuestion?faces-redirect=true";
         }
     }
 
@@ -231,15 +231,15 @@ public class PasswordResetManager implements Serializable {
                 message = "Something went wrong while resetting your password, please try again!";
 
                 // Redirect to show the ResetPassword page
-                return "ResetPassword?faces-redirect=true";
+                return "/ResetPassword?faces-redirect=true";
             }
 
             // Redirect to show the index (Home) page
-            return "index?faces-redirect=true";
+            return "/index?faces-redirect=true";
 
         } else {
             // Redirect to show the ResetPassword page
-            return "ResetPassword?faces-redirect=true";
+            return "/ResetPassword?faces-redirect=true";
         }
     }
 

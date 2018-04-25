@@ -29,9 +29,9 @@ Copyright © 2018 Osman Balci. All rights reserved.
                     max-height and max-width make the image shrink when the browser window size shrinks.
                     -->
                     <td align="left" valign="middle">
-                        <h:link outcome="index"><img src="resources/images/goodwillLogo.PNG"
-                                                     style="width:100%; height:100%; max-height:70px; max-width:90px; border: none"
-                                                     alt="Goodwill Logo" />
+                        <h:link outcome="/index"><img src="#{resource['images:goodwillLogo.PNG']}"
+                                                      style="width:100%; height:100%; max-height:70px; max-width:90px; border: none"
+                                                      alt="Goodwill Logo" />
                         </h:link>
                     </td>
 
@@ -51,14 +51,14 @@ Copyright © 2018 Osman Balci. All rights reserved.
                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
                     -->
                     <td align="right" valign="middle">
-                        <h:link outcome="index" styleClass="arialTen" style="color: white">
+                        <h:link outcome="/index" styleClass="arialTen" style="color: white">
                             Home
                         </h:link>&nbsp;&nbsp;
 
-                        <h:link outcome="List" styleClass="arialTen" style="color: white">
-                           Items
+                        <h:link outcome="/publicItem/List" styleClass="arialTen" style="color: white">
+                            Items
                         </h:link>&nbsp;&nbsp;
-                        
+
                         <!-- "Sign Out" and "My Account" if a user is signed in -->
                         <c:if test="#{accountManager.isLoggedIn() == true}">
                             <!-- Clicking "Sign Out" invokes accountManager's logout() method -->
@@ -66,21 +66,25 @@ Copyright © 2018 Osman Balci. All rights reserved.
                                 <i class="fa fa-sign-out">&nbsp;</i>Sign Out
                             </h:commandLink>&nbsp;&nbsp;
 
+                            <h:link outcome="/reservedItem/List" styleClass="arialTen" style="color: white">
+                                Reserved Items
+                            </h:link>&nbsp;&nbsp;
+
                             <!-- Clicking "My Account" displays the Profile.xhtml file -->
-                            <h:link outcome="Profile" styleClass="arialTen" style="color: white">
-                                <h:graphicImage class="headerUserPhoto" value="#{accountManager.userPhoto()}" />&nbsp;My Account
+                            <h:link outcome="/Profile" styleClass="arialTen" style="color: white">
+                                <h:graphicImage class="headerUserPhoto" value="/#{accountManager.userPhoto()}" />&nbsp;My Account
                             </h:link>&nbsp;&nbsp;
                         </c:if>
-                        
+
                         <!-- "Sign In" and "Create an Account" if no user is signed in -->
                         <c:if test="#{accountManager.isLoggedIn() == false}">
                             <!-- Clicking "Sign In" displays the SignIn.xhtml file -->
-                            <h:link outcome="SignIn" styleClass="arialTen" style="color: white">
+                            <h:link outcome="/SignIn" styleClass="arialTen" style="color: white">
                                 Sign In
                             </h:link>&nbsp;&nbsp;
 
                             <!-- Clicking "My Account" displays the Profile.xhtml file -->
-                            <h:link outcome="CreateAccount" styleClass="arialTen" style="color: white">
+                            <h:link outcome="/CreateAccount" styleClass="arialTen" style="color: white">
                                 Create an Account
                             </h:link>&nbsp;&nbsp;
                         </c:if>
