@@ -22,8 +22,8 @@ public final class Constants {
         Therefore, we use the following two external directories 
         for the storage and retrieval of user's files.
      */
-    public static final String ITEMS_ABSOLUTE_PATH = "C:/Users/Mason/Documents/NetBeansProjects/CloudApp/ItemPhotoStorage/";
-    public static final String PHOTOS_ABSOLUTE_PATH = "C:/Users/Mason/Documents/NetBeansProjects/CloudApp/UserPhotoStorage/";
+    public static final String ITEMS_ABSOLUTE_PATH = "/Users/matttuckman/Documents/CloudProject/CloudApp/ItemPhotoStorage/";
+    public static final String PHOTOS_ABSOLUTE_PATH = "/Users/matttuckman/Documents/CloudProject/CloudApp/UserPhotoStorage/";
 
     /*
     In glassfish-web.xml file, we designated the '/CloudStorage/' directory as the
