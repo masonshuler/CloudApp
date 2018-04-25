@@ -108,4 +108,23 @@ public class ItemFacade extends AbstractFacade<Item> {
         return getEntityManager().createQuery("SELECT c FROM Item c WHERE c.title LIKE :searchString OR c.description LIKE :searchString OR c.category LIKE :searchString").setParameter("searchString", searchString).getResultList();
     }
     
+    /**
+     *
+     * @param userID is the Primary Key of the user entity in the database
+     * @return a list of object references of userFiles that belong to the user whose DB Primary Key = userID
+     */
+    public List<Item> findReservedItemsByUserID(Integer userID) {
+        /*
+        The following @NamedQuery definition is given in UserFile.java entity class file:
+        @NamedQuery(name = "UserFile.findUserFilesByUserId", query = "SELECT u FROM UserFile u WHERE u.userId.id = :userId")
+        
+        The following statement obtaines the results from the named database query.
+         */
+        List<Item> reservedItems = em.createNamedQuery("Item.findReservedItemByUserId")
+                .setParameter("userId", userID)
+                .getResultList();
+
+        return reservedItems;
+    }
+    
 }

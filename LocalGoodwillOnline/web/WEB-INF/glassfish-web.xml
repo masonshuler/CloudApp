@@ -22,5 +22,9 @@ Copyright © 2018 Scott McGhee. All rights reserved.
     requests for certain resources from outside their own docroot"
     See page C-46 in [https://glassfish.java.net/docs/4.0/application-deployment-guide.pdf]
   -->
+<<<<<<< HEAD
   <property name="alternatedocroot_1" value="from=/CloudApp/* dir=/Users/matttuckman/Documents/CloudProject/" />
+=======
+  <property name="alternatedocroot_1" value="from=/CloudApp/* dir=/Users/emcghee/NetBeansProjects" />
+>>>>>>> 23888e953d37238569a531a272ebf29a9d1ec504
 </glassfish-web-app>

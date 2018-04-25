@@ -88,13 +88,13 @@ public class LoginManager implements Serializable {
     public String createUser() {
 
         // Redirect to show the CreateAccount page
-        return "CreateAccount.xhtml?faces-redirect=true";
+        return "/CreateAccount.xhtml?faces-redirect=true";
     }
 
     public String resetPassword() {
 
         // Redirect to show the EnterEmail page
-        return "EnterEmail.xhtml?faces-redirect=true";
+        return "/EnterEmail.xhtml?faces-redirect=true";
     }
 
     /*
@@ -133,7 +133,7 @@ public class LoginManager implements Serializable {
             initializeSessionMap(user);
 
             // Redirect to show the Profile page
-            return "Profile.xhtml?faces-redirect=true";
+            return "/Profile.xhtml?faces-redirect=true";
         }
     }
 

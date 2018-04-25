@@ -348,6 +348,6 @@ public class PhotoCameraController implements Serializable {
      */
     public String redo() {
         filename = "";
-        return "ChangePhoto?faces-redirect=true";
+        return "/ChangePhoto?faces-redirect=true";
     }
 }

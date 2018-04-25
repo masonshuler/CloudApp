@@ -39,9 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Item.findByTitle", query = "SELECT i FROM Item i WHERE i.title = :title")
     , @NamedQuery(name = "Item.findByPrice", query = "SELECT i FROM Item i WHERE i.price = :price")
     , @NamedQuery(name = "Item.findByRating", query = "SELECT i FROM Item i WHERE i.rating = :rating")
+    , @NamedQuery(name = "Item.findBySize", query = "SELECT i FROM Item i WHERE i.size = :size")
     , @NamedQuery(name = "Item.findByCategory", query = "SELECT i FROM Item i WHERE i.category = :category")
     , @NamedQuery(name = "Item.findByDescription", query = "SELECT i FROM Item i WHERE i.description = :description")
-    , @NamedQuery(name = "Item.findByDatePublished", query = "SELECT i FROM Item i WHERE i.datePublished = :datePublished")})
+    , @NamedQuery(name = "Item.findByDatePublished", query = "SELECT i FROM Item i WHERE i.datePublished = :datePublished")
+    , @NamedQuery(name = "Item.findReservedItemByUserId", query = "SELECT u FROM Item u WHERE u.reservedUser.id = :userId")})
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
