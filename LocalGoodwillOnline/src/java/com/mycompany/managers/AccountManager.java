@@ -337,7 +337,9 @@ public class AccountManager implements Serializable {
     
     public boolean isAdmin(){
         if(isLoggedIn()){
-            return (boolean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("isAdmin");
+            String currUserEmail = (String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("email");
+            User currUser = getUserFacade().findByEmail(currUserEmail);
+            return currUser.getIsAdmin();
         }
         return false;
     }
