@@ -7,6 +7,7 @@ package com.mycompany.managers;
 import com.mycompany.EntityBeans.User;
 import com.mycompany.FacadeBeans.UserFacade;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -64,19 +65,7 @@ public class LoginManager implements Serializable {
     }
 
     public void setPasswordHash(String regPassword) {
-        this.passwordHash = getHash(regPassword);
-    }
-
-    public String getHash(String regPassword) {
-        MessageDigest digest;
-        String toHash = regPassword + email; //Salt!
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-            return new String(digest.digest(toHash.getBytes(StandardCharsets.UTF_8)));
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(AccountManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        this.passwordHash = SHAHelper.getHash(regPassword, email);
     }
 
     public String getErrorMessage() {
@@ -99,13 +88,13 @@ public class LoginManager implements Serializable {
     public String createUser() {
 
         // Redirect to show the CreateAccount page
-        return "CreateAccount.xhtml?faces-redirect=true";
+        return "/CreateAccount.xhtml?faces-redirect=true";
     }
 
     public String resetPassword() {
 
         // Redirect to show the EnterEmail page
-        return "EnterEmail.xhtml?faces-redirect=true";
+        return "/EnterEmail.xhtml?faces-redirect=true";
     }
 
     /*
@@ -144,7 +133,7 @@ public class LoginManager implements Serializable {
             initializeSessionMap(user);
 
             // Redirect to show the Profile page
-            return "Profile.xhtml?faces-redirect=true";
+            return "/Profile.xhtml?faces-redirect=true";
         }
     }
 

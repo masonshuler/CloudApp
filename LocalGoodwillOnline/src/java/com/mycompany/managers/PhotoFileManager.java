@@ -107,7 +107,7 @@ public class PhotoFileManager implements Serializable {
      */
     public String clearErrorMessage() {
         message = "";
-        return "ChangePhoto?faces-redirect=true";
+        return "/ChangePhoto?faces-redirect=true";
     }
 
     /*
@@ -173,7 +173,7 @@ public class PhotoFileManager implements Serializable {
         message = "";
 
         // Redirect to show the Profile page
-        return "Profile?faces-redirect=true";
+        return "/Profile?faces-redirect=true";
     }
 
     /*
@@ -183,7 +183,7 @@ public class PhotoFileManager implements Serializable {
      */
     public String cancel() {
         message = "";
-        return "Profile?faces-redirect=true";
+        return "/Profile?faces-redirect=true";
     }
 
     /*

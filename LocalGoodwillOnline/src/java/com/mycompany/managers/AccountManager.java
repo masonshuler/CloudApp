@@ -13,6 +13,7 @@ import static java.awt.SystemColor.text;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -154,6 +155,7 @@ public class AccountManager implements Serializable {
     }
 
     public void setPasswordHash(String regPassword) {
+<<<<<<< HEAD
         this.passwordHash = getHash(regPassword);
     }
 
@@ -167,6 +169,9 @@ public class AccountManager implements Serializable {
             Logger.getLogger(AccountManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+=======
+        this.passwordHash = SHAHelper.getHash(regPassword, email);
+>>>>>>> 593a58ce9efa9ff50ec58ebd0f6ca810b3a64f11
     }
 
     public String getNewPasswordHash() {
@@ -402,7 +407,7 @@ public class AccountManager implements Serializable {
             The Profile page cannot be shown since the new User has not signed in yet.
             Therefore, we show the Sign In page for the new User to sign in first.
              */
-            return "SignIn.xhtml?faces-redirect=true";
+            return "/SignIn.xhtml?faces-redirect=true";
         }
         return "";
     }
@@ -474,7 +479,7 @@ public class AccountManager implements Serializable {
                 return "";
             }
             // Account update is completed, redirect to show the Profile page.
-            return "Profile.xhtml?faces-redirect=true";
+            return "/Profile.xhtml?faces-redirect=true";
         }
         return "";
     }
@@ -506,7 +511,7 @@ public class AccountManager implements Serializable {
             }
 
             logout();
-            return "index.xhtml?faces-redirect=true";
+            return "/index.xhtml?faces-redirect=true";
         }
         return "";
     }
@@ -705,7 +710,7 @@ public class AccountManager implements Serializable {
             statusMessage = "Please enter a password!";
             return false;
 
-        } else if (getHash(verifyPassword).equals(passwordHash)) {
+        } else if (SHAHelper.getHash(verifyPassword, email).equals(passwordHash)) {
             // Correct password is entered
             return true;
 
@@ -717,12 +722,12 @@ public class AccountManager implements Serializable {
 
     // Show the Home page
     public String showHomePage() {
-        return "index?faces-redirect=true";
+        return "/index?faces-redirect=true";
     }
 
     // Show the Profile page
     public String showProfile() {
-        return "Profile?faces-redirect=true";
+        return "/Profile?faces-redirect=true";
     }
 
     public String logout() {
@@ -742,7 +747,7 @@ public class AccountManager implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 
         // Redirect to show the index (Home) page
-        return "index.xhtml?faces-redirect=true";
+        return "/index.xhtml?faces-redirect=true";
     }
 
     public String userPhoto() {
