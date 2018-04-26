@@ -105,6 +105,14 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                      requiredMessage="#{bundle.CreateUserRequiredMessage_securityAnswer}" label="Security Answer">
                             <f:validateLength minimum="2" />
                         </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateUserLabel_phoneNumber}" for="phoneNumber" />
+                        <p:inputText id="phoneNumber" value="#{accountManager.phoneNumber}" required="true" styleClass="accountInputTextField"
+                                     requiredMessage="#{bundle.CreateUserRequiredMessage_phoneNumber}" label="Phone Number">
+                            <f:validateLength minimum="2" />
+                            <!-- Execute the "validate" method in the "EmailValidator.java" class file to validate the email address entered. -->
+                            <f:validator validatorId="phoneNumberValidator" />  
+                        </p:inputText>
 
                         <p:outputLabel value="#{bundle.CreateUserLabel_email}" for="email" />
                         <p:inputText id="email" value="#{accountManager.email}" required="true" styleClass="accountInputTextField"
