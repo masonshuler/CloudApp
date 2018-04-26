@@ -5,6 +5,7 @@
 package com.mycompany.EntityBeans;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -129,6 +130,10 @@ public class Item implements Serializable {
     public void setPrice(float price) {
         this.price = price;
     }
+    
+    public String priceString() {
+        return String.format("%.2f", price);
+    }
 
     public float getRating() {
         return rating;
@@ -176,6 +181,13 @@ public class Item implements Serializable {
 
     public void setReservedUser(User reservedUser) {
         this.reservedUser = reservedUser;
+    }
+    
+    public String reservedString() {
+        if (reservedUser == null) 
+            return "Available";
+        else
+            return "Reserved";
     }
 
     @XmlTransient
