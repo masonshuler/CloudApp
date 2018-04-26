@@ -70,7 +70,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <h:outputText value="#{bundle.ListItemTitle_price}"/>
                                 </f:facet>
                                 <div align="center">
-                                    <h:outputText value="#{item.price}"/>
+                                    <h:outputText value="#{item.priceString()}"/>
                                 </div>
                             </p:column>
                             
@@ -117,6 +117,18 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <p:confirm header="Unreserve Confirmation" message="Are you sure you want to remove the selected item from the Signed-In User's List of Reserved Items?" 
                                                icon="ui-icon-alert" />
                                 </p:commandButton>
+                                
+                                <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                    <div align="center">
+                                        <!-- The value of the first button listed below will be shown as 
+                                        highlighted (default action) when displayed -->
+                                        <p:commandButton value="No" type="button" 
+                                                         styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                        &nbsp;
+                                        <p:commandButton value="Yes" type="button" 
+                                                         styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    </div>
+                                </p:confirmDialog>
 
                             </f:facet>
 
