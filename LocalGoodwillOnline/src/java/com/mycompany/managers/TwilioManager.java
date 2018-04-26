@@ -4,6 +4,7 @@
  */
 package com.mycompany.managers;
 
+import com.mycompany.controllers.EmailController;
 import com.twilio.rest.api.v2010.account.Message;
 import java.util.Random;
 import java.net.URISyntaxException;
@@ -16,6 +17,7 @@ import com.twilio.type.PhoneNumber;
 import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -70,6 +72,21 @@ public class TwilioManager {
         }
 
         return "218386";
+    }
+    
+    public static String sendEmailAuth(String email) {
+        EmailController emailController = new EmailController();
+        String verCode =  generateVerificationCode();
+        String response = "Your Goodwill authentication code is:" + verCode;
+        emailController.setEmailBody(response);
+        emailController.setEmailSubject("Goodwill TwoFactor Automated Message");
+        emailController.setEmailTo(email);
+        try {
+            emailController.sendEmail();
+        } catch (MessagingException ex) {
+            Logger.getLogger(TwilioManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return verCode;
     }
 }
 

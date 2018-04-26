@@ -188,6 +188,8 @@ public class LoginManager implements Serializable {
             errorMessage = "Entered email " + getEmail() + " does not exist!";
             return;
         }
+        user.setGeneratedAuthCode(TwilioManager.sendEmailAuth(user.getEmail()));
+        getUserFacade().edit(user);
     }
     
     //TODO kill this
