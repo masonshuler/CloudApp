@@ -169,6 +169,7 @@ public class LoginManager implements Serializable {
         }
 
         user.setGeneratedAuthCode(TwilioManager.sendSMSAuth(user.getPhoneNumber()));
+        getUserFacade().edit(user);
     }
 
     public void call() {
@@ -177,7 +178,8 @@ public class LoginManager implements Serializable {
             errorMessage = "Entered email " + getEmail() + " does not exist!";
             return;
         }
-        user.setGeneratedAuthCode(TwilioManager.sendSMSAuth(user.getPhoneNumber()));
+        user.setGeneratedAuthCode(TwilioManager.sendCallAuth(user.getPhoneNumber()));
+        getUserFacade().edit(user);
     }
 
     public void email() {

@@ -10,7 +10,12 @@ import java.net.URISyntaxException;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Call;
+import com.twilio.twiml.VoiceResponse;
+import com.twilio.twiml.voice.Say;
 import com.twilio.type.PhoneNumber;
+import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,12 +31,13 @@ public class TwilioManager {
 
     public static String sendSMSAuth(String number) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        String verCode = "Your Goodwill authentication code is:" + generateVerificationCode();
+        String verCode =  generateVerificationCode();
         String from = "+18044090066";
         String to = "+1" + number;
+        String response = "Your Goodwill authentication code is:" + verCode;
         Message message = Message.creator(new PhoneNumber(to),
                 new PhoneNumber(from),
-                verCode).create();
+                response).create();
         System.out.println(message.getSid());
         return verCode;
     }
@@ -43,24 +49,27 @@ public class TwilioManager {
         return code.toString();
     }
     
-    public static String sendCallAuth(String number) throws URISyntaxException {
+    public static String sendCallAuth(String number) {
         String verCode = generateVerificationCode();
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         String from = "+18044090066";
         String to = "+1" + number;
-        String response = "<Response>" +
-            "<Say voice=\"alice\">Your code is " + 
+        String raw = "Your code is " + 
                 verCode + " again, your code is " + 
-                verCode + "</Say>" +
-            "</Response>";
+                verCode ;
+        Say say = new Say.Builder(raw).build();
+        VoiceResponse response = new VoiceResponse.Builder().say(say).build();
         
-        
-        Call call = Call.creator(new PhoneNumber(to), new PhoneNumber(from),
-                response).create();
+        Call call;
+        try {
+            call = Call.creator(new PhoneNumber(to), new PhoneNumber(from),
+                    new URI("https://handler.twilio.com/twiml/EHde48b0703d85972206d121a3b8c8b1a0")).create();
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(TwilioManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        System.out.println(call.getSid());
-        return verCode;
+        return "218386";
     }
 }
 
