@@ -25,7 +25,7 @@ public class UserController implements Serializable {
 
     @EJB
     private com.mycompany.FacadeBeans.UserFacade ejbFacade;
-    private List<User> items = null;
+    private List<User> users = null;
     private User selected;
 
     public UserController() {
@@ -58,7 +58,7 @@ public class UserController implements Serializable {
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            users = null;    // Invalidate list of users to trigger re-query.
         }
     }
 
@@ -70,15 +70,15 @@ public class UserController implements Serializable {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UserDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            users = null;    // Invalidate list of users to trigger re-query.
         }
     }
 
     public List<User> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
+        if (users == null) {
+            users = getFacade().findAll();
         }
-        return items;
+        return users;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
