@@ -34,6 +34,7 @@ public class LoginManager implements Serializable {
     private String email;
     private String passwordHash;
     private String errorMessage;
+    private String answerAuthCode;
 
     /*
     The instance variable 'userFacade' is annotated with the @EJB annotation.
@@ -52,6 +53,14 @@ public class LoginManager implements Serializable {
     Getter and Setter Methods
     =========================
      */
+    public String getAnswerAuthCode() {
+        return answerAuthCode;
+    }
+
+    public void setAnswerAuthCode(String answerAuthCode) {
+        this.answerAuthCode = answerAuthCode;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -130,18 +139,76 @@ public class LoginManager implements Serializable {
             errorMessage = "";
 
             // Initialize the session map with user properties of interest
-            initializeSessionMap(user);
-
+            //initializeSessionMap(user); Need Two-Factor
             // Redirect to show the Profile page
-            return "/Profile.xhtml?faces-redirect=true";
+            return "/TwoFactor.xhtml?faces-redirect=true";
         }
     }
 
+    public String checkAuthCode() {
+        User user = getUserFacade().findByEmail(getEmail());
+        if (user == null) { //Should only happen on page error
+            errorMessage = "Entered email " + getEmail() + " does not exist!";
+            return "";
+        }
+
+        if (!getAnswerAuthCode().equals(user.getGeneratedAuthCode())) {
+            errorMessage = "Invalid Authentication Code!";
+            return "";
+        }
+
+        initializeSessionMap(user);
+        return "/Profile.xhtml?faces-redirect=true";
+    }
+
+    public void sendSMS() {
+        User user = getUserFacade().findByEmail(getEmail());
+        if (user == null) { //Should only happen on page error
+            errorMessage = "Entered email " + getEmail() + " does not exist!";
+            return;
+        }
+
+        user.setGeneratedAuthCode(TwilioManager.sendSMSAuth(user.getPhoneNumber()));
+        getUserFacade().edit(user);
+    }
+
+    public void call() {
+        User user = getUserFacade().findByEmail(getEmail());
+        if (user == null) { //Should only happen on page error
+            errorMessage = "Entered email " + getEmail() + " does not exist!";
+            return;
+        }
+        user.setGeneratedAuthCode(TwilioManager.sendCallAuth(user.getPhoneNumber()));
+        getUserFacade().edit(user);
+    }
+
+    public void email() {
+        User user = getUserFacade().findByEmail(getEmail());
+        if (user == null) { //Should only happen on page error
+            errorMessage = "Entered email " + getEmail() + " does not exist!";
+            return;
+        }
+        user.setGeneratedAuthCode(TwilioManager.sendEmailAuth(user.getEmail()));
+        getUserFacade().edit(user);
+    }
+    
+    //TODO kill this
+    //XXX
+    public String bypass() {
+        User user = getUserFacade().findByEmail(getEmail());
+        if (user == null) { //Should only happen on page error
+            errorMessage = "Entered email " + getEmail() + " does not exist!";
+            return "";
+        }
+        initializeSessionMap(user);
+        return "/Profile.xhtml?faces-redirect=true";
+    }
     /*
     Initialize the session map with the user properties of interest,
     namely, first_name, last_name, username, and user_id.
     user_id = primary key of the user entity in the database
-     */
+             */
+
     public void initializeSessionMap(User user) {
         FacesContext.getCurrentInstance().getExternalContext().
                 getSessionMap().put("first_name", user.getFirstName());

@@ -100,6 +100,7 @@ public class AccountManager implements Serializable {
     private String city;
     private String state;
     private String zipcode;
+    private String phoneNumber;
 
     private int securityQuestion;
     private String securityAnswer;
@@ -137,6 +138,14 @@ public class AccountManager implements Serializable {
     Getter and Setter Methods
     =========================
      */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String[] getListOfStates() {
         return listOfStates;
     }
@@ -365,6 +374,7 @@ public class AccountManager implements Serializable {
                 newUser.setZipcode(zipcode);
                 newUser.setSecurityQuestion(securityQuestion);
                 newUser.setSecurityAnswer(securityAnswer);
+                newUser.setPhoneNumber(phoneNumber);
                 newUser.setEmail(email);
                 newUser.setPasswordHash(passwordHash);
 
@@ -432,6 +442,7 @@ public class AccountManager implements Serializable {
                 editUser.setState(this.selected.getState());
                 editUser.setZipcode(this.selected.getZipcode());
                 editUser.setEmail(this.selected.getEmail());
+                editUser.setPhoneNumber(this.selected.getPhoneNumber());
 
                 // It is optional for the user to change his/her password
                 // Note: getNewPassword() is the getter method of the newPassword
@@ -711,7 +722,7 @@ public class AccountManager implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
 
         // Reset the logged-in User's properties
-        email = passwordHash = "";
+        email = passwordHash = phoneNumber = "";
         firstName = middleName = lastName = "";
         address1 = address2 = city = state = zipcode = "";
         securityQuestion = 0;

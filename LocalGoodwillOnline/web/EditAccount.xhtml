@@ -125,6 +125,17 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                         
                         <!--
                         ********************************
+                        *        PHONE NUMBER          *
+                        ********************************
+                        -->
+                        <p:outputLabel value="#{bundle.EditUserLabel_phoneNumbewr}" for="phoneNumber" />
+                        <p:inputText id="phoneNumber" value="#{accountManager.selected.phoneNumber}" required="true" styleClass="accountInputTextField"
+                                     requiredMessage="#{bundle.EditUserRequiredMessage_phoneNumber}" label="Phone Number">
+                            <f:validateLength minimum="2" />
+                            <f:validator validatorId="phoneNumberValidator" />  
+                        </p:inputText>
+                        <!--
+                        ********************************
                         *         EMAIL ADDRESS        *
                         ********************************
                         -->
