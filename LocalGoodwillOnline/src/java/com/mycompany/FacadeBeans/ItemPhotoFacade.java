@@ -5,6 +5,7 @@
 package com.mycompany.FacadeBeans;
 
 import com.mycompany.EntityBeans.ItemPhoto;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +27,13 @@ public class ItemPhotoFacade extends AbstractFacade<ItemPhoto> {
 
     public ItemPhotoFacade() {
         super(ItemPhoto.class);
+    }
+    
+    public List<ItemPhoto> findPhotosByItemID(Integer itemID) {
+
+        return (List<ItemPhoto>) em.createNamedQuery("ItemPhoto.findPhotosByItemID")
+                .setParameter("itemId", itemID)
+                .getResultList();
     }
     
 }

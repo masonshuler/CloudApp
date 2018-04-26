@@ -4,6 +4,7 @@
  */
 package com.mycompany.EntityBeans;
 
+import com.mycompany.managers.Constants;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -28,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "ItemPhoto")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ItemPhoto.findAll", query = "SELECT i FROM ItemPhoto i")
+    @NamedQuery(name = "ItemPhoto.findPhotosByItemID", query = "SELECT p FROM ItemPhoto p WHERE p.itemId.id = :itemId")
+    , @NamedQuery(name = "ItemPhoto.findAll", query = "SELECT i FROM ItemPhoto i")
     , @NamedQuery(name = "ItemPhoto.findById", query = "SELECT i FROM ItemPhoto i WHERE i.id = :id")
     , @NamedQuery(name = "ItemPhoto.findByExtension", query = "SELECT i FROM ItemPhoto i WHERE i.extension = :extension")})
 public class ItemPhoto implements Serializable {
@@ -106,7 +108,15 @@ public class ItemPhoto implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.EntityBeans.ItemPhoto[ id=" + id + " ]";
+        return id.toString();
+    }
+    
+    public String getPhotoFilename() {
+        return getItemId() + "." + getExtension();
+    }
+    
+    public String getPhotoFilePath() {
+        return Constants.PHOTOS_ABSOLUTE_PATH + getPhotoFilename();
     }
     
 }

@@ -1,12 +1,15 @@
 package com.mycompany.controllers;
 
 import com.mycompany.EntityBeans.Item;
+import com.mycompany.EntityBeans.ItemPhoto;
 import com.mycompany.EntityBeans.User;
 import com.mycompany.controllers.util.JsfUtil;
 import com.mycompany.controllers.util.JsfUtil.PersistAction;
 import com.mycompany.FacadeBeans.ItemFacade;
+import com.mycompany.FacadeBeans.ItemPhotoFacade;
 import com.mycompany.FacadeBeans.UserFacade;
 import com.mycompany.managers.AccountManager;
+import com.mycompany.managers.Constants;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -33,6 +36,8 @@ public class ItemController implements Serializable {
     private ItemFacade itemFacade;
     @EJB
     private UserFacade userFacade;
+    @EJB
+    private ItemPhotoFacade itemPhotoFacade;
     private List<Item> items = null;
     private List<Item> reservedItems = null;
     private Item selected;
@@ -77,6 +82,10 @@ public class ItemController implements Serializable {
 
     private ItemFacade getItemFacade() {
         return itemFacade;
+    }
+    
+    private ItemPhotoFacade getItemPhotoFacade() {
+        return itemPhotoFacade;
     }
     
     /*
@@ -214,6 +223,26 @@ public class ItemController implements Serializable {
             }
         }
         return reservedItems;
+    }
+    
+    public String getPicture(Item anItem) {        
+        Integer itemId = anItem.getId();
+        
+        List<ItemPhoto> photoList = getItemPhotoFacade().findPhotosByItemID(itemId);
+
+        if (photoList.isEmpty()) {
+            /*
+            No user photo exists. Return defaultUserPhoto.png 
+            in CloudStorage/PhotoStorage.
+             */
+            return Constants.DEFAULT_PHOTO_RELATIVE_PATH;
+        }
+        
+        String photoName = photoList.get(0).getPhotoFilename();
+        
+        String relativePhotoFilePath = Constants.ITEMS_RELATIVE_PATH + photoName;
+        
+        return relativePhotoFilePath;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
