@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Scott McGhee on 2018.02.13
+Copyright © 2018 Scott McGhee. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"         
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="/template/siteTemplate.xhtml">
+        <ui:define name="title">
+            <!-- Set the page title -->
+            <h:outputText value="Item Pictures"></h:outputText>
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+
+            <div id="posterFrame" align="center" >
+                <h1>Item Pictures</h1>
+
+                <h:form id="ItemFlow">
+                    <!--
+                    p:contentFlow is a horizontal content gallery component with a slide animation.
+                    See PrimeFaces User Guide for its documentation.
+                    -->
+                    <p:contentFlow id="itemFlow" value="#{itemController.items}" var="anItem" 
+                                   style="width:90%;height:400px;background-color:#F0FFFF">
+
+                        <p:graphicImage value="#{itemController.getPicture(anItem)}" styleClass="content" />
+
+                        <div class="caption" style="color: black">#{anItem.title}</div>
+
+                    </p:contentFlow> 
+
+                    <br/>
+
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" 
+                                     value="#{bundle.View}" update=":ItemViewForm" 
+                                     oncomplete="PF('ItemViewDialog').show()" 
+                                     disabled="#{empty itemController.selected}" 
+                                     styleClass="commandButton"/>
+
+                    <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                        <div align="center">
+                            <!-- The value of the first button listed below will be shown as 
+                            highlighted (default action) when displayed -->
+                            <p:commandButton value="No" type="button" 
+                                             styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            &nbsp;
+                            <p:commandButton value="Yes" type="button" 
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        </div>
+                    </p:confirmDialog>
+
+                    <p:commandButton id="reserveButton" icon="ui-icon-circle-plus"  
+                                     value="Reserve" disabled="#{empty itemController.selected}"
+                                     styleClass="commandButton" actionListener="#{itemController.reserve(accountManager)}" >
+                        <p:confirm header="Reserve Confirmation" message="Are you sure you want to add the selected item to the Signed-In User's List of Reserved Items?" 
+                                   icon="ui-icon-alert" />
+                    </p:commandButton>
+
+                </h:form>
+            </div>
+
+            <ui:include src="/publicItem/View.xhtml"/>
+
+        </ui:define>
+
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>
