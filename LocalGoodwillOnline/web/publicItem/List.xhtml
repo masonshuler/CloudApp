@@ -41,8 +41,8 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton searchButton reserveButton"/>
                             </c:if>
                             <c:if test="#{accountManager.isAdmin() == false}">
-                                <p:ajax event="rowSelect"   update="createButton viewButton searchButton reserveButton"/>
-                                <p:ajax event="rowUnselect" update="createButton viewButton searchButton reserveButton"/>
+                                <p:ajax event="rowSelect"   update="viewButton searchButton reserveButton"/>
+                                <p:ajax event="rowUnselect" update="viewButton searchButton reserveButton"/>
                             </c:if>
 
                             <p:column sortBy="#{item.title}" style="width: 100px;">
@@ -129,10 +129,12 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                             </p:column>
 
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"
-                                                 value="#{bundle.Create}" actionListener="#{itemController.prepareCreate}" 
-                                                 update=":ItemCreateForm" oncomplete="PF('ItemCreateDialog').show()"
-                                                 styleClass="commandButton" />
+                                <c:if test="#{accountManager.isAdmin() == true}">
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"
+                                                     value="#{bundle.Create}" actionListener="#{itemController.prepareCreate}" 
+                                                     update=":ItemCreateForm" oncomplete="PF('ItemCreateDialog').show()"
+                                                     styleClass="commandButton" />
+                                </c:if>
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" 
                                                  value="#{bundle.View}" update=":ItemViewForm" 
                                                  oncomplete="PF('ItemViewDialog').show()" 
