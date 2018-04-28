@@ -10,9 +10,11 @@ import com.mycompany.FacadeBeans.ItemPhotoFacade;
 import com.mycompany.FacadeBeans.UserFacade;
 import com.mycompany.managers.AccountManager;
 import com.mycompany.managers.Constants;
+import com.mycompany.managers.PhotoFileManager;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -42,12 +44,17 @@ public class ItemController implements Serializable {
     private List<Item> reservedItems = null;
     private Item selected;
     HashMap<Integer, String> cleanedItemHashMap = null;
+    
+    private float minPrice;
+    private float maxPrice;
 
     private String searchString;
     private String searchField;
     private List<Item> searchItems = null;
 
     public ItemController() {
+        minPrice = 0;
+        maxPrice = 200;
     }
 
     public Item getSelected() {
@@ -72,6 +79,24 @@ public class ItemController implements Serializable {
 
     public void setSearchField(String searchField) {
         this.searchField = searchField;
+    }
+
+    public float getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(float minPrice) {
+        this.minPrice = minPrice;
+        System.out.println("Min: " + minPrice);
+    }
+
+    public float getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(float maxPrice) {
+        this.maxPrice = maxPrice;
+        System.out.println("Max: " + maxPrice);
     }
 
     protected void setEmbeddableKeys() {
@@ -173,7 +198,8 @@ public class ItemController implements Serializable {
         return selected;
     }
 
-    public void create() {
+    public void create(PhotoFileManager manager) {
+        //manager.uploadItemPhoto(selected);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ItemCreated"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null;
@@ -192,12 +218,17 @@ public class ItemController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
     public List<Item> getItems() {
         if (items == null) {
             items = getItemFacade().findAll();
         }
-        return items;
+        List<Item> priceFiltered;
+        priceFiltered = new ArrayList<>();
+        items.stream().filter((item) -> (item.getPrice() >= minPrice && item.getPrice() <= maxPrice)).forEachOrdered((item) -> {
+            priceFiltered.add(item);
+        });
+        return priceFiltered;
     }
     
     private UserFacade getUserFacade() {
