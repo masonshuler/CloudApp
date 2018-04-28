@@ -504,3 +504,12 @@ if content overflows an element's box.
 .ui-button {
     margin-top: 10px !important;
 }
+
+/* Override the style of the PrimeFaces p:menubar cascading menu in headerTemplate.xhtml */
+.menuBarStyle, .ui-menubar, .ui-menuitem {
+    background: none;
+    border: none;
+    float: right !important;
+    display: inline-block;
+    color: white;  
+}

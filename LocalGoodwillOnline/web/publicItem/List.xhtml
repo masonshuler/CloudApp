@@ -53,6 +53,13 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <h:outputText value="#{item.title}"/>
                                 </div>
                             </p:column>
+                            
+                            <p:column style="align-content: center; width:60px;">
+                                <f:facet name="header">
+                                    <h:outputText value="Photo" class="facetHeader"/>
+                                </f:facet>
+                                <p:graphicImage value="/#{itemController.getPicture(item)}" alt="Item Picture" width="60" height="60"/>
+                            </p:column>
 
                             <p:column style="width: 250px;">
                                 <f:facet name="header">
@@ -63,7 +70,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 </div>
                             </p:column>
 
-                            <p:column sortBy="#{item.size}" style="width: 80px;">
+                            <p:column sortBy="#{item.size}" style="width: 30px;">
                                 <f:facet name="header">
                                     <h:outputText value="Size"/>
                                 </f:facet>
@@ -72,7 +79,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 </div>
                             </p:column>
                             
-                            <p:column sortBy="#{item.price}" style="width: 80px;">
+                            <p:column sortBy="#{item.price}" style="width: 40px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_price}"/>
                                 </f:facet>
@@ -81,7 +88,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 </div>
                             </p:column>
                             
-                            <p:column sortBy="#{item.rating}" style="width: 80px;">
+                            <p:column sortBy="#{item.rating}" style="width: 30px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_rating}"/>
                                 </f:facet>
@@ -90,7 +97,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 </div>
                             </p:column>
 
-                            <p:column sortBy="#{item.datePublished}" style="width: 80px;">
+                            <p:column sortBy="#{item.datePublished}" style="width: 60px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_datePublished}"/>
                                 </f:facet>
