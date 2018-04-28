@@ -53,12 +53,14 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <h:outputText value="#{item.title}"/>
                                 </div>
                             </p:column>
-                            
+
                             <p:column style="align-content: center; width:60px;">
                                 <f:facet name="header">
                                     <h:outputText value="Photo" class="facetHeader"/>
                                 </f:facet>
-                                <p:graphicImage value="/#{itemController.getPicture(item)}" alt="Item Picture" width="60" height="60"/>
+                                <div align="center">
+                                    <p:graphicImage value="/#{itemController.getPicture(item)}" alt="Item Picture" width="60" height="60"/>
+                                </div>
                             </p:column>
 
                             <p:column style="width: 250px;">
@@ -78,7 +80,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <h:outputText value="#{item.size}"/>
                                 </div>
                             </p:column>
-                            
+
                             <p:column sortBy="#{item.price}" style="width: 40px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_price}"/>
@@ -87,7 +89,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <h:outputText value="#{item.priceString()}"/>
                                 </div>
                             </p:column>
-                            
+
                             <p:column sortBy="#{item.rating}" style="width: 30px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_rating}"/>
@@ -116,7 +118,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <h:outputText value="#{item.category}"/>
                                 </div>
                             </p:column>
-                            
+
                             <p:column sortBy="#{item.reservedString()}" style="width: 80px;">
                                 <f:facet name="header">
                                     <h:outputText value="Reserved"/>
@@ -164,7 +166,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                                          styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                                     </div>
                                 </p:confirmDialog>
-                                
+
                                 <p:commandButton id="reserveButton" icon="ui-icon-circle-plus"  
                                                  value="Reserve" disabled="#{empty itemController.selected}"
                                                  styleClass="commandButton" actionListener="#{itemController.reserve(accountManager)}"
@@ -172,7 +174,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <p:confirm header="Reserve Confirmation" message="Are you sure you want to add the selected item to the Signed-In User's List of Reserved Items?" 
                                                icon="ui-icon-alert" />
                                 </p:commandButton>
-                                
+
                                 <p:commandButton id="searchButton" icon="ui-icon-search"  
                                                  value="Search" styleClass="commandButton"
                                                  update=":ItemSearchForm" 
