@@ -226,6 +226,7 @@ public class ItemController implements Serializable {
         items.stream().filter((item) -> (item.getPrice() >= minPrice && item.getPrice() <= maxPrice)).forEachOrdered((item) -> {
             priceFiltered.add(item);
         });
+        items = priceFiltered;
         return priceFiltered;
     }
     
