@@ -61,7 +61,7 @@ public class ItemPhoto implements Serializable {
         this.id = id;
         this.extension = extension;
     }
-
+    
     public Integer getId() {
         return id;
     }
