@@ -189,10 +189,10 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                 <h:form id="ItemPriceRange" >
                     <h:panelGrid columns="1" style="margin-bottom: 10px;">
                         <div align="center">
-                            <h:outputText id="priceRange" value="Between $#{itemController.minPrice} and $#{itemController.maxPrice}" />
+                            <h:outputText id="priceRange" value="Prices displayed between $#{itemController.minPrice} and $#{itemController.maxPrice}" />
                             <p:slider for="minPrice, maxPrice" display="priceRange" 
-                                      style="width: 400px" range="true" displayTemplate="Between &dollar;{min} and &dollar;{max}" 
-                                      minValue="0.00" maxValue="200.00">
+                                      style="width: 400px" range="true" displayTemplate="Prices displayed between {min} and {max}" 
+                                      minValue="0" maxValue="200" step="10">
                                 <p:ajax event="slideEnd" process="minPrice, maxPrice" update=":growl,ItemListForm:datalist,:ItemPriceRange"/>
                             </p:slider>
                         </div>

@@ -45,8 +45,8 @@ public class ItemController implements Serializable {
     private Item selected;
     HashMap<Integer, String> cleanedItemHashMap = null;
     
-    private float minPrice;
-    private float maxPrice;
+    private int minPrice;
+    private int maxPrice;
 
     private String searchString;
     private String searchField;
@@ -81,22 +81,20 @@ public class ItemController implements Serializable {
         this.searchField = searchField;
     }
 
-    public float getMinPrice() {
+    public int getMinPrice() {
         return minPrice;
     }
 
-    public void setMinPrice(float minPrice) {
+    public void setMinPrice(int minPrice) {
         this.minPrice = minPrice;
-        System.out.println("Min: " + minPrice);
     }
 
-    public float getMaxPrice() {
+    public int getMaxPrice() {
         return maxPrice;
     }
 
-    public void setMaxPrice(float maxPrice) {
+    public void setMaxPrice(int maxPrice) {
         this.maxPrice = maxPrice;
-        System.out.println("Max: " + maxPrice);
     }
 
     protected void setEmbeddableKeys() {
