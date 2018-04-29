@@ -44,14 +44,6 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                      title="#{bundle.EditItemTitle_price}" 
                                      requiredMessage="#{bundle.EditItemRequiredMessage_price}"/>
                         
-                        <p:outputLabel value="#{bundle.EditItemLabel_rating}" 
-                                       for="rating" />
-                        <p:inputText id="rating" value="#{itemController.selected.rating}" 
-                                     title="#{bundle.EditItemTitle_rating}" 
-                                     requiredMessage="#{bundle.EditItemRequiredMessage_rating}">
-                            <f:validateDoubleRange minimum="0.0" maximum="10.0" />
-                        </p:inputText>
-                        
                         <p:outputLabel value="#{bundle.EditItemLabel_datePublished}" 
                                        for="datePublished" />
                         <p:calendar id="datePublished" pattern="MM/dd/yyyy" value="#{itemController.selected.datePublished}" 

@@ -90,12 +90,20 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 </div>
                             </p:column>
 
-                            <p:column sortBy="#{item.rating}" style="width: 30px;">
+                            <p:column sortBy="#{item.rating}" style="width: 60px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_rating}"/>
                                 </f:facet>
                                 <div align="center">
-                                    <h:outputText value="#{item.rating}"/>
+                                    <h:commandLink style="align-self: center;" actionListener="#{item.upvote()}">
+                                        <h:graphicImage name="images/upArrow.svg" style="height: 40%; width: 40%;"/>
+                                    </h:commandLink>
+                                    <br/>
+                                    <h:outputText value="#{item.rating}" />
+                                    <br/>
+                                    <h:commandLink style="align-self: center;" actionListener="#{item.downvote()}" >
+                                        <h:graphicImage name="images/downArrow.svg" style="height: 40%; width: 40%;"/>
+                                    </h:commandLink>
                                 </div>
                             </p:column>
 
@@ -211,5 +219,6 @@ Copyright © 2018 Scott McGhee. All rights reserved.
 
         </ui:define>
     </ui:composition>
+    
 
 </html>

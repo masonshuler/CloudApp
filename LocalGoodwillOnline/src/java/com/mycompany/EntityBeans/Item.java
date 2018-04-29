@@ -189,6 +189,20 @@ public class Item implements Serializable {
         else
             return "Reserved";
     }
+    
+    public void upvote() {
+        if (rating < 9.5)
+            rating += 0.5;
+        else
+            rating = 10;
+    }
+    
+    public void downvote() {
+        if (rating > 0.5)
+            rating -= 0.5;
+        else
+            rating = 0;
+    }
 
     @XmlTransient
     public Collection<ItemPhoto> getItemPhotoCollection() {

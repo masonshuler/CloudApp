@@ -46,12 +46,6 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                      title="#{bundle.CreateItemTitle_price}" 
                                      requiredMessage="#{bundle.CreateItemRequiredMessage_price}"/>
 
-                        <p:outputLabel value="#{bundle.CreateItemLabel_rating}" 
-                                       for="rating" />
-                        <p:inputText id="rating" value="#{itemController.selected.rating}" 
-                                     title="#{bundle.CreateItemTitle_rating}" 
-                                     requiredMessage="#{bundle.CreateItemRequiredMessage_rating}"/>
-
                         <p:outputLabel value="#{bundle.CreateItemLabel_datePublished}" 
                                        for="datePublished" />
                         <p:calendar id="datePublished" pattern="MM/dd/yyyy" value="#{itemController.selected.datePublished}" 

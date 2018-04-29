@@ -192,12 +192,12 @@ public class ItemController implements Serializable {
 
     public Item prepareCreate() {
         selected = new Item();
+        selected.setRating(5);
         initializeEmbeddableKey();
         return selected;
     }
 
-    public void create(PhotoFileManager manager) {
-        //manager.uploadItemPhoto(selected);
+    public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ItemCreated"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null;
