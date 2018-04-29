@@ -32,7 +32,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                      title="#{bundle.CreateItemTitle_description}" 
                                      requiredMessage="#{bundle.CreateItemRequiredMessage_description}" 
                                      style="width: 550px;"/>
-                        
+
                         <p:outputLabel value="Size: " 
                                        for="size" />
                         <p:inputText id="size" value="#{itemController.selected.size}" 
@@ -45,12 +45,6 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                         <p:inputText id="price" value="#{itemController.selected.price}" 
                                      title="#{bundle.CreateItemTitle_price}" 
                                      requiredMessage="#{bundle.CreateItemRequiredMessage_price}"/>
-                        
-                        <p:outputLabel value="#{bundle.CreateItemLabel_rating}" 
-                                       for="rating" />
-                        <p:inputText id="rating" value="#{itemController.selected.rating}" 
-                                     title="#{bundle.CreateItemTitle_rating}" 
-                                     requiredMessage="#{bundle.CreateItemRequiredMessage_rating}"/>
 
                         <p:outputLabel value="#{bundle.CreateItemLabel_datePublished}" 
                                        for="datePublished" />

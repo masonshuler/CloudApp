@@ -47,6 +47,15 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 </div>
                             </p:column>
 
+                            <p:column style="align-content: center; width:60px;">
+                                <f:facet name="header">
+                                    <h:outputText value="Photo" class="facetHeader"/>
+                                </f:facet>
+                                <div align="center">
+                                    <p:graphicImage value="/#{itemController.getPicture(item)}" alt="Item Picture" width="60" height="60"/>
+                                </div>
+                            </p:column>
+
                             <p:column style="width: 250px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_description}"/>
@@ -56,7 +65,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 </div>
                             </p:column>
 
-                            <p:column sortBy="#{item.size}" style="width: 80px;">
+                            <p:column sortBy="#{item.size}" style="width: 30px;">
                                 <f:facet name="header">
                                     <h:outputText value="Size"/>
                                 </f:facet>
@@ -64,8 +73,8 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <h:outputText value="#{item.size}"/>
                                 </div>
                             </p:column>
-                            
-                            <p:column sortBy="#{item.price}" style="width: 80px;">
+
+                            <p:column sortBy="#{item.price}" style="width: 40px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_price}"/>
                                 </f:facet>
@@ -73,8 +82,8 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <h:outputText value="#{item.priceString()}"/>
                                 </div>
                             </p:column>
-                            
-                            <p:column sortBy="#{item.rating}" style="width: 80px;">
+
+                            <p:column sortBy="#{item.rating}" style="width: 30px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_rating}"/>
                                 </f:facet>
@@ -83,7 +92,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 </div>
                             </p:column>
 
-                            <p:column sortBy="#{item.datePublished}" style="width: 80px;">
+                            <p:column sortBy="#{item.datePublished}" style="width: 60px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_datePublished}"/>
                                 </f:facet>
@@ -109,7 +118,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                                  oncomplete="PF('ItemViewDialog').show()" 
                                                  disabled="#{empty itemController.selected}" 
                                                  styleClass="commandButton"/>
-                                
+
                                 <p:commandButton id="unreserveButton" icon="ui-icon-circle-plus"  
                                                  value="Unreserve" disabled="#{empty itemController.selected}"
                                                  styleClass="commandButton" actionListener="#{itemController.unreserve()}"
@@ -117,7 +126,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <p:confirm header="Unreserve Confirmation" message="Are you sure you want to remove the selected item from the Signed-In User's List of Reserved Items?" 
                                                icon="ui-icon-alert" />
                                 </p:commandButton>
-                                
+
                                 <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
                                     <div align="center">
                                         <!-- The value of the first button listed below will be shown as 

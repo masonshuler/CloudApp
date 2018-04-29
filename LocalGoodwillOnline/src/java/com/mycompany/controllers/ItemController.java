@@ -10,9 +10,11 @@ import com.mycompany.FacadeBeans.ItemPhotoFacade;
 import com.mycompany.FacadeBeans.UserFacade;
 import com.mycompany.managers.AccountManager;
 import com.mycompany.managers.Constants;
+import com.mycompany.managers.PhotoFileManager;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -42,12 +44,17 @@ public class ItemController implements Serializable {
     private List<Item> reservedItems = null;
     private Item selected;
     HashMap<Integer, String> cleanedItemHashMap = null;
+    
+    private int minPrice;
+    private int maxPrice;
 
     private String searchString;
     private String searchField;
     private List<Item> searchItems = null;
 
     public ItemController() {
+        minPrice = 0;
+        maxPrice = 200;
     }
 
     public Item getSelected() {
@@ -72,6 +79,22 @@ public class ItemController implements Serializable {
 
     public void setSearchField(String searchField) {
         this.searchField = searchField;
+    }
+
+    public int getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(int minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public int getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(int maxPrice) {
+        this.maxPrice = maxPrice;
     }
 
     protected void setEmbeddableKeys() {
@@ -169,6 +192,7 @@ public class ItemController implements Serializable {
 
     public Item prepareCreate() {
         selected = new Item();
+        selected.setRating(5);
         initializeEmbeddableKey();
         return selected;
     }
@@ -192,12 +216,18 @@ public class ItemController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
     public List<Item> getItems() {
         if (items == null) {
             items = getItemFacade().findAll();
         }
-        return items;
+        List<Item> priceFiltered;
+        priceFiltered = new ArrayList<>();
+        items.stream().filter((item) -> (item.getPrice() >= minPrice && item.getPrice() <= maxPrice)).forEachOrdered((item) -> {
+            priceFiltered.add(item);
+        });
+        items = priceFiltered;
+        return priceFiltered;
     }
     
     private UserFacade getUserFacade() {
