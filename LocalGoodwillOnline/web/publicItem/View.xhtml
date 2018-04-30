@@ -21,7 +21,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                     <c:if test="#{itemController.selected != null}">
                         <p:graphicImage value="/#{itemController.getPicture(itemController.selected)}" width="250" height="250"/>
                     </c:if>
-                    
+
                     <br /><br />
 
                     <h:panelGroup id="display">
@@ -59,6 +59,23 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                           title="#{bundle.ViewItemTitle_category}"/>
                         </p:panelGrid>
                     </h:panelGroup>
+                    <br />
+                    <h:panelGroup>
+                        <h:panelGrid columns="2">
+                            <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fvenus.cs.vt.edu%2FLocalGoodwillOnline%2FList.xhtml&amp;layout=button_count&amp;size=small&amp;mobile_iframe=true&amp;width=69&amp;height=20&amp;appId" 
+                                    width="69" height="20" style="border:none;overflow:hidden" scrolling="no" 
+                                    frameborder="0" allowTransparency="true" allow="encrypted-media">
+                            </iframe>
+                            <iframe
+                                src="https://platform.twitter.com/widgets/tweet_button.html?url=https%3A%2F%2Fvenus.cs.vt.edu/LocalGoodwillOnline/List.xhtml&amp;via=LocalGoodwillOnline&amp;related=twitterapi%2Ctwitter&amp;text=Checkout the ${itemController.selected.title} on &amp;hashtags=steal"
+                                width="69"
+                                height="20"
+                                title="Twitter Tweet Button"
+                                style="border: 0; overflow: hidden;" scrolling="no" >
+                            </iframe>
+                        </h:panelGrid>
+                    </h:panelGroup>
+                    <br />
                     <br />
                     <h:panelGroup>
                         <!-- CLOSE button -->
