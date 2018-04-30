@@ -555,3 +555,11 @@ if content overflows an element's box.
     flex: 50%;
     padding: 10px;
 }
+
+.confirmedList {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 70%;
+    height: 100%;
+}
