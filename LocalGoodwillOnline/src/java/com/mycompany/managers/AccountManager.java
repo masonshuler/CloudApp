@@ -112,6 +112,8 @@ public class AccountManager implements Serializable {
     private String statusMessage;
 
     private User selected;
+    
+    private String ccNumberLast4;
 
     /*
     The instance variable 'userFacade' is annotated with the @EJB annotation.
@@ -260,6 +262,17 @@ public class AccountManager implements Serializable {
 
     public UserPhotoFacade getUserPhotoFacade() {
         return userPhotoFacade;
+    }
+    
+    public String getCcNumberLast4() {
+        if (ccNumberLast4 == null || ccNumberLast4.length() < 12) {
+            return "";
+        }
+        return ccNumberLast4.substring(12);
+    }
+    
+    public void setCcNumberLast4(String ccNumberLast4) {
+        this.ccNumberLast4 = ccNumberLast4;
     }
 
     /*
@@ -716,7 +729,8 @@ public class AccountManager implements Serializable {
     }
 
     // Show the Home page
-    public String showHomePage() {
+    public String showHomePage(PriceManager priceManager) {
+        priceManager.clearOrder(this);
         return "/index?faces-redirect=true";
     }
 
@@ -726,7 +740,8 @@ public class AccountManager implements Serializable {
     }
 
     // Show the PrepareOrder page
-    public String showPrepareOrder() {
+    public String showPrepareOrder(PriceManager priceManager) {
+        priceManager.clearOrder(this);
         return "/PrepareOrder?faces-redirect=true";
     }
 

@@ -43,6 +43,7 @@ public class PriceManager implements Serializable {
      */
     @PostConstruct
     public void init() {
+        orderList.clear();
         setDefaultValues();
     }
 
@@ -65,9 +66,11 @@ public class PriceManager implements Serializable {
     }
 
     // Reset all selected values upon clicking Clear Order
-    public void clearOrder() {
+    public String clearOrder(AccountManager accountManager) {
         orderList.clear();
         setDefaultValues();
+        accountManager.setCcNumberLast4("");
+        return "/PrepareOrder?faces-redirect=true";
     }
 
     /*

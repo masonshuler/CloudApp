@@ -70,7 +70,7 @@ Copyright © 2018 Osman Balci. All rights reserved.
                                     <p:menuitem outcome="/reservedItem/List" ajax="false">
                                         <i class="fa fa-lock">&nbsp;</i>Reserved Items
                                     </p:menuitem>
-                                    <p:menuitem outcome="/PrepareOrder" ajax="false">
+                                    <p:menuitem outcome="/PrepareOrder" ajax="false" actionListener="#{priceManager.clearOrder(accountManager)}">
                                         <i class="fa fa-shopping-cart">&nbsp;</i>Order Online
                                     </p:menuitem>
                                 </c:if>
