@@ -9,6 +9,7 @@ import com.mycompany.EntityBeans.UserPhoto;
 
 import com.mycompany.FacadeBeans.UserFacade;
 import com.mycompany.FacadeBeans.UserPhotoFacade;
+import com.mycompany.controllers.EmailController;
 import static java.awt.SystemColor.text;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
+import javax.mail.MessagingException;
 
 /*
 ---------------------------------------------------------------------------
@@ -116,6 +118,9 @@ public class AccountManager implements Serializable {
     private String ccNumberLast4;
     private String expirationNumber;
     private String securityCode;
+    
+    private String previousExperience;
+    private String coverLetter;
 
     /*
     The instance variable 'userFacade' is annotated with the @EJB annotation.
@@ -293,6 +298,21 @@ public class AccountManager implements Serializable {
         this.securityCode = securityCode;
     }
 
+    public String getPreviousExperience() {
+        return previousExperience;
+    }
+
+    public void setPreviousExperience(String previousExperience) {
+        this.previousExperience = previousExperience;
+    }
+
+    public String getCoverLetter() {
+        return coverLetter;
+    }
+
+    public void setCoverLetter(String coverLetter) {
+        this.coverLetter = coverLetter;
+    }
     /*
     private Map<String, Object> security_questions;
         String      int
@@ -437,8 +457,23 @@ public class AccountManager implements Serializable {
         return "";
     }
     
-    public String generateApplicationEmail(){
-        return "";
+    public String sendApplicationEmail(EmailController emailController) throws MessagingException{
+        StringBuilder builder = new StringBuilder();
+        
+        builder.append("Job Application from ").append(firstName).append(" ").append(middleName).append(" ").append(lastName).append(".<br><br>");
+        builder.append("Address:<br>").append(address1).append(", ").append(address2).append("<br>");
+        builder.append(city).append(", ").append(state).append(", ").append(zipcode).append("<br><br>");
+        builder.append("Contact Information:<br>").append("Phone: ").append(phoneNumber).append("<br>");
+        builder.append("Email: ").append(email).append("<br><br>");
+        builder.append("Previous work experience:<br>").append(previousExperience.replaceAll("\n", "<br>")).append("<br><br>");
+        builder.append("Cover Letter:<br>").append(coverLetter.replaceAll("\n", "<br>")).append("<br>");
+                
+        emailController.setEmailTo("matt4@vt.edu");//e.scottmcghee@gmail.com
+        emailController.setEmailSubject("Employee Application");
+        emailController.setEmailBody(builder.toString());
+        emailController.sendEmail();
+        
+        return "/emailSuccess?faces-redirect=true";
     }
     
     public String initializeApplication(){
@@ -452,6 +487,8 @@ public class AccountManager implements Serializable {
         state = selected.getState();
         zipcode = selected.getZipcode();
         phoneNumber = selected.getPhoneNumber();
+        
+        email = selected.getEmail();
         return "";
     }
     

@@ -16,6 +16,7 @@ html, body {
     /* background-color: #FFFFF0;   /* Ivory */
     /* background-color: #FAF0E6;   /* Linen */
     background-color: #FDF5E6;   /* OldLace */
+    /*background-color: #a6a6a6;      /* Gray*/
     /* background-color: #FFEFD5;   /* PapayaWhip */
     /* background-color: #F5DEB3;   /* Wheat */
     /* background-color: #B0E0E6;   /* PowderBlue */
@@ -337,6 +338,13 @@ Other Style Definitions
 /* Used in CreateAccount, EditAccount, SignIn, EnterUsername, and SecurityQuestion */
 .accountInputTextField, .signInInputTextField, .usernameInputTextField, .securityAnswerTextField {
     width: 275px;
+}
+
+/* Used in CreateAccount, EditAccount, SignIn, EnterUsername, and SecurityQuestion */
+.accountInputTextField2{
+    vertical-align: text-top;
+    width: 275px;
+    height: 300px;
 }
 
 /*
