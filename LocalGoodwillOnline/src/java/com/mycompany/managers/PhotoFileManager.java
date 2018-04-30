@@ -1,7 +1,7 @@
-/*
- * Created by Scott McGhee on 2018.02.15 * 
- * Copyright © 2018 Scott McGhee. All rights reserved. * 
- */
+/**
+ * Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman on 2018.04.22  * 
+ * Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved. * 
+ **/
 package com.mycompany.managers;
 
 import com.mycompany.EntityBeans.User;
@@ -59,7 +59,7 @@ public class PhotoFileManager implements Serializable {
      */
     @EJB
     private UserPhotoFacade userPhotoFacade;
-
+    
     /*
     =========================
     Getter and Setter Methods
@@ -90,7 +90,7 @@ public class PhotoFileManager implements Serializable {
     public UserPhotoFacade getUserPhotoFacade() {
         return userPhotoFacade;
     }
-
+    
     //****************  Instance Methods  ********************
     /*
     We display two types of error messages:
@@ -109,7 +109,7 @@ public class PhotoFileManager implements Serializable {
         message = "";
         return "/ChangePhoto?faces-redirect=true";
     }
-
+    
     /*
     ========================
     Handle User Photo Upload
@@ -175,7 +175,7 @@ public class PhotoFileManager implements Serializable {
         // Redirect to show the Profile page
         return "/Profile?faces-redirect=true";
     }
-
+    
     /*
     ========================
     Cancel Photo File Upload
@@ -185,7 +185,7 @@ public class PhotoFileManager implements Serializable {
         message = "";
         return "/Profile?faces-redirect=true";
     }
-
+    
     /*
     ================================
     Store Uploaded User's Photo File
@@ -273,7 +273,7 @@ public class PhotoFileManager implements Serializable {
 
         return resultMsg;
     }
-
+    
     /*
     =====================================================
     Write a given data stream into a file with given name

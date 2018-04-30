@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Created by Scott McGhee on 2018.02.15
-Copyright © 2018 Scott McGhee. All rights reserved.
+Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman
+Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -123,6 +123,17 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                             <f:validator validatorId="zipCodeValidator"/> 
                         </p:inputText>
                         
+                        <!--
+                        ********************************
+                        *        PHONE NUMBER          *
+                        ********************************
+                        -->
+                        <p:outputLabel value="#{bundle.EditUserLabel_phoneNumbewr}" for="phoneNumber" />
+                        <p:inputText id="phoneNumber" value="#{accountManager.selected.phoneNumber}" required="true" styleClass="accountInputTextField"
+                                     requiredMessage="#{bundle.EditUserRequiredMessage_phoneNumber}" label="Phone Number">
+                            <f:validateLength minimum="2" />
+                            <f:validator validatorId="phoneNumberValidator" />  
+                        </p:inputText>
                         <!--
                         ********************************
                         *         EMAIL ADDRESS        *

@@ -1,10 +1,12 @@
-/*
- * Created by Scott McGhee on 2018.04.22  * 
- * Copyright © 2018 Scott McGhee. All rights reserved. * 
- */
+/**
+ * Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman on 2018.04.22  * 
+ * Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved. * 
+ **/
+
 package com.mycompany.EntityBeans;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -44,7 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Item.findByDescription", query = "SELECT i FROM Item i WHERE i.description = :description")
     , @NamedQuery(name = "Item.findByDatePublished", query = "SELECT i FROM Item i WHERE i.datePublished = :datePublished")
     , @NamedQuery(name = "Item.findReservedItemByUserId", query = "SELECT u FROM Item u WHERE u.reservedUser.id = :userId")})
-public class Item implements Serializable {
+public class Item implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -129,6 +131,10 @@ public class Item implements Serializable {
     public void setPrice(float price) {
         this.price = price;
     }
+    
+    public String priceString() {
+        return String.format("%.2f", price);
+    }
 
     public float getRating() {
         return rating;
@@ -177,6 +183,27 @@ public class Item implements Serializable {
     public void setReservedUser(User reservedUser) {
         this.reservedUser = reservedUser;
     }
+    
+    public String reservedString() {
+        if (reservedUser == null) 
+            return "Available";
+        else
+            return "Reserved";
+    }
+    
+    public void upvote() {
+        if (rating < 9.5)
+            rating += 0.5;
+        else
+            rating = 10;
+    }
+    
+    public void downvote() {
+        if (rating > 0.5)
+            rating -= 0.5;
+        else
+            rating = 0;
+    }
 
     @XmlTransient
     public Collection<ItemPhoto> getItemPhotoCollection() {
@@ -210,6 +237,11 @@ public class Item implements Serializable {
     @Override
     public String toString() {
         return id.toString();
+    }
+    
+    @Override
+    public Item clone() throws CloneNotSupportedException {
+        return (Item) super.clone();
     }
     
 }

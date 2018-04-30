@@ -1,7 +1,7 @@
-/*
- * Created by Scott McGhee on 2018.04.22  * 
- * Copyright © 2018 Scott McGhee. All rights reserved. * 
- */
+/**
+ * Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman on 2018.04.22  * 
+ * Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved. * 
+ **/
 package com.mycompany.EntityBeans;
 
 import java.io.Serializable;
@@ -55,7 +55,7 @@ public class User implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 64)
+    @Size(min = 1, max = 256)
     @Column(name = "password_hash")
     private String passwordHash;
     @Basic(optional = false)
@@ -120,6 +120,9 @@ public class User implements Serializable {
     private Collection<Item> itemCollection;
     @OneToMany(mappedBy = "userId")
     private Collection<UserPhoto> userPhotoCollection;
+    @Size(max = 15)
+    @Column(name = "auth_code")
+    private String generatedAuthCode;
 
     public User() {
     }
@@ -128,7 +131,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String passwordHash, String firstName, String lastName, String address1, String city, String state, String zipcode, int securityQuestion, String securityAnswer, String email, boolean isAdmin) {
+    public User(Integer id, String passwordHash, String firstName, String lastName, String address1, String city, String state, String zipcode, int securityQuestion, String securityAnswer, String phoneNumber, String email, boolean isAdmin) {
         this.id = id;
         this.passwordHash = passwordHash;
         this.firstName = firstName;
@@ -139,8 +142,17 @@ public class User implements Serializable {
         this.zipcode = zipcode;
         this.securityQuestion = securityQuestion;
         this.securityAnswer = securityAnswer;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.isAdmin = isAdmin;
+    }
+
+    public String getGeneratedAuthCode() {
+        return generatedAuthCode;
+    }
+
+    public void setGeneratedAuthCode(String generatedAuthCode) {
+        this.generatedAuthCode = generatedAuthCode;
     }
 
     public Integer getId() {
@@ -305,5 +317,5 @@ public class User implements Serializable {
     public String toString() {
         return id.toString();
     }
-    
+
 }

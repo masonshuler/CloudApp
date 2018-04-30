@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-Created by Scott McGhee on 2018.02.15
-Copyright © 2018 Scott McGhee. All rights reserved.
+Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman
+Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -104,6 +104,14 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                         <p:inputText id="securityAnswer" value="#{accountManager.securityAnswer}" required="true" styleClass="accountInputTextField"
                                      requiredMessage="#{bundle.CreateUserRequiredMessage_securityAnswer}" label="Security Answer">
                             <f:validateLength minimum="2" />
+                        </p:inputText>
+                        
+                        <p:outputLabel value="#{bundle.CreateUserLabel_phoneNumber}" for="phoneNumber" />
+                        <p:inputText id="phoneNumber" value="#{accountManager.phoneNumber}" required="true" styleClass="accountInputTextField"
+                                     requiredMessage="#{bundle.CreateUserRequiredMessage_phoneNumber}" label="Phone Number">
+                            <f:validateLength minimum="2" />
+                            <!-- Execute the "validate" method in the "EmailValidator.java" class file to validate the email address entered. -->
+                            <f:validator validatorId="phoneNumberValidator" />  
                         </p:inputText>
 
                         <p:outputLabel value="#{bundle.CreateUserLabel_email}" for="email" />

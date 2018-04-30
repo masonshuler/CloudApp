@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-Created by Scott McGhee on 2018.03.22
-Copyright © 2018 Scott McGhee. All rights reserved.
+Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman
+Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -47,6 +47,15 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 </div>
                             </p:column>
 
+                            <p:column style="align-content: center; width:60px;">
+                                <f:facet name="header">
+                                    <h:outputText value="Photo" class="facetHeader"/>
+                                </f:facet>
+                                <div align="center">
+                                    <p:graphicImage value="/#{itemController.getPicture(item)}" alt="Item Picture" width="60" height="60"/>
+                                </div>
+                            </p:column>
+
                             <p:column style="width: 250px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_description}"/>
@@ -56,7 +65,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 </div>
                             </p:column>
 
-                            <p:column sortBy="#{item.size}" style="width: 80px;">
+                            <p:column sortBy="#{item.size}" style="width: 30px;">
                                 <f:facet name="header">
                                     <h:outputText value="Size"/>
                                 </f:facet>
@@ -64,17 +73,17 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <h:outputText value="#{item.size}"/>
                                 </div>
                             </p:column>
-                            
-                            <p:column sortBy="#{item.price}" style="width: 80px;">
+
+                            <p:column sortBy="#{item.price}" style="width: 40px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_price}"/>
                                 </f:facet>
                                 <div align="center">
-                                    <h:outputText value="#{item.price}"/>
+                                    <h:outputText value="#{item.priceString()}"/>
                                 </div>
                             </p:column>
-                            
-                            <p:column sortBy="#{item.rating}" style="width: 80px;">
+
+                            <p:column sortBy="#{item.rating}" style="width: 30px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_rating}"/>
                                 </f:facet>
@@ -83,7 +92,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                 </div>
                             </p:column>
 
-                            <p:column sortBy="#{item.datePublished}" style="width: 80px;">
+                            <p:column sortBy="#{item.datePublished}" style="width: 60px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_datePublished}"/>
                                 </f:facet>
@@ -109,7 +118,7 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                                  oncomplete="PF('ItemViewDialog').show()" 
                                                  disabled="#{empty itemController.selected}" 
                                                  styleClass="commandButton"/>
-                                
+
                                 <p:commandButton id="unreserveButton" icon="ui-icon-circle-plus"  
                                                  value="Unreserve" disabled="#{empty itemController.selected}"
                                                  styleClass="commandButton" actionListener="#{itemController.unreserve()}"
@@ -117,6 +126,18 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                                     <p:confirm header="Unreserve Confirmation" message="Are you sure you want to remove the selected item from the Signed-In User's List of Reserved Items?" 
                                                icon="ui-icon-alert" />
                                 </p:commandButton>
+
+                                <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                    <div align="center">
+                                        <!-- The value of the first button listed below will be shown as 
+                                        highlighted (default action) when displayed -->
+                                        <p:commandButton value="No" type="button" 
+                                                         styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                        &nbsp;
+                                        <p:commandButton value="Yes" type="button" 
+                                                         styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    </div>
+                                </p:confirmDialog>
 
                             </f:facet>
 

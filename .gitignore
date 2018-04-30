@@ -1,5 +1,8 @@
 ItemPhotoStorage/
-LocalGoodwillOnline/nbproject/private
-LocalGoodwillOnline/nbproject/project.properties
+LocalGoodwillOnline/nbproject/private/*
 LocalGoodwillOnline/build
 LocalGoodwillOnline/dist
+LocalGoodwillOnline/lib
+LocalGoodwillOnline/src/java/com/mycompany/managers/Constants.java
+LocalGoodwillOnline/web/WEB-INF/glassfish-web.xml
+LocalGoodwillOnline/dist/LocalGoodwillOnline.war

@@ -1,15 +1,24 @@
+/**
+ * Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman on 2018.04.22  * 
+ * Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved. * 
+ **/
 package com.mycompany.controllers;
 
 import com.mycompany.EntityBeans.Item;
+import com.mycompany.EntityBeans.ItemPhoto;
 import com.mycompany.EntityBeans.User;
 import com.mycompany.controllers.util.JsfUtil;
 import com.mycompany.controllers.util.JsfUtil.PersistAction;
 import com.mycompany.FacadeBeans.ItemFacade;
+import com.mycompany.FacadeBeans.ItemPhotoFacade;
 import com.mycompany.FacadeBeans.UserFacade;
 import com.mycompany.managers.AccountManager;
+import com.mycompany.managers.Constants;
+import com.mycompany.managers.PhotoFileManager;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -33,16 +42,23 @@ public class ItemController implements Serializable {
     private ItemFacade itemFacade;
     @EJB
     private UserFacade userFacade;
+    @EJB
+    private ItemPhotoFacade itemPhotoFacade;
     private List<Item> items = null;
     private List<Item> reservedItems = null;
     private Item selected;
     HashMap<Integer, String> cleanedItemHashMap = null;
+    
+    private int minPrice;
+    private int maxPrice;
 
     private String searchString;
     private String searchField;
     private List<Item> searchItems = null;
 
     public ItemController() {
+        minPrice = 0;
+        maxPrice = 200;
     }
 
     public Item getSelected() {
@@ -69,6 +85,22 @@ public class ItemController implements Serializable {
         this.searchField = searchField;
     }
 
+    public int getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(int minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public int getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(int maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+
     protected void setEmbeddableKeys() {
     }
 
@@ -77,6 +109,10 @@ public class ItemController implements Serializable {
 
     private ItemFacade getItemFacade() {
         return itemFacade;
+    }
+    
+    private ItemPhotoFacade getItemPhotoFacade() {
+        return itemPhotoFacade;
     }
     
     /*
@@ -160,6 +196,7 @@ public class ItemController implements Serializable {
 
     public Item prepareCreate() {
         selected = new Item();
+        selected.setRating(5);
         initializeEmbeddableKey();
         return selected;
     }
@@ -183,12 +220,16 @@ public class ItemController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
     public List<Item> getItems() {
-        if (items == null) {
-            items = getItemFacade().findAll();
-        }
-        return items;
+        items = getItemFacade().findAll();
+        List<Item> priceFiltered;
+        priceFiltered = new ArrayList<>();
+        items.stream().filter((item) -> (item.getPrice() >= minPrice && item.getPrice() <= maxPrice)).forEachOrdered((item) -> {
+            priceFiltered.add(item);
+        });
+        items = priceFiltered;
+        return priceFiltered;
     }
     
     private UserFacade getUserFacade() {
@@ -214,6 +255,26 @@ public class ItemController implements Serializable {
             }
         }
         return reservedItems;
+    }
+    
+    public String getPicture(Item anItem) {        
+        Integer itemId = anItem.getId();
+        
+        List<ItemPhoto> photoList = getItemPhotoFacade().findPhotosByItemID(itemId);
+
+        if (photoList.isEmpty()) {
+            /*
+            No user photo exists. Return defaultUserPhoto.png 
+            in CloudStorage/PhotoStorage.
+             */
+            return Constants.DEFAULT_PHOTO_RELATIVE_PATH;
+        }
+        
+        String photoName = photoList.get(0).getPhotoFilename();
+        
+        String relativePhotoFilePath = Constants.ITEMS_RELATIVE_PATH + photoName;
+        
+        return relativePhotoFilePath;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

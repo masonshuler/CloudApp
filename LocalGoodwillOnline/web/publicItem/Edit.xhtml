@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-Created by Scott McGhee on 2018.03.22
-Copyright © 2018 Scott McGhee. All rights reserved.
+Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman
+Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -43,14 +43,6 @@ Copyright © 2018 Scott McGhee. All rights reserved.
                         <p:inputText id="price" value="#{itemController.selected.price}" 
                                      title="#{bundle.EditItemTitle_price}" 
                                      requiredMessage="#{bundle.EditItemRequiredMessage_price}"/>
-                        
-                        <p:outputLabel value="#{bundle.EditItemLabel_rating}" 
-                                       for="rating" />
-                        <p:inputText id="rating" value="#{itemController.selected.rating}" 
-                                     title="#{bundle.EditItemTitle_rating}" 
-                                     requiredMessage="#{bundle.EditItemRequiredMessage_rating}">
-                            <f:validateDoubleRange minimum="0.0" maximum="10.0" />
-                        </p:inputText>
                         
                         <p:outputLabel value="#{bundle.EditItemLabel_datePublished}" 
                                        for="datePublished" />

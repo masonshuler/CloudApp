@@ -1,7 +1,7 @@
-/*
- * Created by Scott McGhee on 2018.02.15 * 
- * Copyright © 2018 Scott McGhee. All rights reserved. * 
- */
+/**
+ * Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman on 2018.04.22  * 
+ * Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved. * 
+ **/
 package com.mycompany.managers;
 
 import com.mycompany.EntityBeans.User;
@@ -100,6 +100,7 @@ public class AccountManager implements Serializable {
     private String city;
     private String state;
     private String zipcode;
+    private String phoneNumber;
 
     private int securityQuestion;
     private String securityAnswer;
@@ -111,6 +112,10 @@ public class AccountManager implements Serializable {
     private String statusMessage;
 
     private User selected;
+    
+    private String ccNumberLast4;
+    private String expirationNumber;
+    private String securityCode;
 
     /*
     The instance variable 'userFacade' is annotated with the @EJB annotation.
@@ -137,6 +142,14 @@ public class AccountManager implements Serializable {
     Getter and Setter Methods
     =========================
      */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String[] getListOfStates() {
         return listOfStates;
     }
@@ -252,6 +265,33 @@ public class AccountManager implements Serializable {
     public UserPhotoFacade getUserPhotoFacade() {
         return userPhotoFacade;
     }
+    
+    public String getCcNumberLast4() {
+        if (ccNumberLast4 == null || ccNumberLast4.length() < 12) {
+            return "";
+        }
+        return ccNumberLast4.substring(12);
+    }
+    
+    public void setCcNumberLast4(String ccNumberLast4) {
+        this.ccNumberLast4 = ccNumberLast4;
+    }
+
+    public String getExpirationNumber() {
+        return expirationNumber;
+    }
+
+    public void setExpirationNumber(String expirationNumber) {
+        this.expirationNumber = expirationNumber;
+    }
+
+    public String getSecurityCode() {
+        return securityCode;
+    }
+
+    public void setSecurityCode(String securityCode) {
+        this.securityCode = securityCode;
+    }
 
     /*
     private Map<String, Object> security_questions;
@@ -323,6 +363,15 @@ public class AccountManager implements Serializable {
     public boolean isLoggedIn() {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("email") != null;
     }
+    
+    public boolean isAdmin(){
+        if(isLoggedIn()){
+            String currUserEmail = (String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("email");
+            User currUser = getUserFacade().findByEmail(currUserEmail);
+            return currUser.getIsAdmin();
+        }
+        return false;
+    }
 
     /*
     Create a new user account. Return "" if an error occurs; otherwise,
@@ -365,6 +414,7 @@ public class AccountManager implements Serializable {
                 newUser.setZipcode(zipcode);
                 newUser.setSecurityQuestion(securityQuestion);
                 newUser.setSecurityAnswer(securityAnswer);
+                newUser.setPhoneNumber(phoneNumber);
                 newUser.setEmail(email);
                 newUser.setPasswordHash(passwordHash);
 
@@ -432,6 +482,7 @@ public class AccountManager implements Serializable {
                 editUser.setState(this.selected.getState());
                 editUser.setZipcode(this.selected.getZipcode());
                 editUser.setEmail(this.selected.getEmail());
+                editUser.setPhoneNumber(this.selected.getPhoneNumber());
 
                 // It is optional for the user to change his/her password
                 // Note: getNewPassword() is the getter method of the newPassword
@@ -696,7 +747,9 @@ public class AccountManager implements Serializable {
     }
 
     // Show the Home page
-    public String showHomePage() {
+    public String showHomePage(PriceManager priceManager) {
+        setCcNumberLast4("");
+        priceManager.clearOrder();
         return "/index?faces-redirect=true";
     }
 
@@ -705,13 +758,20 @@ public class AccountManager implements Serializable {
         return "/Profile?faces-redirect=true";
     }
 
+    // Show the PrepareOrder page
+    public String showPrepareOrder(PriceManager priceManager) {
+        setCcNumberLast4("");
+        priceManager.clearOrder();
+        return "/PrepareOrder?faces-redirect=true";
+    }
+
     public String logout() {
 
         // Clear the logged-in User's session map
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
 
         // Reset the logged-in User's properties
-        email = passwordHash = "";
+        email = passwordHash = phoneNumber = "";
         firstName = middleName = lastName = "";
         address1 = address2 = city = state = zipcode = "";
         securityQuestion = 0;
