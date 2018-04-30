@@ -1,7 +1,7 @@
-/*
- * Created by Osman Balci on 2018.03.26
- * Copyright © 2018 Osman Balci. All rights reserved.
- */
+/**
+ * Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman on 2018.04.22  * 
+ * Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved. * 
+ **/
 package com.mycompany.validators;
 
 import javax.faces.application.FacesMessage;
@@ -15,7 +15,7 @@ import javax.faces.validator.ValidatorException;
 /**
  * Validates the credit card security code entered
  * 
- * @author Balci
+ * 
  */
 public class SecurityCodeValidator implements Validator {
 

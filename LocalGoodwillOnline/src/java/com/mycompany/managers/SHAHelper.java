@@ -1,7 +1,7 @@
-/*
- * Created by Mason Shuler on 2018.04.25  * 
- * Copyright © 2018 Mason Shuler. All rights reserved. * 
- */
+/**
+ * Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman on 2018.04.22  * 
+ * Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved. * 
+ **/
 package com.mycompany.managers;
 
 import java.nio.charset.StandardCharsets;

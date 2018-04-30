@@ -1,7 +1,7 @@
-/*
- * Created by Osman Balci on 2018.01.29
- * Copyright © 2018 Osman Balci. All rights reserved.
- */
+/**
+ * Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman on 2018.04.22  * 
+ * Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved. * 
+ **/
 package com.mycompany.controllers;
 
 import javax.inject.Named;
@@ -18,7 +18,7 @@ import javax.mail.internet.MimeMessage;
 
 /**
  *
- * @author Balci
+ * 
  */
 /* 
  The @Named class annotation designates the bean object created by this class 
