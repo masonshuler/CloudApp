@@ -18,7 +18,7 @@ import javax.mail.internet.MimeMessage;
 
 /**
  *
- * @author Balci
+ * 
  */
 /* 
  The @Named class annotation designates the bean object created by this class 

@@ -18,7 +18,7 @@ import javax.faces.validator.ValidatorException;
 /**
  * Validates the credit card expiration date entered
  * 
- * @author Balci
+ * 
  */
 public class ExpirationValidator implements Validator {
 

@@ -15,7 +15,7 @@ import javax.faces.validator.ValidatorException;
 /**
  * Validates the credit card number entered
  *
- * @author Balci
+ * 
  */
 public class CcNumberValidator implements Validator {
 

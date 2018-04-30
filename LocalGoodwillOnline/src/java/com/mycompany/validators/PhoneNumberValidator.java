@@ -14,7 +14,7 @@ import javax.faces.validator.ValidatorException;
 @FacesValidator("phoneNumberValidator")
 /**
  *
- * @author Balci
+ * 
  */
 public class PhoneNumberValidator implements Validator {
 

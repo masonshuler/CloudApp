@@ -14,7 +14,7 @@ import javax.faces.validator.ValidatorException;
 @FacesValidator("emailValidator")
 /**
  *
- * @author Balci
+ * 
  */
 public class EmailValidator implements Validator {
 

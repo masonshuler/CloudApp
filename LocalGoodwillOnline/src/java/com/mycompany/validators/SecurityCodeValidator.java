@@ -15,7 +15,7 @@ import javax.faces.validator.ValidatorException;
 /**
  * Validates the credit card security code entered
  * 
- * @author Balci
+ * 
  */
 public class SecurityCodeValidator implements Validator {
 

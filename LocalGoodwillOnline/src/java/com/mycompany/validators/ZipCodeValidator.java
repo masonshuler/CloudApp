@@ -15,7 +15,7 @@ import javax.faces.validator.ValidatorException;
 /**
  * Validates the zip code inputted.
  * 
- * @author Balci
+ * 
  */
 public class ZipCodeValidator implements Validator {
 

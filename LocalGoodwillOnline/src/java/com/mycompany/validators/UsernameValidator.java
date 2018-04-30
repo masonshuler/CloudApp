@@ -15,7 +15,7 @@ import javax.faces.validator.ValidatorException;
 /**
  * Validates the username inputted.
  * 
- * @author Balci
+ * 
  */
 public class UsernameValidator implements Validator {
 
