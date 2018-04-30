@@ -8,7 +8,8 @@ Copyright © 2018 Osman Balci. All rights reserved.
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <!--
     *********************************************
@@ -50,48 +51,64 @@ Copyright © 2018 Osman Balci. All rights reserved.
                     its class name. For this to work, the following must be specified in the siteTemplate file:
                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
                     -->
-                    <td align="right" valign="middle">                      
-                        <h:link outcome="/index" styleClass="arialTen" style="color: white">
-                            Home
-                        </h:link>&nbsp;&nbsp;
+                    <td align="right" valign="middle">
 
-                        <h:link outcome="/publicItem/List" styleClass="arialTen" style="color: white">
-                            Items
-                        </h:link>&nbsp;&nbsp;
-                        
-                        <h:link outcome="/ItemsFlow" styleClass="arialTen" style="color: white">
-                            Items Flow
-                        </h:link>&nbsp;&nbsp;
+                        <p:menubar class="menuBarStyle" >
 
-                        <!-- "Sign Out" and "My Account" if a user is signed in -->
-                        <c:if test="#{accountManager.isLoggedIn() == true}">
-                            <!-- Clicking "Sign Out" invokes accountManager's logout() method -->
-                            <h:commandLink action="#{accountManager.logout()}" styleClass="arialTen" style="color: white" >
-                                Sign Out
-                            </h:commandLink>&nbsp;&nbsp;
+                            <p:menuitem outcome="/index" ajax="false">
+                                <i class="fa fa-home">&nbsp;</i>Home
+                            </p:menuitem>
 
-                            <h:link outcome="/reservedItem/List" styleClass="arialTen" style="color: white">
-                                Reserved Items
-                            </h:link>&nbsp;&nbsp;
+                            <p:submenu label="Shopping" >
+                                <p:menuitem outcome="/publicItem/List" ajax="false">
+                                    <i class="fa fa-bars">&nbsp;</i>Items
+                                </p:menuitem>
+                                <p:menuitem outcome="/ItemsFlow" ajax="false">
+                                    <i class="fa fa-play">&nbsp;</i>Items Flow
+                                </p:menuitem>
+                                <c:if test="#{accountManager.isLoggedIn() == true}">
+                                    <p:menuitem outcome="/reservedItem/List" ajax="false">
+                                        <i class="fa fa-lock">&nbsp;</i>Reserved Items
+                                    </p:menuitem>
+                                    <p:menuitem outcome="/SignIn" ajax="false">
+                                        <i class="fa fa-shopping-cart">&nbsp;</i>Order Online
+                                    </p:menuitem>
+                                </c:if>
+                            </p:submenu>
 
-                            <!-- Clicking "My Account" displays the Profile.xhtml file -->
-                            <h:link outcome="/Profile" styleClass="arialTen" style="color: white">
-                                <h:graphicImage class="headerUserPhoto" value="/#{accountManager.userPhoto()}" />&nbsp;My Account
-                            </h:link>&nbsp;&nbsp;
-                        </c:if>
+                            <c:if test="#{accountManager.isLoggedIn() == true}">
+                                <p:submenu label="Account Details">
+                                    <p:menuitem outcome="/EditAccount" ajax="false" >
+                                        <i class="fa fa-pencil-square-o">&nbsp;</i>Edit Profile
+                                    </p:menuitem>
+                                    <p:menuitem outcome="/ChangePhoto" ajax="false" >
+                                        <i class="fa fa-file-image-o">&nbsp;</i>Change Photo
+                                    </p:menuitem>
+                                    <p:menuitem outcome="/EnterEmail" ajax="false" >
+                                        <i class="fa fa-key">&nbsp;</i>Change Password
+                                    </p:menuitem>
+                                    <p:menuitem action="#{accountManager.logout()}" ajax="false" >
+                                        <i class="fa fa-sign-out">&nbsp;</i>Sign Out
+                                    </p:menuitem>
+                                </p:submenu>
 
-                        <!-- "Sign In" and "Create an Account" if no user is signed in -->
-                        <c:if test="#{accountManager.isLoggedIn() == false}">
-                            <!-- Clicking "Sign In" displays the SignIn.xhtml file -->
-                            <h:link outcome="/SignIn" styleClass="arialTen" style="color: white">
-                                Sign In
-                            </h:link>&nbsp;&nbsp;
+                                <p:menuitem>
+                                    <h:link outcome="/Profile" styleClass="arialTen" style="color: white">
+                                        <h:graphicImage class="headerUserPhoto" value="/#{accountManager.userPhoto()}" />&nbsp;My Account
+                                    </h:link>&nbsp;
+                                </p:menuitem>
+                            </c:if>
 
-                            <!-- Clicking "My Account" displays the Profile.xhtml file -->
-                            <h:link outcome="/CreateAccount" styleClass="arialTen" style="color: white">
-                                Create an Account
-                            </h:link>&nbsp;&nbsp;
-                        </c:if>
+                            <c:if test="#{accountManager.isLoggedIn() == false}">
+                                <p:menuitem outcome="/CreateAccount" ajax="false" >
+                                    <i class="fa fa-sign-in">&nbsp;</i>Create an Account
+                                </p:menuitem>
+                                <p:menuitem outcome="/SignIn" ajax="false" >
+                                    <i class="fa fa-user-plus">&nbsp;</i>Sign In
+                                </p:menuitem>
+                            </c:if>
+
+                        </p:menubar>
                     </td>
                 </tr>
             </table>

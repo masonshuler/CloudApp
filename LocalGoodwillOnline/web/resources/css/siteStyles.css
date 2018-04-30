@@ -506,12 +506,24 @@ if content overflows an element's box.
 }
 
 /* Override the style of the PrimeFaces p:menubar cascading menu in headerTemplate.xhtml */
-.menuBarStyle, .ui-menubar, .ui-menuitem {
+.menuBarStyle, .ui-menubar {
     background: none;
     border: none;
     float: right !important;
     display: inline-block;
-    color: white;  
+}
+
+/* Override the style of the PrimeFaces p:menubar cascading menu in headerTemplate.xhtml */
+.ui-menuitem-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: normal;
+    color: white;
+}
+
+.ui-menu, .ui-menu .ui-menu-child {
+  background: #2e5cb8 !important;
 }
 
 .arrow-up {
