@@ -5,6 +5,7 @@
 package com.mycompany.managers;
 
 import com.mycompany.EntityBeans.Item;
+import com.mycompany.controllers.EmailController;
 import com.mycompany.controllers.ItemController;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 
 /**
  *
@@ -66,7 +69,7 @@ public class PriceManager implements Serializable {
     public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
     }
-    
+
     public String totalCostString() {
         return String.format("%.2f", totalCost);
     }
@@ -83,7 +86,7 @@ public class PriceManager implements Serializable {
      */
     public void onUserSelection() {
         totalCost = 0;
-        
+
         for (int i = 0; i < orderList.size(); i++) {
             Item current = orderList.get(i);
             totalCost += current.getPrice();
@@ -97,16 +100,42 @@ public class PriceManager implements Serializable {
     }
 
     // Process the submitted pizza order
-    public String orderSubmitted(ItemController itemController) throws CloneNotSupportedException {        
+    public String orderSubmitted(ItemController itemController, EmailController emailController, 
+            AccountManager accountManager) throws CloneNotSupportedException, AddressException, 
+            MessagingException {
         removed = cloneList(orderList);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("A new order has just been made for ");
+        builder.append(accountManager.getSelected().getFirstName());
+        builder.append(" ");
+        builder.append(accountManager.getSelected().getLastName());
+        builder.append(".<br /><br />");
+
+        builder.append("The ordered items are:<br />");
+
         List<Item> reserved = itemController.getReservedItems();
         for (int i = 0; i < orderList.size(); i++) {
             Item current = orderList.get(i);
-            System.out.println("Item: " + current.getTitle());
+            builder.append(current.getTitle());
+            builder.append("<br />");
             itemController.setSelected(current);
             itemController.destroy();
             reserved.remove(current);
         }
+        builder.append("<br /><br />");
+
+        builder.append("The order should be delivered to: ");
+        builder.append(accountManager.getSelected().getAddress1());
+        builder.append(" ");
+        builder.append(accountManager.getSelected().getAddress2());
+        builder.append(", ");
+        builder.append(accountManager.getSelected().getCity());
+        builder.append(", ");
+        builder.append(accountManager.getSelected().getState());
+        builder.append(" ");
+        builder.append(accountManager.getSelected().getZipcode());
+
         orderList.clear();
 
         // Add sales tax to totalCost
@@ -116,10 +145,16 @@ public class PriceManager implements Serializable {
         double totalCostRounded = Math.round(totalCost * 100);
         totalCost = totalCostRounded / 100;
 
+        emailController.setEmailTo("e.scottmcghee@gmail.com");
+        emailController.setEmailSubject("Goodwill Order");
+        emailController.setEmailBody(builder.toString());
+        
+        emailController.sendEmail();
+
         // Redirect to show the ConfirmOrder page
         return "/ConfirmOrder?faces-redirect=true";
     }
-    
+
     public List<Item> cloneList(List<Item> list) throws CloneNotSupportedException {
         List<Item> clone = new ArrayList<>(orderList.size());
         for (Item item : orderList) {
@@ -127,18 +162,17 @@ public class PriceManager implements Serializable {
         }
         return clone;
     }
-    
+
     public void setBought(Item item) {
         System.out.println("Set Bought: " + item.getTitle());
         if (orderList.contains(item)) {
             orderList.remove(item);
-        }
-        else {
+        } else {
             orderList.add(item);
         }
         onUserSelection();
     }
-    
+
     public List<Item> getRemoved() {
         return removed;
     }

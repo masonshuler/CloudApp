@@ -96,7 +96,7 @@ Copyright © 2018 Osman Balci. All rights reserved.
                         </p:button>
                         &nbsp;
                         <p:commandButton value="Place Order" update="msgs" icon="ui-icon-extlink"
-                                         action="#{priceManager.orderSubmitted(itemController)}"  />
+                                         action="#{priceManager.orderSubmitted(itemController, emailController, accountManager)}"  />
 
                     </h:form>
                 </c:if>
