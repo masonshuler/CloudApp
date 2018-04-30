@@ -13,7 +13,7 @@ for l in cwd:
     else:
         pwd = pwd + l
 
-with open('./LocalGoodWillOnline/web/WEB-INF/glassfish-web.xml', 'r') as input_file, open('tmp', 'w') as output_file:
+with open('./makeLocalPathFiles/glassfish-web.xml', 'r') as input_file, open('tmp', 'w') as output_file:
     for line in input_file:
         if "alternatedocroot_1" in line:
             newline = "  <property name=\"alternatedocroot_1\" " \
@@ -25,7 +25,7 @@ print "glassfish-web changed to " + pwd
 move('tmp', './LocalGoodWillOnline/web/WEB-INF/glassfish-web.xml')
 
 
-with open('./LocalGoodwillOnline/src/java/com/mycompany/managers/Constants.java', 'r') as input_file, open('tmp', 'w') as output_file:
+with open('./makeLocalPathFiles/Constants.java', 'r') as input_file, open('tmp', 'w') as output_file:
     for line in input_file:
         if "ITEMS_ABSOLUTE_PATH" in line :
             newline = "    public static final String ITEMS_ABSOLUTE_PATH = \"" + pwd + "/CloudApp/ItemPhotoStorage/\";\n"
