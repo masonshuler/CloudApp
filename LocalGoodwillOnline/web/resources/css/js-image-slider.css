@@ -8,12 +8,12 @@ This CSS file was created by http://www.menucool.com
 
 #sliderFrame 
 {
-    width:600px;   /* Change this value with the image width you are using */
+    width:500px;   /* Change this value with the image width you are using */
     margin:0 auto; /*center-aligned*/
 }
 
 #slider, #slider .sliderInner {
-    width:600px;height:333px;  /* Change to image width and height you are using */
+    width:500px;height:313px;  /* Change to image width and height you are using */
     border-radius:3px;
 }
 
