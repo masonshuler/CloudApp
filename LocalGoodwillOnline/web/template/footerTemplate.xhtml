@@ -7,7 +7,8 @@ Copyright © 2017 Osman Balci. All rights reserved.
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
     <!--
     *********************************************
@@ -38,12 +39,19 @@ Copyright © 2017 Osman Balci. All rights reserved.
                     its class name. For this to work, the following must be specified in the siteTemplate file:
                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
                     -->
-                    <a href="https://www.goodwill.org" style="color: white">
-                        Goodwill</a>&nbsp;&nbsp;
-                    <a href="https://www.salvationarmyusa.org" style="color: white">
-                        Salvation Army</a>&nbsp;&nbsp;
-                    <a href="https://www.redcross.org" style="color: white">
-                        Red Cross</a>&nbsp;&nbsp;
+                    <p:menubar class="menuBarStyle">
+                            <p:menuitem value="Goodwill" url="https://www.goodwill.org">
+                                <i class="ui-icon-handshake-o">&nbsp;&nbsp;</i>
+                            </p:menuitem>
+                            
+                            <p:menuitem value="Salvation Army" url="https://www.salvationarmyusa.org">
+                                <i class="ui-icon-globe">&nbsp;&nbsp;</i>
+                            </p:menuitem>
+                        
+                            <p:menuitem value="Red Cross" url="https://www.redcross.org">
+                                <i class="ui-icon-plus-circle">&nbsp;&nbsp;</i>
+                            </p:menuitem>
+                    </p:menubar> 
                 </td>
             </tr>
             <!-- Attribution Statement -->
