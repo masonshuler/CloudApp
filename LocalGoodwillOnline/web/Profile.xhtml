@@ -7,7 +7,8 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <!-- Do not enter tags before the composition line since they are ignored by JSF -->
 
@@ -21,205 +22,211 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
 
         <!-- Create the content for this page below -->
         <ui:define name="editableContent">
-            <!--
-                You can place p:growl anywhere on your JSF page since the messages are displayed
-                as an overlay. The life attribute defines how long the message will be displayed 
-                in milliseconds after which it will fade away. 5000 milliseconds = 5 seconds
-                
-                All 'FacesMessage resultMsg' will be displayed here.
-            -->
-            <p:growl id="growl" life="5000" />
-
-            <h:form id="UserProfileForm">
+            <c:if test="#{accountManager.isLoggedIn() == false}">
+                <div align="center">
+                    <h1>#{accountManager.redirectIndex()}</h1>
+                </div>
+            </c:if>
+            <c:if test="#{accountManager.isLoggedIn() == true}">
                 <!--
-                <tr> defines a row in the table
-                <td> defines a column within a row.
-                Number of <td> elements = number of columns
-                The table below has 1 row and 2 columns.
-                Left column contains the vertical navigation menu.
-                Right column contains the user's profile data.
+                    You can place p:growl anywhere on your JSF page since the messages are displayed
+                    as an overlay. The life attribute defines how long the message will be displayed 
+                    in milliseconds after which it will fade away. 5000 milliseconds = 5 seconds
+                    
+                    All 'FacesMessage resultMsg' will be displayed here.
                 -->
-                <table width="100%" border="0" cellspacing="0" cellpadding="10">
-                    <tr>
-                        <!-- The first <td> contains the VERTICAL NAVIGATION MENU -->
+                <p:growl id="growl" life="5000" />
 
-                        <td width="180" align="left" valign="middle" nowrap="nowrap">
-                            <ul class="verticalMenu">
+                <h:form id="UserProfileForm">
+                    <!--
+                    <tr> defines a row in the table
+                    <td> defines a column within a row.
+                    Number of <td> elements = number of columns
+                    The table below has 1 row and 2 columns.
+                    Left column contains the vertical navigation menu.
+                    Right column contains the user's profile data.
+                    -->
+                    <table width="100%" border="0" cellspacing="0" cellpadding="10">
+                        <tr>
+                            <!-- The first <td> contains the VERTICAL NAVIGATION MENU -->
 
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |          HOME Link           |
-                                    ================================
-                                    -->
-                                    <h:link outcome="index">
-                                        <i class="fa fa-home">&nbsp;</i>Home
-                                    </h:link>
-                                </li>
+                            <td width="180" align="left" valign="middle" nowrap="nowrap">
+                                <ul class="verticalMenu">
 
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |      EDIT PROFILE Link       |
-                                    ================================
-                                    -->
-                                    <h:link outcome="EditAccount">
-                                        <i class="fa fa-pencil-square-o">&nbsp;</i>Edit Profile
-                                    </h:link>
-                                </li>
+                                    <li class="verticalMenuItem">
+                                        <!--
+                                        ================================
+                                        |          HOME Link           |
+                                        ================================
+                                        -->
+                                        <h:link outcome="index">
+                                            <i class="fa fa-home">&nbsp;</i>Home
+                                        </h:link>
+                                    </li>
 
-                                <li class="verticalMenuItem"> 
-                                    <!--
-                                    ================================
-                                    |      CHANGE PHOTO Link       |
-                                    ================================
-                                    -->
-                                    <h:link outcome="ChangePhoto">
-                                        <i class="fa fa-file-image-o">&nbsp;</i>Change Photo
-                                    </h:link>
-                                </li>
+                                    <li class="verticalMenuItem">
+                                        <!--
+                                        ================================
+                                        |      EDIT PROFILE Link       |
+                                        ================================
+                                        -->
+                                        <h:link outcome="EditAccount">
+                                            <i class="fa fa-pencil-square-o">&nbsp;</i>Edit Profile
+                                        </h:link>
+                                    </li>
 
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |     CHANGE PASSWORD Link     |
-                                    ================================
-                                    -->
-                                    <h:link outcome="EnterEmail">
-                                        <i class="fa fa-key">&nbsp;</i>Change Password
-                                    </h:link>
-                                </li>
-                                
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |     RESERVED ITEMS Link     |
-                                    ================================
-                                    -->
-                                    <h:link outcome="/reservedItem/List">
-                                        <i class="fa fa-key">&nbsp;</i>Reserved Items
-                                    </h:link>
-                                </li>
-                                
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |     ORDER ONLINE Link     |
-                                    ================================
-                                    -->
-                                    <h:link outcome="SignIn">
-                                        <i class="fa fa-key">&nbsp;</i>Order Online
-                                    </h:link>
-                                </li>
+                                    <li class="verticalMenuItem"> 
+                                        <!--
+                                        ================================
+                                        |      CHANGE PHOTO Link       |
+                                        ================================
+                                        -->
+                                        <h:link outcome="ChangePhoto">
+                                            <i class="fa fa-file-image-o">&nbsp;</i>Change Photo
+                                        </h:link>
+                                    </li>
 
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |      DELETE ACCOUNT Link     |
-                                    ================================
-                                    -->
+                                    <li class="verticalMenuItem">
+                                        <!--
+                                        ================================
+                                        |     CHANGE PASSWORD Link     |
+                                        ================================
+                                        -->
+                                        <h:link outcome="EnterEmail">
+                                            <i class="fa fa-key">&nbsp;</i>Change Password
+                                        </h:link>
+                                    </li>
 
-                                    <!-- ****************** Delete Account Begin **************************** -->
-                                    <!-- 
-                                    When the user selects YES, ConfirmPasswordDialog in the included DeleteAccountDialog.xhtml file is
-                                    displayed, and the form with id ConfirmPasswordForm in the DeleteAccountDialog.xhtml is updated.
-                                    -->
-                                    <p:commandLink oncomplete="PF('ConfirmPasswordDialog').show()"
-                                                   update=":ConfirmPasswordForm" >
+                                    <li class="verticalMenuItem">
+                                        <!--
+                                        ================================
+                                        |     RESERVED ITEMS Link     |
+                                        ================================
+                                        -->
+                                        <h:link outcome="/reservedItem/List">
+                                            <i class="fa fa-key">&nbsp;</i>Reserved Items
+                                        </h:link>
+                                    </li>
 
-                                        <label style="font-size: 10pt;">
-                                            <i class="fa fa-trash">&nbsp;</i>Delete Account
-                                        </label>
+                                    <li class="verticalMenuItem">
+                                        <!--
+                                        ================================
+                                        |     ORDER ONLINE Link     |
+                                        ================================
+                                        -->
+                                        <h:link outcome="SignIn">
+                                            <i class="fa fa-key">&nbsp;</i>Order Online
+                                        </h:link>
+                                    </li>
 
-                                        <p:confirm header="Account Deletion Confirmation" 
-                                                   message="Are you sure to permanently delete your account? This cannot be undone!" 
-                                                   icon="ui-icon-alert" />
-                                    </p:commandLink>
-                                    <!-- 
-                                    First, confirmation dialog is displayed to check if user really wants to delete the account.
-                                    If the user clicks YES, then ConfirmPasswordDialog is shown in the DeleteAccountDialog.xhtml file
-                                    to confirm the deletion by entering password. This provides double layer confirmation. 
-                                    -->
+                                    <li class="verticalMenuItem">
+                                        <!--
+                                        ================================
+                                        |      DELETE ACCOUNT Link     |
+                                        ================================
+                                        -->
 
-                                    <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
-                                        <div align="center">
+                                        <!-- ****************** Delete Account Begin **************************** -->
+                                        <!-- 
+                                        When the user selects YES, ConfirmPasswordDialog in the included DeleteAccountDialog.xhtml file is
+                                        displayed, and the form with id ConfirmPasswordForm in the DeleteAccountDialog.xhtml is updated.
+                                        -->
+                                        <p:commandLink oncomplete="PF('ConfirmPasswordDialog').show()"
+                                                       update=":ConfirmPasswordForm" >
 
-                                            <p:commandButton value="NO" type="button" 
-                                                             styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                                            &nbsp;
-                                            <p:commandButton value="YES" type="button" 
-                                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                        </div>
-                                    </p:confirmDialog>
+                                            <label style="font-size: 10pt;">
+                                                <i class="fa fa-trash">&nbsp;</i>Delete Account
+                                            </label>
 
-                                    <!-- ****************** Delete Account End **************************** -->
-                                </li>
+                                            <p:confirm header="Account Deletion Confirmation" 
+                                                       message="Are you sure to permanently delete your account? This cannot be undone!" 
+                                                       icon="ui-icon-alert" />
+                                        </p:commandLink>
+                                        <!-- 
+                                        First, confirmation dialog is displayed to check if user really wants to delete the account.
+                                        If the user clicks YES, then ConfirmPasswordDialog is shown in the DeleteAccountDialog.xhtml file
+                                        to confirm the deletion by entering password. This provides double layer confirmation. 
+                                        -->
 
-                                <li class="verticalMenuItem">
-                                    <!--
-                                    ================================
-                                    |         SIGN OUT Link        |
-                                    ================================
-                                    -->
-                                    <h:commandLink action="#{accountManager.logout()}">
-                                        <i class="fa fa-sign-out">&nbsp;</i>Sign Out
-                                    </h:commandLink>
-                                </li>
-                            </ul>
+                                        <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                            <div align="center">
 
-                        </td>
+                                                <p:commandButton value="NO" type="button" 
+                                                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                &nbsp;
+                                                <p:commandButton value="YES" type="button" 
+                                                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                            </div>
+                                        </p:confirmDialog>
 
-                        <!-- The second <td> contains the USER PROFILE DATA -->
-                        <td align="center" valign="top">
+                                        <!-- ****************** Delete Account End **************************** -->
+                                    </li>
 
-                            <h2> #{accountManager.selected.firstName} #{accountManager.selected.lastName}'s Account Profile </h2>
+                                    <li class="verticalMenuItem">
+                                        <!--
+                                        ================================
+                                        |         SIGN OUT Link        |
+                                        ================================
+                                        -->
+                                        <h:commandLink action="#{accountManager.logout()}">
+                                            <i class="fa fa-sign-out">&nbsp;</i>Sign Out
+                                        </h:commandLink>
+                                    </li>
+                                </ul>
 
-                            <!-- USER'S PROFILE PHOTO -->
-                            <h:graphicImage class="profilePhoto" value="#{accountManager.userPhoto()}" />
-                            <br />
-                            <br />
-                            <p:panelGrid columns="2" columnClasses="profileColumn1, profileColumn2" >
+                            </td>
 
-                                <h:outputText value="#{bundle.ViewUserLabel_firstName}"/>
-                                <h:outputText value="#{accountManager.selected.firstName}" />
+                            <!-- The second <td> contains the USER PROFILE DATA -->
+                            <td align="center" valign="top">
 
-                                <h:outputText value="#{bundle.ViewUserLabel_middleName}"/>
-                                <h:outputText value="#{accountManager.selected.middleName}" />
+                                <h2> #{accountManager.selected.firstName} #{accountManager.selected.lastName}'s Account Profile </h2>
 
-                                <h:outputText value="#{bundle.ViewUserLabel_lastName}"/>
-                                <h:outputText value="#{accountManager.selected.lastName}" />
+                                <!-- USER'S PROFILE PHOTO -->
+                                <h:graphicImage class="profilePhoto" value="#{accountManager.userPhoto()}" />
+                                <br />
+                                <br />
+                                <p:panelGrid columns="2" columnClasses="profileColumn1, profileColumn2" >
 
-                                <h:outputText value="#{bundle.ViewUserLabel_address1}"/>
-                                <h:outputText value="#{accountManager.selected.address1}" />
+                                    <h:outputText value="#{bundle.ViewUserLabel_firstName}"/>
+                                    <h:outputText value="#{accountManager.selected.firstName}" />
 
-                                <h:outputText value="#{bundle.ViewUserLabel_address2}"/>
-                                <h:outputText value="#{accountManager.selected.address2}" />
+                                    <h:outputText value="#{bundle.ViewUserLabel_middleName}"/>
+                                    <h:outputText value="#{accountManager.selected.middleName}" />
 
-                                <h:outputText value="#{bundle.ViewUserLabel_city}"/>
-                                <h:outputText value="#{accountManager.selected.city}" />
+                                    <h:outputText value="#{bundle.ViewUserLabel_lastName}"/>
+                                    <h:outputText value="#{accountManager.selected.lastName}" />
 
-                                <h:outputText value="#{bundle.ViewUserLabel_state}"/>
-                                <h:outputText value="#{accountManager.selected.state}" />
+                                    <h:outputText value="#{bundle.ViewUserLabel_address1}"/>
+                                    <h:outputText value="#{accountManager.selected.address1}" />
 
-                                <h:outputText value="#{bundle.ViewUserLabel_zipcode}"/>
-                                <h:outputText value="#{accountManager.selected.zipcode}" />
+                                    <h:outputText value="#{bundle.ViewUserLabel_address2}"/>
+                                    <h:outputText value="#{accountManager.selected.address2}" />
 
-                                <h:outputText value="#{bundle.ViewUserLabel_phoneNumber}"/>
-                                <h:outputText value="#{accountManager.selected.phoneNumber}" />
-                                
-                                <h:outputText value="#{bundle.ViewUserLabel_email}"/>
-                                <h:outputText value="#{accountManager.selected.email}" />
+                                    <h:outputText value="#{bundle.ViewUserLabel_city}"/>
+                                    <h:outputText value="#{accountManager.selected.city}" />
 
-                            </p:panelGrid>
+                                    <h:outputText value="#{bundle.ViewUserLabel_state}"/>
+                                    <h:outputText value="#{accountManager.selected.state}" />
 
-                        </td>
-                    </tr>
-                </table>
+                                    <h:outputText value="#{bundle.ViewUserLabel_zipcode}"/>
+                                    <h:outputText value="#{accountManager.selected.zipcode}" />
 
-            </h:form>
+                                    <h:outputText value="#{bundle.ViewUserLabel_phoneNumber}"/>
+                                    <h:outputText value="#{accountManager.selected.phoneNumber}" />
 
-            <ui:include src="DeleteAccountDialog.xhtml"/>
+                                    <h:outputText value="#{bundle.ViewUserLabel_email}"/>
+                                    <h:outputText value="#{accountManager.selected.email}" />
 
+                                </p:panelGrid>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </h:form>
+
+                <ui:include src="DeleteAccountDialog.xhtml"/>
+            </c:if>
         </ui:define>
 
     </ui:composition>

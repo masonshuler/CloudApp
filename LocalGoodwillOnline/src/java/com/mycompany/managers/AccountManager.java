@@ -405,6 +405,29 @@ public class AccountManager implements Serializable {
         }
         return "";
     }
+    
+    public String generateApplicationEmail(){
+        return "";
+    }
+    
+    public String initializeApplication(){
+        firstName = selected.getFirstName();
+        middleName = selected.getMiddleName();
+        lastName = selected.getLastName();
+
+        address1 = selected.getAddress1();
+        address2 = selected.getAddress2();
+        city = selected.getCity();
+        state = selected.getState();
+        zipcode = selected.getZipcode();
+        phoneNumber = selected.getPhoneNumber();
+        return "";
+    }
+    
+    public String redirectIndex() throws IOException{
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/LocalGoodwillOnline/SignIn.xhtml");
+        return "Please log in to view this page!";
+    }
 
     // Initialize the session map for the User object
     public void initializeSessionMap() {
