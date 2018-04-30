@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Osman Balci on 2018.03.26
+Copyright © 2018 Osman Balci. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="template/siteTemplate.xhtml">
+        <ui:define name="title">
+            <!-- Set the page title -->
+            <h:outputText value="Prepare Order"></h:outputText>
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+            <div align="center" style="width:50%; margin:0 auto;">
+
+                <h1>Welcome #{accountManager.selected.firstName} #{accountManager.selected.lastName}</h1>       
+                <h2>Order Online</h2>
+
+                <!-- Total Cost is recalculated right after the user selects a pizza size or adds a topping. -->
+                <h:outputText value="Total Cost: " class="heading"/>
+                <h:outputText id="totalCostLabel" value="$#{priceManager.totalCost}" class="heading"/>
+                <br /><br />
+                <h:form id="orderForm">
+                    <p:growl id="msgs" showDetail="true" />
+                    <p:panel id="meatsPricePanel" class=".ui-panel" >
+                        <h:panelGrid columns="4" cellpadding="5">
+                            
+                            <c:forEach items="#{itemController.reservedItems}" var="item">
+                                <p:graphicImage name="/#{itemController.getPicture(item)}" />
+                                <h:outputText value="#{item.title}" class="formItemText" />
+                                <h:outputText value="$#{item.price}" class="formItemText" />
+                                <p:selectBooleanCheckbox>
+                                    <p:ajax listener="#{priceManager.setBought(item)}" update="totalCostLabel" />
+                                </p:selectBooleanCheckbox>
+                            </c:forEach>
+
+                        </h:panelGrid>
+                    </p:panel>
+
+                    <br/>
+                    <!-- Reset all order data-->
+                    <p:commandButton value="Clear Order" update=":orderForm,totalCostLabel" icon="ui-icon-newwin"
+                                     action="#{priceManager.clearOrder}"  />
+                    &nbsp;
+                    <p:commandButton value="Place Order" update="msgs" icon="ui-icon-extlink"
+                                     action="#{priceManager.orderSubmitted(itemController)}"  />
+                </h:form>
+                <br/><br/>
+            </div>
+        </ui:define>
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+</html>

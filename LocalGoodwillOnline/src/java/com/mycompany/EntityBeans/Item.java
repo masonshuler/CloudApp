@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Item.findByDescription", query = "SELECT i FROM Item i WHERE i.description = :description")
     , @NamedQuery(name = "Item.findByDatePublished", query = "SELECT i FROM Item i WHERE i.datePublished = :datePublished")
     , @NamedQuery(name = "Item.findReservedItemByUserId", query = "SELECT u FROM Item u WHERE u.reservedUser.id = :userId")})
-public class Item implements Serializable {
+public class Item implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -236,6 +236,11 @@ public class Item implements Serializable {
     @Override
     public String toString() {
         return id.toString();
+    }
+    
+    @Override
+    public Item clone() throws CloneNotSupportedException {
+        return (Item) super.clone();
     }
     
 }

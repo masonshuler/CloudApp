@@ -725,6 +725,11 @@ public class AccountManager implements Serializable {
         return "/Profile?faces-redirect=true";
     }
 
+    // Show the PrepareOrder page
+    public String showPrepareOrder() {
+        return "/PrepareOrder?faces-redirect=true";
+    }
+
     public String logout() {
 
         // Clear the logged-in User's session map
