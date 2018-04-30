@@ -1,7 +1,7 @@
 /**
- * Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman on 2018.04.22  * 
- * Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved. * 
- **/
+ * Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman on 2018.04.22  *
+ * Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved. *
+ * */
 package com.mycompany.controllers;
 
 import com.mycompany.EntityBeans.Item;
@@ -48,7 +48,7 @@ public class ItemController implements Serializable {
     private List<Item> reservedItems = null;
     private Item selected;
     HashMap<Integer, String> cleanedItemHashMap = null;
-    
+
     private int minPrice;
     private int maxPrice;
 
@@ -110,11 +110,11 @@ public class ItemController implements Serializable {
     private ItemFacade getItemFacade() {
         return itemFacade;
     }
-    
+
     private ItemPhotoFacade getItemPhotoFacade() {
         return itemPhotoFacade;
     }
-    
+
     /*
      ********************************************
      *   Display List.xhtml JSF Facelets Page   *
@@ -126,7 +126,7 @@ public class ItemController implements Serializable {
         searchString = null;
         return "/publicItem/List?faces-redirect=true";
     }
-    
+
     /*
      *************************************************************************
      *   Search searchString in searchField and Return the Search Results    *
@@ -162,7 +162,8 @@ public class ItemController implements Serializable {
      ********************************************
      */
     /**
-     * @SessionScoped enables to preserve the values of the instance variables for the SearchResults.xhtml page to access.
+     * @SessionScoped enables to preserve the values of the instance variables
+     * for the SearchResults.xhtml page to access.
      *
      * @param actionEvent refers to clicking the Submit button
      * @throws IOException if the page to be redirected to cannot be found
@@ -172,19 +173,38 @@ public class ItemController implements Serializable {
         selected = null;
         FacesContext.getCurrentInstance().getExternalContext().redirect("SearchResults.xhtml");
     }
-    
+
+    public void upvote(Item item) {
+        float rating = item.getRating();
+        if (item.getRating() < 9.5) {
+            item.setRating(rating + (float) (0.5));
+        } else {
+            item.setRating(10);
+        }
+        getItemFacade().edit(item);
+    }
+
+    public void downvote(Item item) {
+        float rating = item.getRating();
+        if (item.getRating() > 0.5) {
+            item.setRating(rating - (float) (0.5));
+        } else {
+            item.setRating(0);
+        }
+        getItemFacade().edit(item);
+    }
+
     public void reserve(AccountManager accountManager) {
         if (!accountManager.isLoggedIn()) {
             persist(PersistAction.SHARE, "Cannot reserve the Item since No User is Signed In!");
-        }
-        else {
+        } else {
             items = null;
             reservedItems = null;
             selected.setReservedUser(accountManager.getSelected());
             persist(PersistAction.SHARE, ResourceBundle.getBundle("/Bundle").getString("ItemReserved"));
         }
     }
-    
+
     public void unreserve() {
         System.out.println("ITEMCONTROLLER: Unreserving");
         items = null;
@@ -220,7 +240,7 @@ public class ItemController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
     public List<Item> getItems() {
         items = getItemFacade().findAll();
         List<Item> priceFiltered;
@@ -231,11 +251,11 @@ public class ItemController implements Serializable {
         items = priceFiltered;
         return priceFiltered;
     }
-    
+
     private UserFacade getUserFacade() {
         return userFacade;
     }
-    
+
     public List<Item> getReservedItems() {
         if (reservedItems == null) {
             String emailOfSignedInUser = (String) FacesContext.getCurrentInstance()
@@ -244,7 +264,7 @@ public class ItemController implements Serializable {
             Integer userId = signedInUser.getId();
             reservedItems = getItemFacade().findReservedItemsByUserID(userId);
             cleanedItemHashMap = new HashMap<>();
-            
+
             for (int i = 0; i < reservedItems.size(); i++) {
 
                 String storedItemName = reservedItems.get(i).getTitle();
@@ -256,10 +276,10 @@ public class ItemController implements Serializable {
         }
         return reservedItems;
     }
-    
-    public String getPicture(Item anItem) {        
+
+    public String getPicture(Item anItem) {
         Integer itemId = anItem.getId();
-        
+
         List<ItemPhoto> photoList = getItemPhotoFacade().findPhotosByItemID(itemId);
 
         if (photoList.isEmpty()) {
@@ -269,11 +289,11 @@ public class ItemController implements Serializable {
              */
             return Constants.DEFAULT_PHOTO_RELATIVE_PATH;
         }
-        
+
         String photoName = photoList.get(0).getPhotoFilename();
-        
+
         String relativePhotoFilePath = Constants.ITEMS_RELATIVE_PATH + photoName;
-        
+
         return relativePhotoFilePath;
     }
 
