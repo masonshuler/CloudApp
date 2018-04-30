@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 
 /**
@@ -64,13 +66,15 @@ public class PriceManager implements Serializable {
     public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
     }
+    
+    public String totalCostString() {
+        return String.format("%.2f", totalCost);
+    }
 
     // Reset all selected values upon clicking Clear Order
-    public String clearOrder(AccountManager accountManager) {
+    public void clearOrder() {
         orderList.clear();
         setDefaultValues();
-        accountManager.setCcNumberLast4("");
-        return "/PrepareOrder?faces-redirect=true";
     }
 
     /*
@@ -93,7 +97,7 @@ public class PriceManager implements Serializable {
     }
 
     // Process the submitted pizza order
-    public String orderSubmitted(ItemController itemController) throws CloneNotSupportedException {
+    public String orderSubmitted(ItemController itemController) throws CloneNotSupportedException {        
         removed = cloneList(orderList);
         List<Item> reserved = itemController.getReservedItems();
         for (int i = 0; i < orderList.size(); i++) {

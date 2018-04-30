@@ -27,73 +27,85 @@ Copyright © 2018 Osman Balci. All rights reserved.
                 <h1>Welcome #{accountManager.selected.firstName} #{accountManager.selected.lastName}</h1>       
                 <h2>Order Online</h2>
 
-                <!-- Total Cost is recalculated right after the user selects a pizza size or adds a topping. -->
-                <h:outputText value="Total Cost: " class="heading"/>
-                <h:outputText id="totalCostLabel" value="$#{priceManager.totalCost}" class="heading"/>
+                <c:if test="#{itemController.reservedItems.size() > 0}">
+                    <!-- Total Cost is recalculated right after the user selects a pizza size or adds a topping. -->
+                    <h:outputText value="Total Cost: " class="heading"/>
+                    <h:outputText id="totalCostLabel" value="$#{priceManager.totalCostString()}" class="heading"/>
+                    <br /><br />
+                    <h:form id="orderForm">
+                        <p:growl id="msgs" />
+                        <p:panel id="itemPanel" class=".ui-panel" >
+                            <h:panelGrid columns="4" cellpadding="5">
+
+                                <c:forEach items="#{itemController.reservedItems}" var="item">
+                                    <p:graphicImage name="/#{itemController.getPicture(item)}" />
+                                    <h:outputText value="#{item.title}" class="formItemText" />
+                                    <h:outputText value="$#{item.priceString()}" class="formItemText" />
+                                    <p:selectBooleanCheckbox>
+                                        <p:ajax listener="#{priceManager.setBought(item)}" update="totalCostLabel" />
+                                    </p:selectBooleanCheckbox>
+                                </c:forEach>
+
+                            </h:panelGrid>
+                        </p:panel>
+                        <br/>
+                        <p:panel id="creditCardPanel" class=".ui-panel" >
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Credit Card Number:" for="ccNumber" />
+                                <p:inputText id="ccNumber" value="#{accountManager.ccNumberLast4}" label="Credit Card Number"
+                                             class="accountInputTextField"
+                                             required ="true"
+                                             requiredMessage="The Credit Card Number field is required." 
+                                             maxlength="19" converterMessage=""
+                                             onfocus="$(this).attr('placeholder', 'Enter max 19 digits');"
+                                             onblur="$(this).attr('placeholder', 'Credit Card Number');">
+                                    <!-- Execute the "validate" method in the "CcNumberValidator.java" class file to validate the credit card number entered. -->
+                                    <f:validator validatorId="ccNumberValidator"/>
+                                </p:inputText>
+
+                                <p:outputLabel value="Credit Card Expiration Date:" for="ccExpires" />
+                                <p:inputText id="ccExpires" label="Credit Card Expiration Date"
+                                             class="accountInputTextField"
+                                             required ="true"
+                                             requiredMessage="The Credit Card Expiration Date field is required." 
+                                             maxlength="4"
+                                             onfocus="$(this).attr('placeholder', 'MMYY');"
+                                             onblur="$(this).attr('placeholder', 'Expiration Date');"
+                                             >
+                                    <!-- Execute the "validate" method in the "ExpirationValidator.java" class file to validate the expiration date entered. -->
+                                    <f:validator validatorId="expirationValidator" />
+                                </p:inputText>
+
+                                <p:outputLabel value="Credit Card Security Code:" for="ccSecurityCode" />
+                                <p:inputText id="ccSecurityCode" label="Credit Card Security Code" 
+                                             class="accountInputTextField"
+                                             required ="true"
+                                             requiredMessage="The Credit Card Security Code field is required." 
+                                             maxlength="4"
+                                             onfocus="$(this).attr('placeholder', '1234');"
+                                             onblur="$(this).attr('placeholder', 'Security Code');"
+                                             >
+                                    <!-- Execute the "validate" method in the "SecurityCodeValidator.java" class file to validate the security code entered. -->
+                                    <f:validator validatorId="securityCodeValidator" /> 
+                                </p:inputText>
+                            </h:panelGrid>
+                        </p:panel>
+
+                        <br/>
+                        <p:button outcome="/index" value="Cancel" icon="ui-icon-cancel" onclick="#{priceManager.clearOrder()}" >
+                        </p:button>
+                        &nbsp;
+                        <p:commandButton value="Place Order" update="msgs" icon="ui-icon-extlink"
+                                         action="#{priceManager.orderSubmitted(itemController)}"  />
+
+                    </h:form>
+                </c:if>
+                <c:if test="#{itemController.reservedItems.size() == 0}">
+                    <h:outputText value="You have no reserved items." />
+                    <br />  
+                    <h:outputText value="You must reserve an item before you can checkout online." />
+                </c:if>
                 <br /><br />
-                <h:form id="orderForm">
-                    <p:growl id="msgs" showDetail="true" />
-                    <p:panel id="itemPanel" class=".ui-panel" >
-                        <h:panelGrid columns="4" cellpadding="5">
-
-                            <c:forEach items="#{itemController.reservedItems}" var="item">
-                                <p:graphicImage name="/#{itemController.getPicture(item)}" />
-                                <h:outputText value="#{item.title}" class="formItemText" />
-                                <h:outputText value="$#{item.price}" class="formItemText" />
-                                <p:selectBooleanCheckbox>
-                                    <p:ajax listener="#{priceManager.setBought(item)}" update="totalCostLabel" />
-                                </p:selectBooleanCheckbox>
-                            </c:forEach>
-
-                        </h:panelGrid>
-                    </p:panel>
-                    <br/>
-                    <p:panel id="creditCardPanel" class=".ui-panel" >
-                        <h:panelGrid columns="2">
-                            <p:outputLabel value="Credit Card Number:" for="ccNumber" />
-                            <p:inputText id="ccNumber" value="#{accountManager.ccNumberLast4}" label="Credit Card Number"
-                                         class="accountInputTextField" required="true"
-                                         requiredMessage="The Credit Card Number field is required." 
-                                         maxlength="19" converterMessage=""
-                                         onfocus="$(this).attr('placeholder', 'Enter max 19 digits');"
-                                         onblur="$(this).attr('placeholder', 'Credit Card Number');">
-                                <!-- Execute the "validate" method in the "CcNumberValidator.java" class file to validate the credit card number entered. -->
-                                <f:validator validatorId="ccNumberValidator"/>
-                            </p:inputText>
-
-                            <p:outputLabel value="Credit Card Expiration Date:" for="ccExpires" />
-                            <p:inputText id="ccExpires" label="Credit Card Expiration Date"
-                                         class="accountInputTextField" required="true" 
-                                         requiredMessage="The Credit Card Expiration Date field is required." 
-                                         maxlength="4"
-                                         onfocus="$(this).attr('placeholder', 'MMYY');"
-                                         onblur="$(this).attr('placeholder', 'Expiration Date');">
-                                <!-- Execute the "validate" method in the "ExpirationValidator.java" class file to validate the expiration date entered. -->
-                                <f:validator validatorId="expirationValidator"/>
-                            </p:inputText>
-
-                            <p:outputLabel value="Credit Card Security Code:" for="ccSecurityCode" />
-                            <p:inputText id="ccSecurityCode" label="Credit Card Security Code" 
-                                         class="accountInputTextField" required="true"
-                                         requiredMessage="The Credit Card Security Code field is required." 
-                                         maxlength="4"
-                                         onfocus="$(this).attr('placeholder', '1234');"
-                                         onblur="$(this).attr('placeholder', 'Security Code');">
-                                <!-- Execute the "validate" method in the "SecurityCodeValidator.java" class file to validate the security code entered. -->
-                                <f:validator validatorId="securityCodeValidator"/> 
-                            </p:inputText>
-                        </h:panelGrid>
-                    </p:panel>
-
-                    <br/>
-                    <!-- Reset all order data-->
-                    <p:commandButton value="Clear Order" update=":orderForm,totalCostLabel" icon="ui-icon-newwin"
-                                     action="#{priceManager.clearOrder(accountManager)}"  />
-                    &nbsp;
-                    <p:commandButton value="Place Order" update="msgs" icon="ui-icon-extlink"
-                                     action="#{priceManager.orderSubmitted(itemController)}"  />
-                </h:form>
-                <br/><br/>
             </div>
         </ui:define>
     </ui:composition>

@@ -114,6 +114,8 @@ public class AccountManager implements Serializable {
     private User selected;
     
     private String ccNumberLast4;
+    private String expirationNumber;
+    private String securityCode;
 
     /*
     The instance variable 'userFacade' is annotated with the @EJB annotation.
@@ -273,6 +275,22 @@ public class AccountManager implements Serializable {
     
     public void setCcNumberLast4(String ccNumberLast4) {
         this.ccNumberLast4 = ccNumberLast4;
+    }
+
+    public String getExpirationNumber() {
+        return expirationNumber;
+    }
+
+    public void setExpirationNumber(String expirationNumber) {
+        this.expirationNumber = expirationNumber;
+    }
+
+    public String getSecurityCode() {
+        return securityCode;
+    }
+
+    public void setSecurityCode(String securityCode) {
+        this.securityCode = securityCode;
     }
 
     /*
@@ -730,7 +748,8 @@ public class AccountManager implements Serializable {
 
     // Show the Home page
     public String showHomePage(PriceManager priceManager) {
-        priceManager.clearOrder(this);
+        setCcNumberLast4("");
+        priceManager.clearOrder();
         return "/index?faces-redirect=true";
     }
 
@@ -741,7 +760,8 @@ public class AccountManager implements Serializable {
 
     // Show the PrepareOrder page
     public String showPrepareOrder(PriceManager priceManager) {
-        priceManager.clearOrder(this);
+        setCcNumberLast4("");
+        priceManager.clearOrder();
         return "/PrepareOrder?faces-redirect=true";
     }
 
