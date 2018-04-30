@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Osman Balci on 2018.03.26
+Copyright © 2018 Osman Balci. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="template/siteTemplate.xhtml">
+        <ui:define name="title">
+            <!-- Set the page title -->
+            <h:outputText value="Order Confirmation"></h:outputText>
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+
+            <div align="center" style="width:50%; margin:0 auto;">
+
+                <!-- This form displays the Pizza Hut logo and lists the order details -->
+                <h:form id="OrderConfirmation">
+
+                    <h:graphicImage url="#{resource['images:goodwillLogo.PNG']}" width="255px" height="64px"  alt="Logo"/>
+                    <br/><br/>
+                    Thank You <strong>#{accountManager.selected.firstName} #{accountManager.selected.lastName}</strong> for your order!
+                    <br/><br/><br/>
+                    Your Credit Card Number ***<strong>#{accountManager.ccNumberLast4}</strong> is charged 
+                    <strong>$#{priceManager.totalCost}</strong> including <strong>#{100 * priceManager.salesTax}%</strong> sales tax 
+                    for these items: 
+                    <br/><br/>
+                    <div align="center">
+                        <ul class="confirmedList">
+                            <c:forEach items="#{priceManager.removed}" var="item" >
+                                <li class="confirmedList">
+                                    #{item.title}
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <br/><br/>
+                    Your items will be delivered to your following address:
+                    <br/><br/>
+                    <strong>#{accountManager.selected.address1} #{accountManager.selected.address2}, 
+                        #{accountManager.selected.city}, #{accountManager.selected.state}
+                        #{accountManager.selected.zipcode}</strong>
+                    <br/><br/>
+                    Thank You for Choosing Goodwill Online!
+                    <br/><br/>
+                    <p:commandButton id="home" type="submit" value="Home" icon="ui-icon-home" 
+                                     action="#{accountManager.showHomePage(priceManager)}" ajax="false" >
+                    </p:commandButton>
+                    &nbsp;
+                    <p:commandButton id="newOrder" type="submit" value="Start a New Order" icon="ui-icon-arrowreturnthick-1-w" 
+                                     action="#{accountManager.showPrepareOrder(priceManager)}" ajax="false"  >
+                    </p:commandButton>
+                    &nbsp;
+                    <p:commandButton id="logOut" type="submit" value="Sign Out" icon="ui-icon-arrowthick-1-w" 
+                                     action="#{accountManager.logout()}" ajax="false"  />
+
+                </h:form>
+                <br/><br/><br/>
+            </div>
+        </ui:define>
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+</html>

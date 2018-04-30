@@ -112,6 +112,10 @@ public class AccountManager implements Serializable {
     private String statusMessage;
 
     private User selected;
+    
+    private String ccNumberLast4;
+    private String expirationNumber;
+    private String securityCode;
 
     /*
     The instance variable 'userFacade' is annotated with the @EJB annotation.
@@ -260,6 +264,33 @@ public class AccountManager implements Serializable {
 
     public UserPhotoFacade getUserPhotoFacade() {
         return userPhotoFacade;
+    }
+    
+    public String getCcNumberLast4() {
+        if (ccNumberLast4 == null || ccNumberLast4.length() < 12) {
+            return "";
+        }
+        return ccNumberLast4.substring(12);
+    }
+    
+    public void setCcNumberLast4(String ccNumberLast4) {
+        this.ccNumberLast4 = ccNumberLast4;
+    }
+
+    public String getExpirationNumber() {
+        return expirationNumber;
+    }
+
+    public void setExpirationNumber(String expirationNumber) {
+        this.expirationNumber = expirationNumber;
+    }
+
+    public String getSecurityCode() {
+        return securityCode;
+    }
+
+    public void setSecurityCode(String securityCode) {
+        this.securityCode = securityCode;
     }
 
     /*
@@ -739,13 +770,22 @@ public class AccountManager implements Serializable {
     }
 
     // Show the Home page
-    public String showHomePage() {
+    public String showHomePage(PriceManager priceManager) {
+        setCcNumberLast4("");
+        priceManager.clearOrder();
         return "/index?faces-redirect=true";
     }
 
     // Show the Profile page
     public String showProfile() {
         return "/Profile?faces-redirect=true";
+    }
+
+    // Show the PrepareOrder page
+    public String showPrepareOrder(PriceManager priceManager) {
+        setCcNumberLast4("");
+        priceManager.clearOrder();
+        return "/PrepareOrder?faces-redirect=true";
     }
 
     public String logout() {
