@@ -43,7 +43,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
 
                     <br/>
 
-                    <p:commandButton id="viewButton"   icon="ui-icon-search" 
+<!--                    <p:commandButton id="viewButton"   icon="ui-icon-search" 
                                      value="#{bundle.View}" update=":ItemViewForm" 
                                      oncomplete="PF('ItemViewDialog').show()" 
                                      disabled="#{empty itemController.selected}" 
@@ -51,8 +51,8 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
 
                     <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
                         <div align="center">
-                            <!-- The value of the first button listed below will be shown as 
-                            highlighted (default action) when displayed -->
+                             The value of the first button listed below will be shown as 
+                            highlighted (default action) when displayed 
                             <p:commandButton value="No" type="button" 
                                              styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                             &nbsp;
@@ -66,7 +66,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                      styleClass="commandButton" actionListener="#{itemController.reserve(accountManager)}" >
                         <p:confirm header="Reserve Confirmation" message="Are you sure you want to add the selected item to the Signed-In User's List of Reserved Items?" 
                                    icon="ui-icon-alert" />
-                    </p:commandButton>
+                    </p:commandButton>-->
 
                 </h:form>
             </div>
