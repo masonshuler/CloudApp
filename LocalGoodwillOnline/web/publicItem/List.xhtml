@@ -90,17 +90,23 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                 </div>
                             </p:column>
 
+                            <!-- Column for rating -->
                             <p:column sortBy="#{item.rating}" style="width: 60px;">
                                 <f:facet name="header">
+                                    <!-- Header for column -->
                                     <h:outputText value="#{bundle.ListItemTitle_rating}"/>
                                 </f:facet>
                                 <div align="center">
-                                    <c:if test="#{accountManager.isLoggedIn() == true}">                                        <h:commandLink style="align-self: center;" actionListener="#{itemController.upvote(item)}">
+                                    <!-- Only display arrows if logged in -->
+                                    <c:if test="#{accountManager.isLoggedIn() == true}">                                        
+                                        <h:commandLink style="align-self: center;" actionListener="#{itemController.upvote(item)}">
                                             <h:graphicImage name="images/upArrow.svg" style="height: 40%; width: 40%;"/>
                                         </h:commandLink>
                                         <br/>
                                     </c:if>
+                                    <!-- Rating in a nice formatted way -->
                                     <h:outputText value="#{item.ratingString()}" />
+                                    <!-- Only display arrows if logged in -->
                                     <c:if test="#{accountManager.isLoggedIn() == true}">                                        
                                         <br/>
                                         <h:commandLink style="align-self: center;" actionListener="#{itemController.downvote(item)}" >
