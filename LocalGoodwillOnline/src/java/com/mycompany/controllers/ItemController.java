@@ -56,8 +56,6 @@ public class ItemController implements Serializable {
     private String searchField;
     private List<Item> searchItems = null;
     
-    private List<List<User>> votedList = new ArrayList<>();
-
     public ItemController() {
         minPrice = 0;
         maxPrice = 200;
