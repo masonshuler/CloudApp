@@ -103,6 +103,10 @@ public class PriceManager implements Serializable {
     public String orderSubmitted(ItemController itemController, EmailController emailController, 
             AccountManager accountManager) throws CloneNotSupportedException, AddressException, 
             MessagingException {
+        if (orderList.isEmpty()) {
+            throw new ValidatorException(new FacesMessage("You must order at least one item"));
+        }
+        
         removed = cloneList(orderList);
 
         StringBuilder builder = new StringBuilder();
