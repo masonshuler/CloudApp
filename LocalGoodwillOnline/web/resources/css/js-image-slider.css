@@ -8,12 +8,12 @@ This CSS file was created by http://www.menucool.com
 
 #sliderFrame 
 {
-    width:500px;   /* Change this value with the image width you are using */
+    width:1000px;   /* Change this value with the image width you are using */
     margin:0 auto; /*center-aligned*/
 }
 
 #slider, #slider .sliderInner {
-    width:500px;height:313px;  /* Change to image width and height you are using */
+    width:1000px;height:600px;  /* Change to image width and height you are using */
     border-radius:3px;
 }
 
@@ -41,7 +41,7 @@ This CSS file was created by http://www.menucool.com
 #slider .mc-caption {
     position:absolute;
     width:100%;
-    height:auto;
+    height:100%;
     padding:10px 0;  /* 10px will increase the height.*/
     left:0px;
     bottom:0px;top:auto;
@@ -61,7 +61,7 @@ This CSS file was created by http://www.menucool.com
 
 /* ------ built-in navigation bullets wrapper ------*/
 #slider .navBulletsWrapper  {
-    top:340px;   /* Change this value to image height you are using + 7px */
+    top:615px;   /* Change this value to image height you are using + 7px */
     text-align:center;
     background:none;
     position:relative;
