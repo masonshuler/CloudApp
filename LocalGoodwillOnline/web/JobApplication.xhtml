@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman
+Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="template/siteTemplate.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="Job Application"></h:outputText>
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+            <c:if test="#{accountManager.isLoggedIn() == false}">
+                <div align="center">
+                    <h1>#{accountManager.redirectIndex()}</h1>
+                </div>
+            </c:if>
+            <c:if test="#{accountManager.isLoggedIn() == true}">
+
+                <div align="center" style="width:50%; margin:0 auto;">
+
+                    <!-- Error messages will be shown here if any  -->
+                    <p:messages id="msgs" showIcon="false"/>
+                    <p:outputLabel id="form-error-message" class="errorMessages" value="#{accountManager.statusMessage}"/>
+
+                    <h:form id="AccountCreationForm">
+
+                        <h2>Job Application Details</h2>
+
+                        <!-- f:event allows ComponentSystemEventListener instances on a UI component in a JSF page. 
+                        The following f:event assigns an event listener with the UI component "form" - AccountCreationForm.
+                        
+                        type="postValidate" directs the listener event to invoke the accountManager.validateInformation method
+                        AFTER the UI component "form" is validated with the validation statements included below.
+                        -->
+                        #{accountManager.initializeApplication()}
+
+                        <p:panelGrid columns="2" columnClasses="accountColumn1, accountColumn2">
+
+                            <p:outputLabel value="#{bundle.CreateUserLabel_firstName}" for="firstName" />
+                            <p:inputText id="firstName" value="#{accountManager.firstName}" required="true" styleClass="accountInputTextField"
+                                         requiredMessage="#{bundle.CreateUserRequiredMessage_firstName}" label="First Name">
+                                <f:validateLength minimum="2" />
+                            </p:inputText>   
+
+                            <p:outputLabel value="#{bundle.CreateUserLabel_middleName}" for="middleName" />
+                            <p:inputText id="middleName" value="#{accountManager.middleName}"
+                                         required="false" styleClass="accountInputTextField" label="Middle Name">
+                            </p:inputText>
+
+                            <p:outputLabel value="#{bundle.CreateUserLabel_lastName}" for="lastName" />
+                            <p:inputText id="lastName" value="#{accountManager.lastName}" required="true" styleClass="accountInputTextField"
+                                         requiredMessage="#{bundle.CreateUserRequiredMessage_lastName}" label="Last Name">
+                                <f:validateLength minimum="2" />
+                            </p:inputText>
+
+                            <p:outputLabel value="#{bundle.CreateUserLabel_address1}" for="address1" />
+                            <p:inputText id="address1" value="#{accountManager.address1}" required="true" styleClass="accountInputTextField"
+                                         requiredMessage="#{bundle.CreateUserRequiredMessage_address1}" label="Address Line 1">
+                                <f:validateLength minimum="2" />
+                            </p:inputText>
+
+                            <p:outputLabel value="#{bundle.CreateUserLabel_address2}" for="address2" />
+                            <p:inputText id="address2" value="#{accountManager.address2}" label="Address Line 2" styleClass="accountInputTextField">
+                            </p:inputText>
+
+                            <p:outputLabel value="#{bundle.CreateUserLabel_city}" for="city" />
+                            <p:inputText id="city" value="#{accountManager.city}" required="true" styleClass="accountInputTextField"
+                                         requiredMessage="#{bundle.CreateUserRequiredMessage_city}" label="City">
+                                <f:validateLength minimum="2" />
+                            </p:inputText>
+
+                            <p:outputLabel value="#{bundle.CreateUserLabel_state}" for="state" />
+                            <h:selectOneMenu id="state" value="#{accountManager.state}" required="true">
+                                <f:selectItems value="#{accountManager.listOfStates}" var="state"
+                                               itemLabel="#{state}" itemValue="#{state}" />
+                            </h:selectOneMenu>
+
+                            <p:outputLabel id="zipcodeEntry" value="#{bundle.CreateUserLabel_zipcode}" for="zipcode" >
+                                &nbsp;<i class="fa fa-question-circle" />
+                                <p:tooltip for="zipcodeEntry" value="Enter 5 digits or 9 digits with hyphen, e.g., 24060-1804" 
+                                           showEffect="clip" hideEffect="explode" position="top" />
+                            </p:outputLabel> 
+
+                            <p:inputText id="zipcode" value="#{accountManager.zipcode}" required="true" styleClass="accountInputTextField"
+                                         requiredMessage="#{bundle.CreateUserRequiredMessage_zipcode}" label="Zip Code">
+                                <f:validateLength minimum="5" />
+                                <!-- Execute the "validate" method in the "ZipCodeValidator.java" class file to validate the ZIP code entered. -->
+                                <f:validator validatorId="zipCodeValidator"/> 
+                            </p:inputText>
+
+                            <p:outputLabel value="#{bundle.CreateUserLabel_phoneNumber}" for="phoneNumber" />
+                            <p:inputText id="phoneNumber" value="#{accountManager.phoneNumber}" required="true" styleClass="accountInputTextField"
+                                         requiredMessage="#{bundle.CreateUserRequiredMessage_phoneNumber}" label="Phone Number">
+                                <f:validateLength minimum="2" />
+                                <!-- Execute the "validate" method in the "EmailValidator.java" class file to validate the email address entered. -->
+                                <f:validator validatorId="phoneNumberValidator" />  
+                            </p:inputText>
+
+                            <p:outputLabel value="#{bundle.CreateUserLabel_email}" for="email" />
+                            <p:inputText id="email" value="#{accountManager.email}" required="true" styleClass="accountInputTextField"
+                                         requiredMessage="#{bundle.CreateUserRequiredMessage_email}" label="Email">
+                                <f:validateLength minimum="2" />
+                                <!-- Execute the "validate" method in the "EmailValidator.java" class file to validate the email address entered. -->
+                                <f:validator validatorId="emailValidator" />  
+                            </p:inputText>
+                            
+                            <p:outputLabel value="Previous Work Experience:"/>
+                            <p:inputTextarea value="#{accountManager.previousExperience}" rows="10" cols="50" queryDelay="750" minQueryLength="4" />
+                            
+                            <p:outputLabel value="Cover Letter:"/>
+                            <p:inputTextarea value="#{accountManager.coverLetter}" rows="10" cols="50" queryDelay="750" minQueryLength="4" />
+                        </p:panelGrid>
+                        <br />
+
+                        <p:commandButton id="GenerateEmail" value="Send Application Email" action="#{accountManager.sendApplicationEmail(emailController)}" 
+                                         styleClass="commandButton" ajax="false" icon="ui-icon-extlink" />
+                        &nbsp;&nbsp; 
+
+                        <p:button outcome="index" value="Cancel" icon="ui-icon-cancel" styleClass="commandButton" />
+
+                    </h:form>
+                </div>
+            </c:if>
+        </ui:define>
+
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

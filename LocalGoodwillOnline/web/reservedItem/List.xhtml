@@ -8,7 +8,8 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/template/siteTemplate.xhtml">
 
@@ -18,136 +19,142 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
         </ui:define>
 
         <ui:define name="editableContent">
-            <div align="center" style="width:97%">
-                <!--
-                PrimeFaces Growl displays messages in an overlay. Place p:growl anywhere on your JSF page. 
-                The location of growl in a JSF page does not matter since the messages are displayed
-                as an overlay. The following will display the messages for 5 seconds and then fade away.
-                -->
-                <p:growl id="growl" life="5000" />
-                <h:form id="ReservedItemListForm">
-                    <p:panel header="#{bundle.ListItemTitle}">
-                        <p:dataTable id="reservedDatalist" value="#{itemController.reservedItems}" var="item"
-                                     selectionMode="single" selection="#{itemController.selected}"
-                                     paginator="true"
-                                     rowKey="#{item.id}"
-                                     rows="5"
-                                     rowsPerPageTemplate="5,10,20,30,40,50"
-                                     >
+            <c:if test="#{accountManager.isLoggedIn() == false}">
+                <div align="center">
+                    <h1>#{accountManager.redirectIndex()}</h1>
+                </div>
+            </c:if>
+            <c:if test="#{accountManager.isLoggedIn() == true}">
+                <div align="center" style="width:97%">
+                    <!--
+                    PrimeFaces Growl displays messages in an overlay. Place p:growl anywhere on your JSF page. 
+                    The location of growl in a JSF page does not matter since the messages are displayed
+                    as an overlay. The following will display the messages for 5 seconds and then fade away.
+                    -->
+                    <p:growl id="growl" life="5000" />
+                    <h:form id="ReservedItemListForm">
+                        <p:panel header="#{bundle.ListItemTitle}">
+                            <p:dataTable id="reservedDatalist" value="#{itemController.reservedItems}" var="item"
+                                         selectionMode="single" selection="#{itemController.selected}"
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="5"
+                                         rowsPerPageTemplate="5,10,20,30,40,50"
+                                         >
 
-                            <p:ajax event="rowSelect"   update="viewButton unreserveButton"/>
-                            <p:ajax event="rowUnselect" update="viewButton unreserveButton"/>
+                                <p:ajax event="rowSelect"   update="viewButton unreserveButton"/>
+                                <p:ajax event="rowUnselect" update="viewButton unreserveButton"/>
 
-                            <p:column sortBy="#{item.title}" style="width: 100px;">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListItemTitle_title}"/>
-                                </f:facet>
-                                <div align="left">
-                                    <h:outputText value="#{item.title}"/>
-                                </div>
-                            </p:column>
-
-                            <p:column style="align-content: center; width:60px;">
-                                <f:facet name="header">
-                                    <h:outputText value="Photo" class="facetHeader"/>
-                                </f:facet>
-                                <div align="center">
-                                    <p:graphicImage value="/#{itemController.getPicture(item)}" alt="Item Picture" width="60" height="60"/>
-                                </div>
-                            </p:column>
-
-                            <p:column style="width: 250px;">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListItemTitle_description}"/>
-                                </f:facet>
-                                <div align="left">
-                                    <h:outputText value="#{item.description}"/>
-                                </div>
-                            </p:column>
-
-                            <p:column sortBy="#{item.size}" style="width: 30px;">
-                                <f:facet name="header">
-                                    <h:outputText value="Size"/>
-                                </f:facet>
-                                <div align="center">
-                                    <h:outputText value="#{item.size}"/>
-                                </div>
-                            </p:column>
-
-                            <p:column sortBy="#{item.price}" style="width: 40px;">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListItemTitle_price}"/>
-                                </f:facet>
-                                <div align="center">
-                                    <h:outputText value="#{item.priceString()}"/>
-                                </div>
-                            </p:column>
-
-                            <p:column sortBy="#{item.rating}" style="width: 30px;">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListItemTitle_rating}"/>
-                                </f:facet>
-                                <div align="center">
-                                    <h:outputText value="#{item.rating}"/>
-                                </div>
-                            </p:column>
-
-                            <p:column sortBy="#{item.datePublished}" style="width: 60px;">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListItemTitle_datePublished}"/>
-                                </f:facet>
-                                <div align="center">
-                                    <h:outputText value="#{item.datePublished}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                                    </h:outputText>
-                                </div>
-                            </p:column>
-
-                            <p:column sortBy="#{item.category}" style="width: 80px;">
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListItemTitle_category}"/>
-                                </f:facet>
-                                <div align="center">
-                                    <h:outputText value="#{item.category}"/>
-                                </div>
-                            </p:column>
-
-                            <f:facet name="footer">
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" 
-                                                 value="#{bundle.View}" update=":ItemViewForm" 
-                                                 oncomplete="PF('ItemViewDialog').show()" 
-                                                 disabled="#{empty itemController.selected}" 
-                                                 styleClass="commandButton"/>
-
-                                <p:commandButton id="unreserveButton" icon="ui-icon-circle-plus"  
-                                                 value="Unreserve" disabled="#{empty itemController.selected}"
-                                                 styleClass="commandButton" actionListener="#{itemController.unreserve()}"
-                                                 update=":growl,reservedDatalist" >
-                                    <p:confirm header="Unreserve Confirmation" message="Are you sure you want to remove the selected item from the Signed-In User's List of Reserved Items?" 
-                                               icon="ui-icon-alert" />
-                                </p:commandButton>
-
-                                <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
-                                    <div align="center">
-                                        <!-- The value of the first button listed below will be shown as 
-                                        highlighted (default action) when displayed -->
-                                        <p:commandButton value="No" type="button" 
-                                                         styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                                        &nbsp;
-                                        <p:commandButton value="Yes" type="button" 
-                                                         styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:column sortBy="#{item.title}" style="width: 100px;">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListItemTitle_title}"/>
+                                    </f:facet>
+                                    <div align="left">
+                                        <h:outputText value="#{item.title}"/>
                                     </div>
-                                </p:confirmDialog>
+                                </p:column>
 
-                            </f:facet>
+                                <p:column style="align-content: center; width:60px;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Photo" class="facetHeader"/>
+                                    </f:facet>
+                                    <div align="center">
+                                        <p:graphicImage value="/#{itemController.getPicture(item)}" alt="Item Picture" width="60" height="60"/>
+                                    </div>
+                                </p:column>
 
-                        </p:dataTable>
-                    </p:panel>
-                </h:form>
-            </div>
+                                <p:column style="width: 250px;">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListItemTitle_description}"/>
+                                    </f:facet>
+                                    <div align="left">
+                                        <h:outputText value="#{item.description}"/>
+                                    </div>
+                                </p:column>
 
-            <ui:include src="View.xhtml"/>
+                                <p:column sortBy="#{item.size}" style="width: 30px;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Size"/>
+                                    </f:facet>
+                                    <div align="center">
+                                        <h:outputText value="#{item.size}"/>
+                                    </div>
+                                </p:column>
 
+                                <p:column sortBy="#{item.price}" style="width: 40px;">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListItemTitle_price}"/>
+                                    </f:facet>
+                                    <div align="center">
+                                        <h:outputText value="#{item.priceString()}"/>
+                                    </div>
+                                </p:column>
+
+                                <p:column sortBy="#{item.rating}" style="width: 30px;">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListItemTitle_rating}"/>
+                                    </f:facet>
+                                    <div align="center">
+                                        <h:outputText value="#{item.rating}"/>
+                                    </div>
+                                </p:column>
+
+                                <p:column sortBy="#{item.datePublished}" style="width: 60px;">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListItemTitle_datePublished}"/>
+                                    </f:facet>
+                                    <div align="center">
+                                        <h:outputText value="#{item.datePublished}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </div>
+                                </p:column>
+
+                                <p:column sortBy="#{item.category}" style="width: 80px;">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListItemTitle_category}"/>
+                                    </f:facet>
+                                    <div align="center">
+                                        <h:outputText value="#{item.category}"/>
+                                    </div>
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <p:commandButton id="viewButton"   icon="ui-icon-search" 
+                                                     value="#{bundle.View}" update=":ItemViewForm" 
+                                                     oncomplete="PF('ItemViewDialog').show()" 
+                                                     disabled="#{empty itemController.selected}" 
+                                                     styleClass="commandButton"/>
+
+                                    <p:commandButton id="unreserveButton" icon="ui-icon-circle-plus"  
+                                                     value="Unreserve" disabled="#{empty itemController.selected}"
+                                                     styleClass="commandButton" actionListener="#{itemController.unreserve()}"
+                                                     update=":growl,reservedDatalist" >
+                                        <p:confirm header="Unreserve Confirmation" message="Are you sure you want to remove the selected item from the Signed-In User's List of Reserved Items?" 
+                                                   icon="ui-icon-alert" />
+                                    </p:commandButton>
+
+                                    <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                        <div align="center">
+                                            <!-- The value of the first button listed below will be shown as 
+                                            highlighted (default action) when displayed -->
+                                            <p:commandButton value="No" type="button" 
+                                                             styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                            &nbsp;
+                                            <p:commandButton value="Yes" type="button" 
+                                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                        </div>
+                                    </p:confirmDialog>
+
+                                </f:facet>
+
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </div>
+
+                <ui:include src="View.xhtml"/>
+            </c:if>
         </ui:define>
     </ui:composition>
 
