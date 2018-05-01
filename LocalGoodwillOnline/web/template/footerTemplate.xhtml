@@ -7,7 +7,8 @@ Copyright © 2017 Osman Balci. All rights reserved.
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
     <!--
     *********************************************
@@ -38,12 +39,21 @@ Copyright © 2017 Osman Balci. All rights reserved.
                     its class name. For this to work, the following must be specified in the siteTemplate file:
                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
                     -->
-                    <a href="https://www.goodwill.org" style="color: white">
-                        Goodwill</a>&nbsp;&nbsp;
-                    <a href="https://www.salvationarmyusa.org" style="color: white">
-                        Salvation Army</a>&nbsp;&nbsp;
-                    <a href="https://www.redcross.org" style="color: white">
-                        Red Cross</a>&nbsp;&nbsp;
+                    <h:form>
+                        <p:menubar class="menuBarStyle">
+                            <p:menuitem url="https://www.goodwill.org">
+                                <i class="fa fa-star">&nbsp;</i>Goodwill
+                            </p:menuitem>
+
+                            <p:menuitem url="https://www.salvationarmyusa.org">
+                                <i class="fa fa-globe">&nbsp;</i>Salvation Army
+                            </p:menuitem>
+
+                            <p:menuitem url="https://www.redcross.org">
+                                <i class="fa fa-plus-circle">&nbsp;</i> Red Cross
+                            </p:menuitem>
+                        </p:menubar> 
+                    </h:form>
                 </td>
             </tr>
             <!-- Attribution Statement -->
@@ -51,12 +61,16 @@ Copyright © 2017 Osman Balci. All rights reserved.
                 
                 <td colspan="2" align="center" valign="middle" style="color: white"><br/><br/><br/><br/>
                     <a href="https://manta.cs.vt.edu/cs3754/" style="color: white">CS3754 Cloud Software Development</a> app developed by 
-                    Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, and Matt Tuckman.
+                    <a href="https://www.linkedin.com/in/jordantkuhn/" style="color: white">Jordan Kuhn</a>, 
+                    <a href="https://www.linkedin.com/in/ericscottmcghee/" style="color: white">Scott McGhee</a>,
+                    <a href="https://www.linkedin.com/in/shuvo-rahman-368350108/" style="color: white">Shuvo Rahman</a>,
+                    <a href="https://www.masonshuler.com" style="color: white">Mason Shuler</a>, and
+                    <a href="https://www.linkedin.com/in/matthew-tuckman-68aa53126/" style="color: white">Matt Tuckman</a>.
                 </td>
             </tr>
             
         </table>
-        <br/><br/><br/><br/><br/><br/>
+       
     </ui:composition>
 
 </html>
