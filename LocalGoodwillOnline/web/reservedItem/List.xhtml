@@ -90,14 +90,22 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                     </div>
                                 </p:column>
 
-                                <p:column sortBy="#{item.rating}" style="width: 30px;">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListItemTitle_rating}"/>
-                                    </f:facet>
-                                    <div align="center">
-                                        <h:outputText value="#{item.rating}"/>
-                                    </div>
-                                </p:column>
+                                <p:column sortBy="#{item.rating}" style="width: 60px;">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_rating}"/>
+                                </f:facet>
+                                <div align="center">
+                                    <h:commandLink style="align-self: center;" actionListener="#{itemController.upvote(item)}">
+                                        <h:graphicImage name="images/upArrow.svg" style="height: 40%; width: 40%;"/>
+                                    </h:commandLink>
+                                    <br/>
+                                    <h:outputText value="#{item.rating}" />
+                                    <br/>
+                                    <h:commandLink style="align-self: center;" actionListener="#{itemController.downvote(item)}" >
+                                        <h:graphicImage name="images/downArrow.svg" style="height: 40%; width: 40%;"/>
+                                    </h:commandLink>
+                                </div>
+                            </p:column>
 
                                 <p:column sortBy="#{item.datePublished}" style="width: 60px;">
                                     <f:facet name="header">

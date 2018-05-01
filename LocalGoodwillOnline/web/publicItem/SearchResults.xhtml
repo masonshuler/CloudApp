@@ -8,7 +8,8 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/template/siteTemplate.xhtml">
 
@@ -35,8 +36,14 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                      rowsPerPageTemplate="5,10,20,30,40,50"
                                      >
 
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton backButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton backButton"/>
+                            <c:if test="#{accountManager.isAdmin() == true}">
+                                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton reserveButton backButton"/>
+                                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton reserveButton backButton"/>
+                            </c:if>
+                            <c:if test="#{accountManager.isAdmin() == false}">
+                                <p:ajax event="rowSelect"   update="viewButton reserveButton backButton"/>
+                                <p:ajax event="rowUnselect" update="viewButton reserveButton backButton"/>
+                            </c:if>
 
                             <p:column sortBy="#{item.title}" style="width: 100px;">
                                 <f:facet name="header">
@@ -44,6 +51,15 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                 </f:facet>
                                 <div align="left">
                                     <h:outputText value="#{item.title}"/>
+                                </div>
+                            </p:column>
+                            
+                            <p:column style="align-content: center; width:60px;">
+                                <f:facet name="header">
+                                    <h:outputText value="Photo" class="facetHeader"/>
+                                </f:facet>
+                                <div align="center">
+                                    <p:graphicImage value="/#{itemController.getPicture(item)}" alt="Item Picture" width="60" height="60"/>
                                 </div>
                             </p:column>
 
@@ -56,7 +72,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                 </div>
                             </p:column>
 
-                            <p:column sortBy="#{item.size}" style="width: 80px;">
+                            <p:column sortBy="#{item.size}" style="width: 30px;">
                                 <f:facet name="header">
                                     <h:outputText value="Size: "/>
                                 </f:facet>
@@ -64,8 +80,8 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                     <h:outputText value="#{item.size}"/>
                                 </div>
                             </p:column>
-                            
-                            <p:column sortBy="#{item.price}" style="width: 80px;">
+
+                            <p:column sortBy="#{item.price}" style="width: 40px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_price}"/>
                                 </f:facet>
@@ -73,17 +89,25 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                     <h:outputText value="#{item.price}"/>
                                 </div>
                             </p:column>
-                            
-                            <p:column sortBy="#{item.rating}" style="width: 80px;">
+
+                            <p:column sortBy="#{item.rating}" style="width: 60px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_rating}"/>
                                 </f:facet>
                                 <div align="center">
-                                    <h:outputText value="#{item.rating}"/>
+                                    <h:commandLink style="align-self: center;" actionListener="#{itemController.upvote(item)}">
+                                        <h:graphicImage name="images/upArrow.svg" style="height: 40%; width: 40%;"/>
+                                    </h:commandLink>
+                                    <br/>
+                                    <h:outputText value="#{item.rating}" />
+                                    <br/>
+                                    <h:commandLink style="align-self: center;" actionListener="#{itemController.downvote(item)}" >
+                                        <h:graphicImage name="images/downArrow.svg" style="height: 40%; width: 40%;"/>
+                                    </h:commandLink>
                                 </div>
                             </p:column>
 
-                            <p:column sortBy="#{item.datePublished}" style="width: 80px;">
+                            <p:column sortBy="#{item.datePublished}" style="width: 60px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_datePublished}"/>
                                 </f:facet>
@@ -102,30 +126,43 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                     <h:outputText value="#{item.category}"/>
                                 </div>
                             </p:column>
+                            
+                            <p:column sortBy="#{item.reservedString()}" style="width: 80px;">
+                                <f:facet name="header">
+                                    <h:outputText value="Reserved"/>
+                                </f:facet>
+                                <div align="center">
+                                    <h:outputText value="#{item.reservedString()}" />
+                                </div>
+                            </p:column>
 
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"
-                                                 value="#{bundle.Create}" actionListener="#{itemController.prepareCreate}" 
-                                                 update=":ItemCreateForm" oncomplete="PF('ItemCreateDialog').show()"
-                                                 styleClass="commandButton" />
+                                <c:if test="#{accountManager.isAdmin() == true}">
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"
+                                                     value="#{bundle.Create}" actionListener="#{itemController.prepareCreate}" 
+                                                     update=":ItemCreateForm" oncomplete="PF('ItemCreateDialog').show()"
+                                                     styleClass="commandButton" />
+                                </c:if>
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" 
                                                  value="#{bundle.View}" update=":ItemViewForm" 
                                                  oncomplete="PF('ItemViewDialog').show()" 
                                                  disabled="#{empty itemController.selected}" 
                                                  styleClass="commandButton"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" 
-                                                 value="#{bundle.Edit}" update=":ItemEditForm" 
-                                                 oncomplete="PF('ItemEditDialog').show()" 
-                                                 disabled="#{empty itemController.selected}"
-                                                 styleClass="commandButton" />
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  
-                                                 value="#{bundle.Delete}" actionListener="#{itemController.destroy}" 
-                                                 update=":growl,datalist" disabled="#{empty itemController.selected}"
-                                                 styleClass="commandButton" >
-                                    <p:confirm header="Confirmation" 
-                                               message="Are you sure you want to permanently delete the selected video from the database?" 
-                                               icon="ui-icon-alert" />
-                                </p:commandButton>
+                                <c:if test="#{accountManager.isAdmin() == true}">
+                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" 
+                                                     value="#{bundle.Edit}" update=":ItemEditForm" 
+                                                     oncomplete="PF('ItemEditDialog').show()" 
+                                                     disabled="#{empty itemController.selected}"
+                                                     styleClass="commandButton" />
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  
+                                                     value="#{bundle.Delete}" actionListener="#{itemController.destroy}" 
+                                                     update=":growl,datalist" disabled="#{empty itemController.selected}"
+                                                     styleClass="commandButton" >
+                                        <p:confirm header="Confirmation" 
+                                                   message="Are you sure you want to permanently delete the selected video from the database?" 
+                                                   icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                </c:if>
 
                                 <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
                                     <div align="center">
@@ -138,7 +175,15 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                                          styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                                     </div>
                                 </p:confirmDialog>
-                                
+
+                                <p:commandButton id="reserveButton" icon="ui-icon-circle-plus"  
+                                                 value="Reserve" disabled="#{empty itemController.selected}"
+                                                 styleClass="commandButton" actionListener="#{itemController.reserve(accountManager)}"
+                                                 update=":growl,datalist" >
+                                    <p:confirm header="Reserve Confirmation" message="Are you sure you want to add the selected item to the Signed-In User's List of Reserved Items?" 
+                                               icon="ui-icon-alert" />
+                                </p:commandButton>
+
                                 <p:commandButton id="backButton" icon="ui-icon-arrowreturn-1-w"  
                                                  value="Go Back" styleClass="commandButton"
                                                  action="List" ajax="false" immediate="true"
