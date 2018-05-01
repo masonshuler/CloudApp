@@ -44,7 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findBySecurityAnswer", query = "SELECT u FROM User u WHERE u.securityAnswer = :securityAnswer")
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
     , @NamedQuery(name = "User.findByPhoneNumber", query = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber")
-    , @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin")})
+    , @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin")
+    , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -116,6 +117,11 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "isAdmin")
     private boolean isAdmin;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 32)
+    @Column(name = "username")
+    private String username;
     @OneToMany(mappedBy = "reservedUser")
     private Collection<Item> itemCollection;
     @OneToMany(mappedBy = "userId")
@@ -131,7 +137,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String passwordHash, String firstName, String lastName, String address1, String city, String state, String zipcode, int securityQuestion, String securityAnswer, String phoneNumber, String email, boolean isAdmin) {
+    public User(Integer id, String passwordHash, String firstName, String lastName, String address1, String city, String state, String zipcode, int securityQuestion, String securityAnswer, String phoneNumber, String email, boolean isAdmin, String username) {
         this.id = id;
         this.passwordHash = passwordHash;
         this.firstName = firstName;
@@ -145,6 +151,7 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.isAdmin = isAdmin;
+        this.username = username;
     }
 
     public String getGeneratedAuthCode() {
@@ -274,6 +281,16 @@ public class User implements Serializable {
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    
 
     @XmlTransient
     public Collection<Item> getItemCollection() {

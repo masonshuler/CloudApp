@@ -18,6 +18,7 @@ CREATE TABLE User
     phone_number VARCHAR (10),
     auth_code VARCHAR (15), 
     isAdmin BIT NOT NULL,
+    username VARCHAR (32) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -73,6 +74,6 @@ INSERT INTO ItemPhoto (extension, item_id) VALUES
 ('jpeg', 8),
 ('jpg', 9);
 
-INSERT INTO User (password_hash, first_name, last_name , address1, city, state, zipcode , security_question, security_answer, email, phone_number, isAdmin) VALUES
-('b44c20915a8deb5396da25afd96293a510a4ff5049dd488edead41585ddfba05', 'ADMIN', 'last', 'nowhere lane', 'Blacksburg', 'VA', '24060', 0, 'test', 'admin@admin.admin', '8045162266', 1);
+INSERT INTO User (password_hash, first_name, last_name , address1, city, state, zipcode , security_question, security_answer, email, phone_number, isAdmin, username) VALUES
+('cd916028a2d8a1b901e831246dd5b9b4d3832786ddc63bbf5af4b50d9fc98f50', 'ADMIN', 'last', 'nowhere lane', 'Blacksburg', 'VA', '24060', 0, 'test', 'admin@admin.admin', '8045162266', 1, 'admin');
 /* FOR ADMIN TESTING user:admin@admin.admin password: password*/

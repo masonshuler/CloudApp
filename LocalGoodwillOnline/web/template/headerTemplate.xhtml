@@ -70,7 +70,7 @@ Copyright © 2018 Osman Balci. All rights reserved.
                                     <p:menuitem outcome="/reservedItem/List" ajax="false">
                                         <i class="fa fa-lock">&nbsp;</i>Reserved Items
                                     </p:menuitem>
-                                    <p:menuitem outcome="/PrepareOrder" ajax="false" actionListener="#{priceManager.clearOrder(accountManager)}">
+                                    <p:menuitem outcome="/PrepareOrder" ajax="false" actionListener="#{priceManager.clearOrder()}">
                                         <i class="fa fa-shopping-cart">&nbsp;</i>Order Online
                                     </p:menuitem>
                                 </c:if>
@@ -84,7 +84,7 @@ Copyright © 2018 Osman Balci. All rights reserved.
                                     <p:menuitem outcome="/ChangePhoto" ajax="false" >
                                         <i class="fa fa-file-image-o">&nbsp;</i>Change Photo
                                     </p:menuitem>
-                                    <p:menuitem outcome="/EnterEmail" ajax="false" >
+                                    <p:menuitem outcome="/EnterUsername" ajax="false" >
                                         <i class="fa fa-key">&nbsp;</i>Change Password
                                     </p:menuitem>
                                     <p:menuitem action="#{accountManager.logout()}" ajax="false" >

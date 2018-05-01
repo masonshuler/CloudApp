@@ -258,9 +258,9 @@ public class ItemController implements Serializable {
 
     public List<Item> getReservedItems() {
         if (reservedItems == null) {
-            String emailOfSignedInUser = (String) FacesContext.getCurrentInstance()
-                    .getExternalContext().getSessionMap().get("email");
-            User signedInUser = getUserFacade().findByEmail(emailOfSignedInUser);
+            String usernameOfSignedInUser = (String) FacesContext.getCurrentInstance()
+                    .getExternalContext().getSessionMap().get("username");
+            User signedInUser = getUserFacade().findByUsername(usernameOfSignedInUser);
             Integer userId = signedInUser.getId();
             reservedItems = getItemFacade().findReservedItemsByUserID(userId);
             cleanedItemHashMap = new HashMap<>();

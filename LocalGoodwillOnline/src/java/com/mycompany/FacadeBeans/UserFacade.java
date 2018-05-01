@@ -42,19 +42,19 @@ public class UserFacade extends AbstractFacade<User> {
         // The find method is inherited from the parent AbstractFacade class
         return em.find(User.class, id);
     }
-
+    
     /**
-     * @param email is the email attribute (column) value of the user
+     * @param username is the email attribute (column) value of the user
      * @return object reference of the User entity whose email is email
      */
-    public User findByEmail(String email) {
-        if (em.createQuery("SELECT c FROM User c WHERE c.email = :email ")
-                .setParameter("email", email)
+    public User findByUsername(String username) {
+        if (em.createQuery("SELECT c FROM User c WHERE c.username = :username ")
+                .setParameter("username", username)
                 .getResultList().isEmpty()) {
             return null;
         } else {
-            return (User) (em.createQuery("SELECT c FROM User c WHERE c.email = :email")
-                    .setParameter("email", email)
+            return (User) (em.createQuery("SELECT c FROM User c WHERE c.username = :username")
+                    .setParameter("username", username)
                     .getSingleResult());
         }
     }

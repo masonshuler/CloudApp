@@ -90,6 +90,7 @@ public class AccountManager implements Serializable {
     Instance Variables (Properties)
     ===============================
      */
+    private String username;
     private String passwordHash;
     private String newPasswordHash;
 
@@ -147,6 +148,15 @@ public class AccountManager implements Serializable {
     Getter and Setter Methods
     =========================
      */
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -164,7 +174,7 @@ public class AccountManager implements Serializable {
     }
 
     public void setPasswordHash(String regPassword) {
-        this.passwordHash = SHAHelper.getHash(regPassword, email);
+        this.passwordHash = SHAHelper.getHash(regPassword, username);
     }
 
     public String getNewPasswordHash() {
@@ -381,13 +391,13 @@ public class AccountManager implements Serializable {
      */
     // Return True if a user is logged in; otherwise, return False
     public boolean isLoggedIn() {
-        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("email") != null;
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username") != null;
     }
     
     public boolean isAdmin(){
         if(isLoggedIn()){
-            String currUserEmail = (String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("email");
-            User currUser = getUserFacade().findByEmail(currUserEmail);
+            String currUsername = (String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username");
+            User currUser = getUserFacade().findByUsername(currUsername);
             return currUser.getIsAdmin();
         }
         return false;
@@ -400,20 +410,20 @@ public class AccountManager implements Serializable {
     public String createAccount() {
 
         //-----------------------------------------------------------
-        // First, check if the entered email is already being used
+        // First, check if the entered user is already being used
         //-----------------------------------------------------------
-        // Obtain the object reference of a User object with email
-        User aUser = getUserFacade().findByEmail(email);
+        // Obtain the object reference of a User object with username
+        User aUser = getUserFacade().findByUsername(username);
 
         if (aUser != null) {
-            // A user already exists with the email entered
-            email = "";
-            statusMessage = "Email already exists! Please select a different one!";
+            // A user already exists with the username entered
+            username = "";
+            statusMessage = "Username already exists! Please select a different one!";
             return "";
         }
 
         //----------------------------------
-        // The entered email is available
+        // The entered username is available
         //----------------------------------
         if (statusMessage == null || statusMessage.isEmpty()) {
             try {
@@ -436,12 +446,13 @@ public class AccountManager implements Serializable {
                 newUser.setSecurityAnswer(securityAnswer);
                 newUser.setPhoneNumber(phoneNumber);
                 newUser.setEmail(email);
+                newUser.setUsername(username);
                 newUser.setPasswordHash(passwordHash);
 
                 getUserFacade().create(newUser);
 
             } catch (EJBException e) {
-                email = "";
+                username = "";
                 statusMessage = "Something went wrong while creating user's account! See: " + e.getMessage();
                 return "";
             }
@@ -501,7 +512,7 @@ public class AccountManager implements Serializable {
     public void initializeSessionMap() {
 
         // Obtain the object reference of the User object
-        User user = getUserFacade().findByEmail(getEmail());
+        User user = getUserFacade().findByUsername(getUsername());
 
         // Put the User's object reference into session map variable user
         FacesContext.getCurrentInstance().getExternalContext().
@@ -521,11 +532,11 @@ public class AccountManager implements Serializable {
         if (statusMessage == null || statusMessage.isEmpty()) {
 
             // Obtain the signed-in user's email
-            String local_email = (String) FacesContext.getCurrentInstance().
-                    getExternalContext().getSessionMap().get("email");
+            String local_user = (String) FacesContext.getCurrentInstance().
+                    getExternalContext().getSessionMap().get("username");
 
             // Obtain the object reference of the signed-in user
-            User editUser = getUserFacade().findByEmail(local_email);
+            User editUser = getUserFacade().findByUsername(local_user);
 
             try {
                 /*
@@ -760,11 +771,11 @@ public class AccountManager implements Serializable {
             statusMessage = "Password and Confirm Password must match!";
         } else {
             // Obtain the logged-in User's email
-            String email_local = (String) FacesContext.getCurrentInstance().
-                    getExternalContext().getSessionMap().get("email");
+            String user_local = (String) FacesContext.getCurrentInstance().
+                    getExternalContext().getSessionMap().get("username");
 
             // Obtain the object reference of the signed-in User object
-            User user = getUserFacade().findByEmail(email_local);
+            User user = getUserFacade().findByUsername(user_local);
 
             if (entered_password.equals(user.getPasswordHash())) {
                 // entered password = signed-in user's password
@@ -831,7 +842,7 @@ public class AccountManager implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
 
         // Reset the logged-in User's properties
-        email = passwordHash = phoneNumber = "";
+        email = passwordHash = phoneNumber = username = "";
         firstName = middleName = lastName = "";
         address1 = address2 = city = state = zipcode = "";
         securityQuestion = 0;
@@ -847,12 +858,12 @@ public class AccountManager implements Serializable {
 
     public String userPhoto() {
 
-        // Obtain the signed-in user's email
-        String emailOfSignedInUser = (String) FacesContext.getCurrentInstance()
-                .getExternalContext().getSessionMap().get("email");
+        // Obtain the signed-in user's username
+        String usernameOfSignedInUser = (String) FacesContext.getCurrentInstance()
+                .getExternalContext().getSessionMap().get("username");
 
         // Obtain the object reference of the signed-in user
-        User signedInUser = getUserFacade().findByEmail(emailOfSignedInUser);
+        User signedInUser = getUserFacade().findByUsername(usernameOfSignedInUser);
 
         // Obtain the id (primary key in the database) of the signedInUser object
         Integer userId = signedInUser.getId();
