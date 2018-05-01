@@ -36,7 +36,7 @@ CREATE TABLE Item
     reserved_user INT UNSIGNED,
     title VARCHAR (64) NOT NULL,
     price FLOAT (7,2) NOT NULL,
-    rating FLOAT (3,2) NOT NULL,
+    rating FLOAT (4,2) NOT NULL,
     category VARCHAR (32) NOT NULL,
     size VARCHAR (32) NOT NULL,
     description VARCHAR (512),
