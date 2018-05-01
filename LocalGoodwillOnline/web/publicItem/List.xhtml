@@ -95,14 +95,13 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                     <h:outputText value="#{bundle.ListItemTitle_rating}"/>
                                 </f:facet>
                                 <div align="center">
-                                    <c:if test="#{accountManager.selected != null}" >
-                                        <h:commandLink style="align-self: center;" actionListener="#{itemController.upvote(item)}">
+                                    <c:if test="#{accountManager.isLoggedIn() == true}">                                        <h:commandLink style="align-self: center;" actionListener="#{itemController.upvote(item)}">
                                             <h:graphicImage name="images/upArrow.svg" style="height: 40%; width: 40%;"/>
                                         </h:commandLink>
                                         <br/>
                                     </c:if>
                                     <h:outputText value="#{item.ratingString()}" />
-                                    <c:if test="#{accountManager.selected != null}" >
+                                    <c:if test="#{accountManager.isLoggedIn() == true}">                                        
                                         <br/>
                                         <h:commandLink style="align-self: center;" actionListener="#{itemController.downvote(item)}" >
                                             <h:graphicImage name="images/downArrow.svg" style="height: 40%; width: 40%;"/>
