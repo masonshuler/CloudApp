@@ -41,8 +41,8 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                 <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton reserveButton backButton"/>
                             </c:if>
                             <c:if test="#{accountManager.isAdmin() == false}">
-                                <p:ajax event="rowSelect"   update="viewButton searchButton reserveButton backButton"/>
-                                <p:ajax event="rowUnselect" update="viewButton searchButton reserveButton backButton"/>
+                                <p:ajax event="rowSelect"   update="viewButton reserveButton backButton"/>
+                                <p:ajax event="rowUnselect" update="viewButton reserveButton backButton"/>
                             </c:if>
 
                             <p:column sortBy="#{item.title}" style="width: 100px;">
