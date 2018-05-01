@@ -170,7 +170,7 @@ Style the div component whose unique id is "footer" per reference
 #footer {
     background-color: #2e5cb8;   
     position: absolute;
-    height: 200px;
+    height: 300px;
     width: 100%;
     left: 0px;
     right: 0px;
