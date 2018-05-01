@@ -176,21 +176,13 @@ public class ItemController implements Serializable {
 
     public void upvote(Item item) {
         float rating = item.getRating();
-        if (item.getRating() < 9.5) {
-            item.setRating(rating + (float) (0.5));
-        } else {
-            item.setRating(10);
-        }
+        item.setRating(rating + 1);
         getItemFacade().edit(item);
     }
 
     public void downvote(Item item) {
         float rating = item.getRating();
-        if (item.getRating() > 0.5) {
-            item.setRating(rating - (float) (0.5));
-        } else {
-            item.setRating(0);
-        }
+        item.setRating(rating - 1);
         getItemFacade().edit(item);
     }
 
