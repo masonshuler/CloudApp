@@ -15,11 +15,12 @@ html, body {
     /* background-color: #DCDCDC;   /* Gainsboro */
     /* background-color: #FFFFF0;   /* Ivory */
     /* background-color: #FAF0E6;   /* Linen */
-    background-color: #FDF5E6;   /* OldLace */
+    /* background-color: #FDF5E6;   /* OldLace */
     /*background-color: #a6a6a6;      /* Gray*/
     /* background-color: #FFEFD5;   /* PapayaWhip */
     /* background-color: #F5DEB3;   /* Wheat */
     /* background-color: #B0E0E6;   /* PowderBlue */
+    background-color: #2e5cb8;
 
     /* Stretch the background image to cover the entire screen. 
     This is used only if you choose to display a background image. */
@@ -141,7 +142,6 @@ Style the div component whose unique id is "header" per reference
 <div id="header"> in siteTemplate.xhtml
 */
 #header {
-    background-color: #2e5cb8;   /* Azure */
     width: 100%;
     height: 95px;
     position: absolute;
@@ -158,22 +158,19 @@ Style the div component whose unique id is "editableContent" per reference
     /* height = 100% window height - (header height 84px + footer height 100px) */
     height: calc(100% - 184px); 
     width: 100%;
-    margin-left: 10px;
-    margin-right: 10px;
+    left: 0px;
+    right: 0px;
     margin-top: 100px;
     margin-bottom: 16px;
+    background-color: #FDF5E6;
 }
-/* 
-Style the div component whose unique id is "footer" per reference 
-<div id="footer"> in siteTemplate.xhtml
-*/
+
 #footer {
-    background-color: #2e5cb8;   
-    position: absolute;
-    height: 300px;
+    height: 100px;
     width: 100%;
     left: 0px;
     right: 0px;
+    bottom: 0px;
 }
 
 /*
