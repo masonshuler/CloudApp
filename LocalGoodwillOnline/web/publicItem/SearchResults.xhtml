@@ -53,7 +53,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                     <h:outputText value="#{item.title}"/>
                                 </div>
                             </p:column>
-                            
+
                             <p:column style="align-content: center; width:60px;">
                                 <f:facet name="header">
                                     <h:outputText value="Photo" class="facetHeader"/>
@@ -95,15 +95,19 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                     <h:outputText value="#{bundle.ListItemTitle_rating}"/>
                                 </f:facet>
                                 <div align="center">
-                                    <h:commandLink style="align-self: center;" actionListener="#{itemController.upvote(item)}">
-                                        <h:graphicImage name="images/upArrow.svg" style="height: 40%; width: 40%;"/>
-                                    </h:commandLink>
-                                    <br/>
+                                    <c:if test="#{accountManager.selected != null}" >
+                                        <h:commandLink style="align-self: center;" actionListener="#{itemController.upvote(item)}">
+                                            <h:graphicImage name="images/upArrow.svg" style="height: 40%; width: 40%;"/>
+                                        </h:commandLink>
+                                        <br/>
+                                    </c:if>
                                     <h:outputText value="#{item.ratingString()}" />
-                                    <br/>
-                                    <h:commandLink style="align-self: center;" actionListener="#{itemController.downvote(item)}" >
-                                        <h:graphicImage name="images/downArrow.svg" style="height: 40%; width: 40%;"/>
-                                    </h:commandLink>
+                                    <c:if test="#{accountManager.selected != null}" >
+                                        <br/>
+                                        <h:commandLink style="align-self: center;" actionListener="#{itemController.downvote(item)}" >
+                                            <h:graphicImage name="images/downArrow.svg" style="height: 40%; width: 40%;"/>
+                                        </h:commandLink>
+                                    </c:if>
                                 </div>
                             </p:column>
 
@@ -126,7 +130,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                     <h:outputText value="#{item.category}"/>
                                 </div>
                             </p:column>
-                            
+
                             <p:column sortBy="#{item.reservedString()}" style="width: 80px;">
                                 <f:facet name="header">
                                     <h:outputText value="Reserved"/>
