@@ -208,7 +208,7 @@ public class ItemController implements Serializable {
 
     public Item prepareCreate() {
         selected = new Item();
-        selected.setRating(5);
+        selected.setRating(0);
         initializeEmbeddableKey();
         return selected;
     }
