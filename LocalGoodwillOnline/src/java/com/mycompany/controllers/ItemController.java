@@ -174,15 +174,29 @@ public class ItemController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("SearchResults.xhtml");
     }
 
+    /**
+     * Upvote the given item by adding one to its rating.
+     * @param item The item to upvote.
+     */
     public void upvote(Item item) {
+        // Get the current rating
         float rating = item.getRating();
+        // Add one to the rating
         item.setRating(rating + 1);
+        // Update the database field
         getItemFacade().edit(item);
     }
 
+    /**
+     * Downvote the given item by subtracting one from its rating.
+     * @param item The item to downvote.
+     */
     public void downvote(Item item) {
+        // Get the current rating
         float rating = item.getRating();
+        // Subtract one from the rating
         item.setRating(rating - 1);
+        // Update the database field
         getItemFacade().edit(item);
     }
 
