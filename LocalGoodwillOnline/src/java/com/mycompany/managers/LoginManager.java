@@ -31,7 +31,7 @@ public class LoginManager implements Serializable {
     Instance Variables (Properties)
     ===============================
      */
-    private String email;
+    private String username;
     private String passwordHash;
     private String errorMessage;
     private String answerAuthCode;
@@ -61,12 +61,12 @@ public class LoginManager implements Serializable {
         this.answerAuthCode = answerAuthCode;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPasswordHash() {
@@ -74,7 +74,7 @@ public class LoginManager implements Serializable {
     }
 
     public void setPasswordHash(String regPassword) {
-        this.passwordHash = SHAHelper.getHash(regPassword, email);
+        this.passwordHash = SHAHelper.getHash(regPassword, username);
     }
 
     public String getErrorMessage() {
@@ -102,8 +102,8 @@ public class LoginManager implements Serializable {
 
     public String resetPassword() {
 
-        // Redirect to show the EnterEmail page
-        return "/EnterEmail.xhtml?faces-redirect=true";
+        // Redirect to show the EnterUsername page
+        return "/EnterUsername.xhtml?faces-redirect=true";
     }
 
     /*
@@ -113,21 +113,21 @@ public class LoginManager implements Serializable {
     public String loginUser() {
 
         // Obtain the object reference of the User object from the entered username
-        User user = getUserFacade().findByEmail(getEmail());
+        User user = getUserFacade().findByUsername(getUsername());
 
         if (user == null) {
-            errorMessage = "Entered email " + getEmail() + " does not exist!";
+            errorMessage = "Entered username " + getUsername() + " does not exist!";
             return "";
 
         } else {
-            String actualEmail = user.getEmail();
-            String enteredEmail = getEmail();
+            String actualUsername = user.getUsername();
+            String enteredUsername = getUsername();
 
             String actualPasswordHash = user.getPasswordHash();
             String enteredPasswordHash = getPasswordHash();
 
-            if (!actualEmail.equals(enteredEmail)) {
-                errorMessage = "Invalid Email!";
+            if (!actualUsername.equals(enteredUsername)) {
+                errorMessage = "Invalid Username!";
                 return "";
             }
 
@@ -146,9 +146,9 @@ public class LoginManager implements Serializable {
     }
 
     public String checkAuthCode() {
-        User user = getUserFacade().findByEmail(getEmail());
+        User user = getUserFacade().findByUsername(getUsername());
         if (user == null) { //Should only happen on page error
-            errorMessage = "Entered email " + getEmail() + " does not exist!";
+            errorMessage = "Entered username " + getUsername() + " does not exist!";
             return "";
         }
 
@@ -162,9 +162,9 @@ public class LoginManager implements Serializable {
     }
 
     public void sendSMS() {
-        User user = getUserFacade().findByEmail(getEmail());
+        User user = getUserFacade().findByUsername(getUsername());
         if (user == null) { //Should only happen on page error
-            errorMessage = "Entered email " + getEmail() + " does not exist!";
+            errorMessage = "Entered username " + getUsername() + " does not exist!";
             return;
         }
 
@@ -173,9 +173,9 @@ public class LoginManager implements Serializable {
     }
 
     public void call() {
-        User user = getUserFacade().findByEmail(getEmail());
+        User user = getUserFacade().findByUsername(getUsername());
         if (user == null) { //Should only happen on page error
-            errorMessage = "Entered email " + getEmail() + " does not exist!";
+            errorMessage = "Entered username " + getUsername() + " does not exist!";
             return;
         }
         user.setGeneratedAuthCode(TwilioManager.sendCallAuth(user.getPhoneNumber()));
@@ -183,9 +183,9 @@ public class LoginManager implements Serializable {
     }
 
     public void email() {
-        User user = getUserFacade().findByEmail(getEmail());
+        User user = getUserFacade().findByUsername(getUsername());
         if (user == null) { //Should only happen on page error
-            errorMessage = "Entered email " + getEmail() + " does not exist!";
+            errorMessage = "Entered username " + getUsername() + " does not exist!";
             return;
         }
         user.setGeneratedAuthCode(TwilioManager.sendEmailAuth(user.getEmail()));
@@ -195,9 +195,9 @@ public class LoginManager implements Serializable {
     //TODO kill this
     //XXX
     public String bypass() {
-        User user = getUserFacade().findByEmail(getEmail());
+        User user = getUserFacade().findByUsername(getUsername());
         if (user == null) { //Should only happen on page error
-            errorMessage = "Entered email " + getEmail() + " does not exist!";
+            errorMessage = "Entered username " + getUsername() + " does not exist!";
             return "";
         }
         initializeSessionMap(user);
@@ -215,7 +215,7 @@ public class LoginManager implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().
                 getSessionMap().put("last_name", user.getLastName());
         FacesContext.getCurrentInstance().getExternalContext().
-                getSessionMap().put("email", email);
+                getSessionMap().put("username", user.getUsername());
         FacesContext.getCurrentInstance().getExternalContext().
                 getSessionMap().put("user_id", user.getId());
     }

@@ -55,7 +55,7 @@ public class ItemController implements Serializable {
     private String searchString;
     private String searchField;
     private List<Item> searchItems = null;
-
+    
     public ItemController() {
         minPrice = 0;
         maxPrice = 200;
@@ -176,21 +176,13 @@ public class ItemController implements Serializable {
 
     public void upvote(Item item) {
         float rating = item.getRating();
-        if (item.getRating() < 9.5) {
-            item.setRating(rating + (float) (0.5));
-        } else {
-            item.setRating(10);
-        }
+        item.setRating(rating + 1);
         getItemFacade().edit(item);
     }
 
     public void downvote(Item item) {
         float rating = item.getRating();
-        if (item.getRating() > 0.5) {
-            item.setRating(rating - (float) (0.5));
-        } else {
-            item.setRating(0);
-        }
+        item.setRating(rating - 1);
         getItemFacade().edit(item);
     }
 
@@ -216,7 +208,7 @@ public class ItemController implements Serializable {
 
     public Item prepareCreate() {
         selected = new Item();
-        selected.setRating(5);
+        selected.setRating(0);
         initializeEmbeddableKey();
         return selected;
     }
@@ -242,8 +234,9 @@ public class ItemController implements Serializable {
     }
 
     public List<Item> getItems() {
-        if (items == null)
+        if (items == null || items.isEmpty()) {
             items = getItemFacade().findAll();
+        }
         List<Item> priceFiltered;
         priceFiltered = new ArrayList<>();
         items.stream().filter((item) -> (item.getPrice() >= minPrice && item.getPrice() <= maxPrice)).forEachOrdered((item) -> {
@@ -259,9 +252,9 @@ public class ItemController implements Serializable {
 
     public List<Item> getReservedItems() {
         if (reservedItems == null) {
-            String emailOfSignedInUser = (String) FacesContext.getCurrentInstance()
-                    .getExternalContext().getSessionMap().get("email");
-            User signedInUser = getUserFacade().findByEmail(emailOfSignedInUser);
+            String usernameOfSignedInUser = (String) FacesContext.getCurrentInstance()
+                    .getExternalContext().getSessionMap().get("username");
+            User signedInUser = getUserFacade().findByUsername(usernameOfSignedInUser);
             Integer userId = signedInUser.getId();
             reservedItems = getItemFacade().findReservedItemsByUserID(userId);
             cleanedItemHashMap = new HashMap<>();

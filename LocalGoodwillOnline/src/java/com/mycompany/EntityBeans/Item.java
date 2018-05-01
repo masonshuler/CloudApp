@@ -144,6 +144,10 @@ public class Item implements Serializable, Cloneable {
         this.rating = rating;
     }
     
+    public String ratingString() {
+        return String.format("%.0f", rating);
+    }
+    
     public String getSize() {
         return size;
     }

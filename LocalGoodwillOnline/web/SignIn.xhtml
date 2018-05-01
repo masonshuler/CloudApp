@@ -35,9 +35,9 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                 <h:form>
                     <p:panelGrid columns="2" columnClasses="signInColumn1, signInColumn2">
 
-                        <h:outputLabel value="Email:" for="email" />
-                        <p:inputText id="email" value="#{loginManager.email}" required="true" styleClass="signInInputTextField"
-                                     requiredMessage="#{bundle.CreateUserRequiredMessage_email}" label="Email" >
+                        <h:outputLabel value="Username:" for="username" />
+                        <p:inputText id="username" value="#{loginManager.username}" required="true" styleClass="signInInputTextField"
+                                     requiredMessage="The Username field is required." label="Username" >
                         </p:inputText>
 
                         <h:outputLabel value="Password:" for="passwordHash" />

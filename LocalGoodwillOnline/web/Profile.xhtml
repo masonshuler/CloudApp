@@ -92,7 +92,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                         |     CHANGE PASSWORD Link     |
                                         ================================
                                         -->
-                                        <h:link outcome="EnterEmail">
+                                        <h:link outcome="EnterUsername">
                                             <i class="fa fa-key">&nbsp;</i>Change Password
                                         </h:link>
                                     </li>
@@ -217,6 +217,9 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                     <h:outputText value="#{bundle.ViewUserLabel_email}"/>
                                     <h:outputText value="#{accountManager.selected.email}" />
 
+                                    <h:outputText value="Username: "/>
+                                    <h:outputText value="#{accountManager.selected.username}" />
+
                                 </p:panelGrid>
 
                             </td>
@@ -225,7 +228,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                 <h1 style="width: 200px">Looking for a job? Looking for good work around nice people? Well you're in luck because your local Goodwill is now hiring!
                                     Click the button below to apply!</h1>
                                 <p:commandButton id="applyButton" value="Apply" action="/JobApplication?faces-redirect=true" 
-                                         styleClass="commandButton" ajax="false" icon="ui-icon-script" />
+                                                 styleClass="commandButton" ajax="false" icon="ui-icon-script" />
                             </td>
                         </tr>
                     </table>

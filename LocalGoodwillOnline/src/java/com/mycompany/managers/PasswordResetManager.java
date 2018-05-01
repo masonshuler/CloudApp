@@ -35,7 +35,7 @@ public class PasswordResetManager implements Serializable {
     Instance Variables (Properties)
     ===============================
      */
-    private String email;
+    private String username;
     private String message = "";
     private String answer;
     private String passwordHash;
@@ -53,12 +53,12 @@ public class PasswordResetManager implements Serializable {
     Getter and Setter Methods
     =========================
      */
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getMessage() {
@@ -82,7 +82,7 @@ public class PasswordResetManager implements Serializable {
     }
 
     public void setPasswordHash(String regPassword) {
-        this.passwordHash = SHAHelper.getHash(regPassword, email);
+        this.passwordHash = SHAHelper.getHash(regPassword, username);
     }
 
     public UserFacade getUserFacade() {
@@ -95,16 +95,16 @@ public class PasswordResetManager implements Serializable {
     ================
      */
     // Process the submitted username
-    public String emailSubmit() {
+    public String usernameSubmit() {
 
         // Obtain the object reference of the User object with username
-        User user = getUserFacade().findByEmail(email);
+        User user = getUserFacade().findByUsername(username);
 
         if (user == null) {
             message = "Entered username does not exist!";
 
             // Redirect to show the EnterUsername page
-            return "/EnterEmail?faces-redirect=true";
+            return "/EnterUsername?faces-redirect=true";
         } else {
             // Entered username exists
             message = "";
@@ -118,7 +118,7 @@ public class PasswordResetManager implements Serializable {
     public String securityAnswerSubmit() {
 
         // Obtain the object reference of the User object with username
-        User user = getUserFacade().findByEmail(email);
+        User user = getUserFacade().findByUsername(username);
 
         String actualSecurityAnswer = user.getSecurityAnswer();
         String enteredSecurityAnswer = getAnswer();
@@ -142,7 +142,7 @@ public class PasswordResetManager implements Serializable {
     public String getSecurityQuestion() {
 
         // Obtain the object reference of the User object with username
-        User user = getUserFacade().findByEmail(email);
+        User user = getUserFacade().findByUsername(username);
 
         // Obtain the number of the security question selected by the user
         int questionNumber = user.getSecurityQuestion();
@@ -204,7 +204,7 @@ public class PasswordResetManager implements Serializable {
         if (message == null || message.isEmpty()) {
 
             // Obtain the object reference of the User object with username
-            User user = getUserFacade().findByEmail(email);
+            User user = getUserFacade().findByUsername(username);
 
             try {
                 // Reset User object's password
@@ -214,7 +214,7 @@ public class PasswordResetManager implements Serializable {
                 getUserFacade().edit(user);
 
                 // Initialize the instance variables
-                email = message = answer = passwordHash = "";
+                username = message = answer = passwordHash = "";
 
             } catch (EJBException e) {
                 message = "Something went wrong while resetting your password, please try again!";

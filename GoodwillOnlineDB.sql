@@ -18,6 +18,7 @@ CREATE TABLE User
     phone_number VARCHAR (10),
     auth_code VARCHAR (15), 
     isAdmin BIT NOT NULL,
+    username VARCHAR (32) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -35,7 +36,7 @@ CREATE TABLE Item
     reserved_user INT UNSIGNED,
     title VARCHAR (64) NOT NULL,
     price FLOAT (7,2) NOT NULL,
-    rating FLOAT (3,2) NOT NULL,
+    rating FLOAT (4,2) NOT NULL,
     category VARCHAR (32) NOT NULL,
     size VARCHAR (32) NOT NULL,
     description VARCHAR (512),
@@ -52,15 +53,15 @@ CREATE TABLE ItemPhoto
 );
 
 INSERT INTO Item (title, price, rating, category, size, description, date_published) VALUES
-('Polka Dot Slim Fit Dress Shirt', 129.00, 5.00, 'T-Shirts', 'M', 'Material is cotton/silk, slim fit.', '2018-04-18'),
-('Diesel Brothers Shirt', 16.98, 5.00, 'T-Shirts', 'S', 'Shirt with orange and skull logo from diesel brothers', '2018-04-18'),
-('Aston Martin Racing Shirt', 44.99, 5.00, 'T-Shirts', 'L', 'Black shirt with logos', '2018-04-18'),
-('PK Subban Playoff Hockey Shirt', 19.99, 5.00, 'T-Shirts', 'L', 'Black shirt with small hockey logo in the middle', '2018-04-18'),
-('Biker Denim Jeans', 13.99, 5.00, 'Pants', 'XL', 'Short cut, mens ripped denim jeans', '2018-04-18'),
-('Long Gym Sweatpants', 7.99, 5.00, 'Pants', 'XXL', 'Sporty sweatpants with white stripe on the side', '2018-04-18'),
-('Military Tactical Combat Pants', 28.00, 5.00, 'Pants', 'S', 'Khaki colored military pants with many pockets', '2018-04-18'),
-('Dark Navy Blue Khaki Pants', 11.99, 5.00, 'Pants', 'XS', '', '2018-04-18'),
-('Hooded Color Block Corduroy Jacket', 39.99, 5.00, 'Coats & Jackets', 'XXXL', 'Multi-colored coat with green base and yellow/red accents', '2018-04-18');
+('Polka Dot Slim Fit Dress Shirt', 129.00, 0.00, 'T-Shirts', 'M', 'Material is cotton/silk, slim fit.', '2018-04-18'),
+('Diesel Brothers Shirt', 16.98, 0.00, 'T-Shirts', 'S', 'Shirt with orange and skull logo from diesel brothers', '2018-04-18'),
+('Aston Martin Racing Shirt', 44.99, 0.00, 'T-Shirts', 'L', 'Black shirt with logos', '2018-04-18'),
+('PK Subban Playoff Hockey Shirt', 19.99, 0.00, 'T-Shirts', 'L', 'Black shirt with small hockey logo in the middle', '2018-04-18'),
+('Biker Denim Jeans', 13.99, 0.00, 'Pants', 'XL', 'Short cut, mens ripped denim jeans', '2018-04-18'),
+('Long Gym Sweatpants', 7.99, 0.00, 'Pants', 'XXL', 'Sporty sweatpants with white stripe on the side', '2018-04-18'),
+('Military Tactical Combat Pants', 28.00, 0.00, 'Pants', 'S', 'Khaki colored military pants with many pockets', '2018-04-18'),
+('Dark Navy Blue Khaki Pants', 11.99, 0.00, 'Pants', 'XS', '', '2018-04-18'),
+('Hooded Color Block Corduroy Jacket', 39.99, 0.00, 'Coats & Jackets', 'XXXL', 'Multi-colored coat with green base and yellow/red accents', '2018-04-18');
 
 INSERT INTO ItemPhoto (extension, item_id) VALUES
 ('jpeg', 1),
@@ -73,6 +74,6 @@ INSERT INTO ItemPhoto (extension, item_id) VALUES
 ('jpeg', 8),
 ('jpg', 9);
 
-INSERT INTO User (password_hash, first_name, last_name , address1, city, state, zipcode , security_question, security_answer, email, phone_number, isAdmin) VALUES
-('b44c20915a8deb5396da25afd96293a510a4ff5049dd488edead41585ddfba05', 'ADMIN', 'last', 'nowhere lane', 'Blacksburg', 'VA', '24060', 0, 'test', 'admin@admin.admin', '8045162266', 1);
+INSERT INTO User (password_hash, first_name, last_name , address1, city, state, zipcode , security_question, security_answer, email, phone_number, isAdmin, username) VALUES
+('cd916028a2d8a1b901e831246dd5b9b4d3832786ddc63bbf5af4b50d9fc98f50', 'ADMIN', 'last', 'nowhere lane', 'Blacksburg', 'VA', '24060', 0, 'test', 'admin@admin.admin', '8045162266', 1, 'admin');
 /* FOR ADMIN TESTING user:admin@admin.admin password: password*/

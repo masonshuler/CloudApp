@@ -143,11 +143,11 @@ public class PhotoCameraController implements Serializable {
         }
 
         // Obtain the username of the logged-in user
-        String email_local = (String) FacesContext.getCurrentInstance()
-                .getExternalContext().getSessionMap().get("email");
+        String username_local = (String) FacesContext.getCurrentInstance()
+                .getExternalContext().getSessionMap().get("username");
 
         // Obtain the object reference of the logged-in User object
-        User user = getUserFacade().findByEmail(email_local);
+        User user = getUserFacade().findByUsername(username_local);
 
         /*
          Obtain the list of Photo objects that belong to the User whose
@@ -299,11 +299,11 @@ public class PhotoCameraController implements Serializable {
     public void deletePhoto() {
 
         // Obtain the signed-in user's username
-        String emailOfSignedInUser = (String) FacesContext.getCurrentInstance()
-                .getExternalContext().getSessionMap().get("email");
+        String usernameOfSignedInUser = (String) FacesContext.getCurrentInstance()
+                .getExternalContext().getSessionMap().get("username");
 
         // Obtain the object reference of the signed-in user
-        User signedInUser = getUserFacade().findByEmail(emailOfSignedInUser);
+        User signedInUser = getUserFacade().findByUsername(usernameOfSignedInUser);
 
         // Obtain the id (primary key in the database) of the signedInUser object
         Integer userId = signedInUser.getId();
