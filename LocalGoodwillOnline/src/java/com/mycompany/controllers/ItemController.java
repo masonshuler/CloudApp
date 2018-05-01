@@ -242,8 +242,9 @@ public class ItemController implements Serializable {
     }
 
     public List<Item> getItems() {
-        if (items == null)
+        if (items == null || items.isEmpty()) {
             items = getItemFacade().findAll();
+        }
         List<Item> priceFiltered;
         priceFiltered = new ArrayList<>();
         items.stream().filter((item) -> (item.getPrice() >= minPrice && item.getPrice() <= maxPrice)).forEachOrdered((item) -> {
