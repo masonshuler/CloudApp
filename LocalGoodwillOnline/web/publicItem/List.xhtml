@@ -35,11 +35,12 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                      rows="5"
                                      rowsPerPageTemplate="5,10,20,30,40,50"
                                      >
-
+                            <!-- Buttons if the user is an admin -->
                             <c:if test="#{accountManager.isAdmin() == true}">
                                 <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton searchButton reserveButton"/>
                                 <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton searchButton reserveButton"/>
                             </c:if>
+                            <!-- Buttons if the user is not an admin -->
                             <c:if test="#{accountManager.isAdmin() == false}">
                                 <p:ajax event="rowSelect"   update="viewButton searchButton reserveButton"/>
                                 <p:ajax event="rowUnselect" update="viewButton searchButton reserveButton"/>
@@ -56,7 +57,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
 
                             <p:column style="align-content: center; width:60px;">
                                 <f:facet name="header">
-                                    <h:outputText value="Photo" class="facetHeader"/>
+                                    <h:outputText value="Photo"/>
                                 </f:facet>
                                 <div align="center">
                                     <p:graphicImage value="/#{itemController.getPicture(item)}" alt="Item Picture" width="60" height="60"/>
@@ -146,6 +147,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                             </p:column>
 
                             <f:facet name="footer">
+                                <!-- Show create button if admin -->
                                 <c:if test="#{accountManager.isAdmin() == true}">
                                     <p:commandButton id="createButton" icon="ui-icon-plus"
                                                      value="#{bundle.Create}" actionListener="#{itemController.prepareCreate}" 
@@ -157,6 +159,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                                  oncomplete="PF('ItemViewDialog').show()" 
                                                  disabled="#{empty itemController.selected}" 
                                                  styleClass="commandButton"/>
+                                <!-- Show edit and delete button if admin -->
                                 <c:if test="#{accountManager.isAdmin() == true}">
                                     <p:commandButton id="editButton"   icon="ui-icon-pencil" 
                                                      value="#{bundle.Edit}" update=":ItemEditForm" 

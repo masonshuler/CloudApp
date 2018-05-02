@@ -31,6 +31,11 @@ public class TwilioManager {
     private static final int MIN_VERIFICATION_CODE = 999999;
 
 
+    /**
+     * Send the SMS authentication
+     * @param number Number to send to
+     * @return Verification code
+     */
     public static String sendSMSAuth(String number) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         String verCode =  generateVerificationCode();
@@ -44,6 +49,10 @@ public class TwilioManager {
         return verCode;
     }
 
+    /**
+     * Generate the verification code
+     * @return The code
+     */
     static String generateVerificationCode() {
         Random rand = new Random();
         Integer code = rand.nextInt(MIN_VERIFICATION_CODE
@@ -51,6 +60,11 @@ public class TwilioManager {
         return code.toString();
     }
     
+    /**
+     * Send call authentication
+     * @param number Number to send to
+     * @return The verification code
+     */
     public static String sendCallAuth(String number) {
         String verCode = generateVerificationCode();
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
@@ -74,6 +88,11 @@ public class TwilioManager {
         return "218386";
     }
     
+    /**
+     * Email authentication
+     * @param email The email to send to
+     * @return The verification code
+     */
     public static String sendEmailAuth(String email) {
         EmailController emailController = new EmailController();
         String verCode =  generateVerificationCode();

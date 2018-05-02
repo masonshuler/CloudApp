@@ -16,6 +16,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                   modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateItemTitle}">
             <h:form id="ItemCreateForm">
                 <h:panelGroup id="display">
+                    <!-- Two column panel grid (titles and then input) -->
                     <p:panelGrid columns="2" columnClasses="columnOne, columnTwo" 
                                  rendered="#{itemController.selected != null}" >
 
@@ -23,14 +24,16 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                        for="title" />
                         <p:inputText id="title" value="#{itemController.selected.title}" 
                                      title="#{bundle.CreateItemTitle_title}" required="true"
-                                     requiredMessage="#{bundle.CreateItemRequiredMessage_title}" 
+                                     requiredMessage="#{bundle.CreateItemRequiredMessage_title}"
+                                     placeholder="Enter the new item's title"
                                      style="width: 550px;"/>
 
                         <p:outputLabel value="#{bundle.CreateItemLabel_description}" 
                                        for="description" />
                         <p:inputText id="description" value="#{itemController.selected.description}" 
                                      title="#{bundle.CreateItemTitle_description}" 
-                                     requiredMessage="#{bundle.CreateItemRequiredMessage_description}" 
+                                     requiredMessage="#{bundle.CreateItemRequiredMessage_description}"
+                                     placeholder="Enter the new item's description"
                                      style="width: 550px;"/>
 
                         <p:outputLabel value="Size: " 
@@ -38,6 +41,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                         <p:inputText id="size" value="#{itemController.selected.size}" 
                                      title="Size: " required="true"
                                      requiredMessage="The Size field is required." 
+                                     placeholder="Enter the new item's size"
                                      style="width: 550px;"/>
 
                         <p:outputLabel value="#{bundle.CreateItemLabel_price}" 

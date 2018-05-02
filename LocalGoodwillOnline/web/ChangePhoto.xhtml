@@ -22,6 +22,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
 
         <!-- Create the content for this page below -->
         <ui:define name="editableContent"> 
+            <!-- Redirect if the user is not logged in -->
             <c:if test="#{accountManager.isLoggedIn() == false}">
                 <div align="center">
                     <h1>#{accountManager.redirectIndex()}</h1>

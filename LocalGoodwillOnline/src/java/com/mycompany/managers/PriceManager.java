@@ -159,6 +159,12 @@ public class PriceManager implements Serializable {
         return "/ConfirmOrder?faces-redirect=true";
     }
 
+    /**
+     * Clone the list
+     * @param list List to clone
+     * @return Cloned list
+     * @throws CloneNotSupportedException 
+     */
     public List<Item> cloneList(List<Item> list) throws CloneNotSupportedException {
         List<Item> clone = new ArrayList<>(orderList.size());
         for (Item item : orderList) {
@@ -167,6 +173,10 @@ public class PriceManager implements Serializable {
         return clone;
     }
 
+    /**
+     * Set which items have been "bought"
+     * @param item Item to be bought
+     */
     public void setBought(Item item) {
         System.out.println("Set Bought: " + item.getTitle());
         if (orderList.contains(item)) {
