@@ -28,10 +28,10 @@ move('tmp', './LocalGoodWillOnline/web/WEB-INF/glassfish-web.xml')
 with open('./makeLocalPathFiles/Constants.java', 'r') as input_file, open('tmp', 'w') as output_file:
     for line in input_file:
         if "ITEMS_ABSOLUTE_PATH" in line :
-            newline = "    public static final String ITEMS_ABSOLUTE_PATH = \"" + pwd + "/CloudApp/ItemPhotoStorage/\";\n"
+            newline = "    public static final String ITEMS_ABSOLUTE_PATH = \"" + pwd + "/CloudApp/Team2-FileStorage/ItemPhotoStorage/\";\n"
             output_file.write(newline)
         elif "PHOTOS_ABSOLUTE_PATH" in line :
-                newline = "    public static final String PHOTOS_ABSOLUTE_PATH = \"" + pwd + "/CloudApp/UserPhotoStorage/\";\n"
+                newline = "    public static final String PHOTOS_ABSOLUTE_PATH = \"" + pwd + "/CloudApp/Team2-FileStorage/UserPhotoStorage/\";\n"
                 output_file.write(newline)
         else :
             output_file.write(line)
