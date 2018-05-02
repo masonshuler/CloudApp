@@ -27,7 +27,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                 -->
                 <p:growl id="growl" life="5000" />
                 <h:form id="ItemListForm">
-                    <p:panel header="Search Results for Public Favorite YouTube Videos">
+                    <p:panel header="Search Results for Public Items">
                         <p:dataTable id="datalist" value="#{itemController.getSearchItems()}" var="item"
                                      selectionMode="single" selection="#{itemController.selected}"
                                      paginator="true"
@@ -56,7 +56,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
 
                             <p:column style="align-content: center; width:60px;">
                                 <f:facet name="header">
-                                    <h:outputText value="Photo" class="facetHeader"/>
+                                    <h:outputText value="Photo"/>
                                 </f:facet>
                                 <div align="center">
                                     <p:graphicImage value="/#{itemController.getPicture(item)}" alt="Item Picture" width="60" height="60"/>
@@ -90,6 +90,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                 </div>
                             </p:column>
 
+                            <!-- Same as publicItem/List -->
                             <p:column sortBy="#{item.rating}" style="width: 60px;">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListItemTitle_rating}"/>
@@ -188,6 +189,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                                icon="ui-icon-alert" />
                                 </p:commandButton>
 
+                                <!-- Go back button leading the user back to /publicItem/List -->
                                 <p:commandButton id="backButton" icon="ui-icon-arrowreturn-1-w"  
                                                  value="Go Back" styleClass="commandButton"
                                                  action="List" ajax="false" immediate="true"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Created by Osman Balci on 2018.01.29
-Copyright © 2018 Osman Balci. All rights reserved.
+Created by Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman
+Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tuckman. All rights reserved.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -66,6 +66,7 @@ Copyright © 2018 Osman Balci. All rights reserved.
                                 <p:menuitem outcome="/ItemsFlow" ajax="false">
                                     <i class="fa fa-play">&nbsp;</i>Items Flow
                                 </p:menuitem>
+                                <!-- Display logged-in only pages only when the user is logged-in -->
                                 <c:if test="#{accountManager.isLoggedIn() == true}">
                                     <p:menuitem outcome="/reservedItem/List" ajax="false">
                                         <i class="fa fa-lock">&nbsp;</i>Reserved Items

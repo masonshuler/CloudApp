@@ -200,6 +200,10 @@ public class ItemController implements Serializable {
         getItemFacade().edit(item);
     }
 
+    /**
+     * Reserve the selected item
+     * @param accountManager The accountManager to know which user is signed in.
+     */
     public void reserve(AccountManager accountManager) {
         if (!accountManager.isLoggedIn()) {
             persist(PersistAction.SHARE, "Cannot reserve the Item since No User is Signed In!");
@@ -211,6 +215,9 @@ public class ItemController implements Serializable {
         }
     }
 
+    /**
+     * Unreserve the selected item.
+     */
     public void unreserve() {
         System.out.println("ITEMCONTROLLER: Unreserving");
         items = null;
@@ -297,6 +304,10 @@ public class ItemController implements Serializable {
         return userFacade;
     }
 
+    /**
+     * Get the items reserved by this user.
+     * @return The list of items reserved by this user.
+     */
     public List<Item> getReservedItems() {
         if (reservedItems == null) {
             String usernameOfSignedInUser = (String) FacesContext.getCurrentInstance()
@@ -318,6 +329,11 @@ public class ItemController implements Serializable {
         return reservedItems;
     }
 
+    /**
+     * Get the picture of the given item
+     * @param anItem The given item
+     * @return The file path of the picture
+     */
     public String getPicture(Item anItem) {
         Integer itemId = anItem.getId();
 

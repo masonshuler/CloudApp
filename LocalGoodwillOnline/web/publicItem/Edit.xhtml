@@ -16,6 +16,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                   resizable="false" appendTo="@(body)" header="#{bundle.EditItemTitle}">
             <h:form id="ItemEditForm">
                 <h:panelGroup id="display">
+                    <!-- Two columns in panel grid, one for titles, one for input -->
                     <p:panelGrid columns="2" columnClasses="columnOne, columnTwo" 
                                  rendered="#{itemController.selected != null}">
                         <p:outputLabel value="#{bundle.EditItemLabel_title}" 
@@ -53,7 +54,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                         
                         <p:outputLabel value="#{bundle.EditItemLabel_category}" 
                                        for="category" />
-                        <!-- Drop down menu for category -->
+                        <!-- Drop down menu for Category -->
                         <p:selectOneMenu id="category" value="#{itemController.selected.category}" 
                                          requiredMessage="#{bundle.CreateItemRequiredMessage_category}">
                             <f:selectItem itemLabel="Select Item Category" itemValue="" 

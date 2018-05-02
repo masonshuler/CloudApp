@@ -16,9 +16,15 @@ import java.util.logging.Logger;
  */
 public class SHAHelper {
 
-    public static String getHash(String regPassword, String email) {
+    /**
+     * Get the hash for the password and email
+     * @param regPassword The password
+     * @param username The username
+     * @return The hash
+     */
+    public static String getHash(String regPassword, String username) {
         MessageDigest digest;
-        String toHash = regPassword + email; //Salt!
+        String toHash = regPassword + username; //Salt!
         try {
             digest = MessageDigest.getInstance("SHA-256");
             return bytesToHex(digest.digest(toHash.getBytes(StandardCharsets.UTF_8)));
@@ -28,6 +34,11 @@ public class SHAHelper {
         return null;
     }
 
+    /**
+     * Convert bytes to hex string
+     * @param bytes Bytes to convert
+     * @return Hex string
+     */
     private static String bytesToHex(byte[] bytes) {
         StringBuilder result = new StringBuilder();
         for (byte byt : bytes) {

@@ -21,10 +21,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author emcghee
- */
 @Entity
 @Table(name = "User")
 @XmlRootElement
@@ -289,8 +285,6 @@ public class User implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-    
-    
 
     @XmlTransient
     public Collection<Item> getItemCollection() {
