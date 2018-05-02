@@ -394,6 +394,10 @@ public class AccountManager implements Serializable {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username") != null;
     }
     
+    /**
+     * Return if the user is an admin or not.
+     * @return True if admin, false if not
+     */
     public boolean isAdmin(){
         if(isLoggedIn()){
             String currUsername = (String)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username");
@@ -468,6 +472,12 @@ public class AccountManager implements Serializable {
         return "";
     }
     
+    /**
+     * Send the email for the job application
+     * @param emailController The emailController
+     * @return Email success page
+     * @throws MessagingException 
+     */
     public String sendApplicationEmail(EmailController emailController) throws MessagingException{
         StringBuilder builder = new StringBuilder();
         
@@ -487,6 +497,9 @@ public class AccountManager implements Serializable {
         return "/emailSuccess?faces-redirect=true";
     }
     
+    /**
+     * Get initial fields for the job application
+     */
     public String initializeApplication(){
         firstName = selected.getFirstName();
         middleName = selected.getMiddleName();

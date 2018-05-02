@@ -145,6 +145,10 @@ public class LoginManager implements Serializable {
         }
     }
 
+    /**
+     * Check the user's authentication code
+     * @return Nothing or profile page
+     */
     public String checkAuthCode() {
         User user = getUserFacade().findByUsername(getUsername());
         if (user == null) { //Should only happen on page error
@@ -161,6 +165,9 @@ public class LoginManager implements Serializable {
         return "/Profile.xhtml?faces-redirect=true";
     }
 
+    /**
+     * Send an SMS for 2 factor
+     */
     public void sendSMS() {
         User user = getUserFacade().findByUsername(getUsername());
         if (user == null) { //Should only happen on page error
@@ -172,6 +179,9 @@ public class LoginManager implements Serializable {
         getUserFacade().edit(user);
     }
 
+    /**
+     * Call for 2 factor
+     */
     public void call() {
         User user = getUserFacade().findByUsername(getUsername());
         if (user == null) { //Should only happen on page error
@@ -182,6 +192,9 @@ public class LoginManager implements Serializable {
         getUserFacade().edit(user);
     }
 
+    /**
+     * Email for 2 factor
+     */
     public void email() {
         User user = getUserFacade().findByUsername(getUsername());
         if (user == null) { //Should only happen on page error
@@ -192,8 +205,10 @@ public class LoginManager implements Serializable {
         getUserFacade().edit(user);
     }
     
-    //TODO kill this
-    //XXX
+    /**
+     * Allow users to bypass 2 factor 
+     * @return Profile page
+     */
     public String bypass() {
         User user = getUserFacade().findByUsername(getUsername());
         if (user == null) { //Should only happen on page error

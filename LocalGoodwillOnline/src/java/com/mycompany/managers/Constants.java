@@ -22,8 +22,8 @@ public final class Constants {
         Therefore, we use the following two external directories 
         for the storage and retrieval of user's files.
      */
-    public static final String ITEMS_ABSOLUTE_PATH = "/Users/matttuckman/Documents/CloudProject/CloudApp/Team2-FileStorage/ItemPhotoStorage/";
-    public static final String PHOTOS_ABSOLUTE_PATH = "/Users/matttuckman/Documents/CloudProject/CloudApp/Team2-FileStorage/UserPhotoStorage/";
+    public static final String ITEMS_ABSOLUTE_PATH = "/Users/Balci/Team2-FileStorage/ItemPhotoStorage/";
+    public static final String PHOTOS_ABSOLUTE_PATH = "/Users/Balci/Team2-FileStorage/UserPhotoStorage/";
 
     /*
     In glassfish-web.xml file, we designated the '/CloudStorage/' directory as the
@@ -33,9 +33,9 @@ public final class Constants {
     
     Relative path is defined with respect to the Alternate Document Root starting with 'CloudStorage'.
      */
-    public static final String ITEMS_RELATIVE_PATH = "CloudApp/Team2-FileStorage/ItemPhotoStorage/";
-    public static final String PHOTOS_RELATIVE_PATH = "CloudApp/Team2-FileStorage/UserPhotoStorage/";
-    public static final String DEFAULT_PHOTO_RELATIVE_PATH = "CloudApp/Team2-FileStorage/UserPhotoStorage/defaultUserPhoto.png";
+    public static final String ITEMS_RELATIVE_PATH = "Team2-FileStorage/ItemPhotoStorage/";
+    public static final String PHOTOS_RELATIVE_PATH = "Team2-FileStorage/UserPhotoStorage/";
+    public static final String DEFAULT_PHOTO_RELATIVE_PATH = "Team2-FileStorage/UserPhotoStorage/defaultUserPhoto.png";
 
     /* Temporary filename */
     public static final String TEMP_FILE = "tmp_file";
