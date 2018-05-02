@@ -111,10 +111,18 @@ public class ItemPhoto implements Serializable {
         return id.toString();
     }
     
+    /**
+     * Return the photos file name
+     * @return Photos file name
+     */
     public String getPhotoFilename() {
         return getItemId() + "." + getExtension();
     }
     
+    /**
+     * Return the photos file path
+     * @return photos file path
+     */
     public String getPhotoFilePath() {
         return Constants.PHOTOS_ABSOLUTE_PATH + getPhotoFilename();
     }
