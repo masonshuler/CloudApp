@@ -174,15 +174,29 @@ public class ItemController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("SearchResults.xhtml");
     }
 
+    /**
+     * Upvote the given item by adding one to its rating.
+     * @param item The item to upvote.
+     */
     public void upvote(Item item) {
+        // Get the current rating
         float rating = item.getRating();
+        // Add one to the rating
         item.setRating(rating + 1);
+        // Update the database field
         getItemFacade().edit(item);
     }
 
+    /**
+     * Downvote the given item by subtracting one from its rating.
+     * @param item The item to downvote.
+     */
     public void downvote(Item item) {
+        // Get the current rating
         float rating = item.getRating();
+        // Subtract one from the rating
         item.setRating(rating - 1);
+        // Update the database field
         getItemFacade().edit(item);
     }
 
@@ -233,16 +247,49 @@ public class ItemController implements Serializable {
         }
     }
 
+    /**
+     * Get the items that will be displayed
+     * @return The items to be displayed
+     */
     public List<Item> getItems() {
+        // Refresh list with all entries if null or empty
+        // Empty condition is needed in case no items in chosen price range
         if (items == null || items.isEmpty()) {
             items = getItemFacade().findAll();
         }
-        List<Item> priceFiltered;
-        priceFiltered = new ArrayList<>();
-        items.stream().filter((item) -> (item.getPrice() >= minPrice && item.getPrice() <= maxPrice)).forEachOrdered((item) -> {
+        // Get all items as well
+        List<Item> allItems = getItemFacade().findAll();
+        
+        // Filter items and allItems by price
+        items = filterItemsByPrice(items);
+        allItems = filterItemsByPrice(allItems);
+        
+        // If allItems has more items, this means we lost an item from filtering before
+        // This happens because items wouldn't be null or empty, so items would be filtered by price again
+        // This can't add an item back (even if that item is now in the price range, 
+        // so we need to look at all items
+        if (allItems.size() > items.size()) {
+            // Set items to be allItems
+            items = allItems;
+        }
+        // Return items
+        return items;
+    }
+    
+    /**
+     * Filter the given list based on the price range. Return the filtered list.
+     * @param items The list to be filterd.
+     * @return The filtered list.
+     */
+    private List<Item> filterItemsByPrice(List<Item> items) {
+        // Create a new list
+        List<Item> priceFiltered = new ArrayList<>();
+        // Add the item from items if the price is in our range
+        items.stream().filter((item) -> (item.getPrice() >= minPrice && item.getPrice() 
+                <= maxPrice)).forEachOrdered((item) -> {
             priceFiltered.add(item);
         });
-        items = priceFiltered;
+        // Return the filtered list
         return priceFiltered;
     }
 
