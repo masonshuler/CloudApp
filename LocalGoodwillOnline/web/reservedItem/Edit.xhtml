@@ -13,7 +13,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
     <ui:composition>
 
         <p:dialog id="ItemEditDlg" widgetVar="ItemEditDialog" modal="true" 
-                  resizable="false" appendTo="@(body)" header="#{bundle.EditItemTitle}">
+                  resizable="false" appendTo="@(body)" header="Edit This Reserved Item">
             <h:form id="ItemEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" columnClasses="columnOne, columnTwo" 
@@ -43,14 +43,6 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                         <p:inputText id="price" value="#{itemController.selected.price}" 
                                      title="#{bundle.EditItemTitle_price}" 
                                      requiredMessage="#{bundle.EditItemRequiredMessage_price}"/>
-                        
-                        <p:outputLabel value="#{bundle.EditItemLabel_rating}" 
-                                       for="rating" />
-                        <p:inputText id="rating" value="#{itemController.selected.rating}" 
-                                     title="#{bundle.EditItemTitle_rating}" 
-                                     requiredMessage="#{bundle.EditItemRequiredMessage_rating}">
-                            <f:validateDoubleRange minimum="0.0" maximum="10.0" />
-                        </p:inputText>
                         
                         <p:outputLabel value="#{bundle.EditItemLabel_datePublished}" 
                                        for="datePublished" />

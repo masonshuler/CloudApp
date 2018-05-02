@@ -10,10 +10,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
- *
- * @author emcghee
- */
 @Stateless
 public class ItemFacade extends AbstractFacade<Item> {
 

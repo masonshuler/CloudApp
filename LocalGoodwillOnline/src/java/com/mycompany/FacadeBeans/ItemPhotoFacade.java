@@ -29,6 +29,11 @@ public class ItemPhotoFacade extends AbstractFacade<ItemPhoto> {
         super(ItemPhoto.class);
     }
     
+    /**
+     * Find the photos for an item based on its ID
+     * @param itemID The ID to search for
+     * @return List of the photos
+     */
     public List<ItemPhoto> findPhotosByItemID(Integer itemID) {
 
         return (List<ItemPhoto>) em.createNamedQuery("ItemPhoto.findPhotosByItemID")

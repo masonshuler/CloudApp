@@ -19,11 +19,13 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
         </ui:define>
 
         <ui:define name="editableContent">
+            <!-- If account is not logged in, redirect to Sign In page -->
             <c:if test="#{accountManager.isLoggedIn() == false}">
                 <div align="center">
                     <h1>#{accountManager.redirectIndex()}</h1>
                 </div>
             </c:if>
+            <!-- Proceed as normal if logged in -->
             <c:if test="#{accountManager.isLoggedIn() == true}">
                 <div align="center" style="width:97%">
                     <!--
@@ -33,7 +35,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                     -->
                     <p:growl id="growl" life="5000" />
                     <h:form id="ReservedItemListForm">
-                        <p:panel header="#{bundle.ListItemTitle}">
+                        <p:panel header="Reserved Item List">
                             <p:dataTable id="reservedDatalist" value="#{itemController.reservedItems}" var="item"
                                          selectionMode="single" selection="#{itemController.selected}"
                                          paginator="true"
@@ -134,6 +136,7 @@ Copyright © 2018 Jordan Kuhn, Scott McGhee, Shuvo Rahman, Mason Shuler, Matt Tu
                                                      disabled="#{empty itemController.selected}" 
                                                      styleClass="commandButton"/>
 
+                                    <!-- Unreserve the item, removing it from the reserved list -->
                                     <p:commandButton id="unreserveButton" icon="ui-icon-circle-plus"  
                                                      value="Unreserve" disabled="#{empty itemController.selected}"
                                                      styleClass="commandButton" actionListener="#{itemController.unreserve()}"

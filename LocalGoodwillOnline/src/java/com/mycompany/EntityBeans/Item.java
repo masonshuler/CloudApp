@@ -28,10 +28,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author emcghee
- */
 @Entity
 @Table(name = "Item")
 @XmlRootElement
@@ -132,6 +128,10 @@ public class Item implements Serializable, Cloneable {
         this.price = price;
     }
     
+    /**
+     * Display price in a nice format.
+     * @return Formatted price.
+     */
     public String priceString() {
         return String.format("%.2f", price);
     }
@@ -144,6 +144,10 @@ public class Item implements Serializable, Cloneable {
         this.rating = rating;
     }
     
+    /**
+     * Display rating in nice format.
+     * @return Formatted rating.
+     */
     public String ratingString() {
         return String.format("%.0f", rating);
     }
@@ -188,6 +192,10 @@ public class Item implements Serializable, Cloneable {
         this.reservedUser = reservedUser;
     }
     
+    /**
+     * Display reserved status
+     * @return Reserved status
+     */
     public String reservedString() {
         if (reservedUser == null) 
             return "Available";
@@ -195,8 +203,6 @@ public class Item implements Serializable, Cloneable {
             return "Reserved";
     }
     
-
-
     @XmlTransient
     public Collection<ItemPhoto> getItemPhotoCollection() {
         return itemPhotoCollection;
